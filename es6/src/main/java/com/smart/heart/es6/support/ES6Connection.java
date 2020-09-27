@@ -1,10 +1,15 @@
 package com.smart.heart.es6.support;
 
 import org.apache.http.HttpHost;
+import org.elasticsearch.action.admin.indices.mapping.get.GetMappingsRequest;
+import org.elasticsearch.action.admin.indices.mapping.get.GetMappingsResponse;
+import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.cluster.metadata.MappingMetaData;
+import org.elasticsearch.common.collect.ImmutableOpenMap;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
@@ -25,16 +30,20 @@ public class ES6Connection {
      */
     public enum ESClientMode {
         TRANSPORT, REST
+        /**
+         * TRANSPORT的tcp链接es的方式，8.0以后似乎就会被官网正式废弃了，但是为了兼容8以下使用TRANSPORT的场景，所以一并封装在Connection类中，
+         * 在ES6Connection类中解决对应的ES访问模式的问题，不再暴露到应用层；Arnold.zhao 2020/9/27
+         */
     }
 
-    private final String ES_HOST = "10.0.2.10:9200,10.0.2.11:9200,10.0.2.12:9200";
+    private final String ES_HOST = "10.0.4.18:9200";
     private final String CLUSTER_NAME = "elasticsearch";
 
-    private TransportClient transportClient;
+    protected TransportClient transportClient;
 
-    private RestHighLevelClient restHighLevelClient;
+    protected RestHighLevelClient restHighLevelClient;
 
-    private ESClientMode mode;
+    protected ESClientMode mode;
 
     public ES6Connection(ESClientMode mode) throws UnknownHostException {
         this.mode = mode;
@@ -64,6 +73,43 @@ public class ES6Connection {
         }
     }
 
+    /**
+     * 针对不同访问方式获取索引Mapping元数据对象的封装
+     *
+     * @param indexName
+     * @param indexType
+     * @return
+     * @throws IOException
+     */
+    public MappingMetaData getMapping(String indexName, String indexType) throws IOException {
+        MappingMetaData mappingMetaData = null;
+        if (ESClientMode.REST.equals(this.mode)) {
+            GetMappingsRequest request = new GetMappingsRequest();
+            request.indices(indexName);
+            GetMappingsResponse response = restHighLevelClient.indices().getMapping(request, RequestOptions.DEFAULT);
+            ImmutableOpenMap<String, ImmutableOpenMap<String, MappingMetaData>> mappings = response.getMappings();
+            mappingMetaData = mappings.get(indexName).get(indexType);
+        } else if (ESClientMode.TRANSPORT.equals(this.mode)) {
+            ImmutableOpenMap<String, MappingMetaData> mappings;
+            try {
+                mappings = transportClient.admin()
+                        .cluster()
+                        .prepareState()
+                        .execute()
+                        .actionGet()
+                        .getState()
+                        .getMetaData()
+                        .getIndices()
+                        .get(indexName)
+                        .getMappings();
+            } catch (NullPointerException e) {
+                throw new IllegalArgumentException("Not found the mapping info of index: " + indexName);
+            }
+            mappingMetaData = mappings.get(indexType);
+        }
+        return mappingMetaData;
+    }
+
     public void close() {
         if (mode == ESClientMode.TRANSPORT) {
             transportClient.close();
@@ -75,5 +121,6 @@ public class ES6Connection {
             }
         }
     }
+
 
 }
