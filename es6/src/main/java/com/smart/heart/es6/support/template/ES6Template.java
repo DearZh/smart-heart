@@ -26,6 +26,11 @@ public class ES6Template extends ES6Connection implements ESTemplate {
 
     @Override
     public Map<String, String> getIndexFieldTypeMap(String indexName, String indexType) throws IOException {
+        /**
+         * https://www.elastic.co/guide/en/elasticsearch/client/java-rest/6.8/java-rest-high-get-mappings.html#_optional_arguments_29
+         * Arnold.zhao 2020/9/27
+         */
+
         Map<String, String> fieldType = new LinkedHashMap();
         MappingMetaData mappingMetaData = super.getMapping(indexName, indexType);
         Map<String, Object> sourceMap = mappingMetaData.getSourceAsMap();
