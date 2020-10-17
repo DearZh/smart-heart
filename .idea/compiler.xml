@@ -9,6 +9,7 @@
         <module name="classloader" />
         <module name="es6" />
         <module name="es7" />
+        <module name="example" />
         <module name="kafka" />
         <module name="zookeeper" />
       </profile>

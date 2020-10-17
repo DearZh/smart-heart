@@ -41,7 +41,7 @@ public class ES6Connection {
 
     protected TransportClient transportClient;
 
-    protected RestHighLevelClient restHighLevelClient;
+    public RestHighLevelClient restHighLevelClient;
 
     protected ESClientMode mode;
 
