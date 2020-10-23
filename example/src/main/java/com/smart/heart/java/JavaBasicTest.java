@@ -1,5 +1,8 @@
 package com.smart.heart.java;
 
+import sun.misc.Unsafe;
+
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntSupplier;
@@ -11,7 +14,6 @@ import java.util.function.IntSupplier;
  */
 public class JavaBasicTest {
     public static void main(String[] args) {
-
 
         /*int i = 0;
         while (true) {
@@ -26,13 +28,13 @@ public class JavaBasicTest {
 
         System.out.println("DD");
         */
-
+/*
         ad(v -> {
 
             System.out.println("**");
             System.out.println(v);
             return null;
-        });
+        });*/
 
 
         /*adc(() -> {
