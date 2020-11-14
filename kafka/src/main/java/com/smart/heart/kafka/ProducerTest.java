@@ -4,8 +4,11 @@ import com.smart.heart.kafka.config.KafkaProducerConfig;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * @Description:
@@ -14,7 +17,8 @@ import java.util.Properties;
  */
 public class ProducerTest {
 
-    static String servers = "10.0.3.20:9092,10.0.3.24:9092,10.0.3.26:9092";
+    //    static String servers = "10.0.3.20:9092,10.0.3.24:9092,10.0.3.26:9092";
+    static String servers = "10.0.6.4:9091,10.0.6.5:9092,10.0.6.6:9093";
     static String topic = "canal_test";
 
     public static void main(String[] args) throws InterruptedException {
@@ -26,7 +30,14 @@ public class ProducerTest {
         while (true) {
             i++;
             String message = "canal_json_test" + i;
-            producer.send(new ProducerRecord<>(topic, message));
+            Future<RecordMetadata> future = producer.send(new ProducerRecord<>(topic, message));
+            try {
+                RecordMetadata recordMetadata = future.get();
+                System.out.println(recordMetadata);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
             Thread.sleep(1000);
         }
     }
@@ -39,5 +50,4 @@ public class ProducerTest {
  * 生产者问题：
  * 生产者自定义分区，生产数据
  * 生产者自定义分区策略
- *
  */

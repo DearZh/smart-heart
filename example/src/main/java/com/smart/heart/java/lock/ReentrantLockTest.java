@@ -1,7 +1,7 @@
 package com.smart.heart.java.lock;
 
-import sun.misc.Unsafe;
 
+import java.util.concurrent.locks.LockSupport;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -56,6 +56,7 @@ public class ReentrantLockTest {
 
         thread.start();
         thread1.start();
+
     }
 
     public static void nodeTest() {

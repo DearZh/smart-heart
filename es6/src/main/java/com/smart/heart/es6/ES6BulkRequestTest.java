@@ -31,11 +31,11 @@ public class ES6BulkRequestTest {
 
 
 //        UpdateRequest indexRequest = new UpdateRequest("twitter", "doc", "4");
-        IndexRequest indexRequest = new IndexRequest("twitter", "doc", "4");
+        IndexRequest indexRequest = new IndexRequest("twitter", "doc", "5");
         Map<String, Object> map = new HashMap<>();
-        map.put("user", "test");
-        map.put("_id", "4");
-        map.put("uid", "4");
+        map.put("user", "Arnold");
+        map.put("_id", "5");
+        map.put("uid", "5");
         map.put("city", "11shanghai");
 //        indexRequest.doc(map);
         indexRequest.source(map);

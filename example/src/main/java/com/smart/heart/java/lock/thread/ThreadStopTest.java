@@ -1,6 +1,4 @@
-package com.smart.heart.java.lock;
-
-import java.util.concurrent.locks.LockSupport;
+package com.smart.heart.java.lock.thread;
 
 /**
  * @Description: 关于 interrupt() 的线程中断
@@ -33,7 +31,7 @@ public class ThreadStopTest {
         testThread.interrupt();         //是给线程设置中断标志;  其作用是中断此线程（此线程不一定是当前线程，而是指调用该方法的Thread实例所代表的线程）
         testThread.isInterrupted();     //只检测中断;  作用于此线程，即代码中调用此方法的实例所代表的线程;作用是只测试此线程是否被中断 ，不清除中断状态。
         testThread.interrupted();       //是检测中断并清除中断状态； 作用于当前线程(作用是测试当前线程是否被中断（检查中断标志），返回一个boolean并清除中断状态，第二次再调用时中断状态已经被清除，将返回一个false)
-        Thread.interrupted();
+        Thread.interrupted();           //同上
 
         testThread.interrupt(); //设置指定testThread线程的状态为中断标志，
         testThread.isInterrupted();// 检测当前testThread线程是否被外界中断；是则返回true

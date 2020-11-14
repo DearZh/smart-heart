@@ -27,6 +27,7 @@
         <module>classloader</module>
         <module>kafka</module>
         <module>example</module>
+        <module>netty</module>
     </modules>
     <properties>
         <java_source_version>1.8</java_source_version>

@@ -27,7 +27,7 @@ public class ConnectionAutoCommitTest {
 
     public static void main(String[] args) throws Exception {
         Connection connection = dataSource().getConnection();
-        //set autoCommit false ，表示不自动提交SQL，需代码中手动commit
+        //set autoCommit false ，表示不自动提交SQL，需代码中手动commit,用于jdbc 的事务提交时使用
         connection.setAutoCommit(false);
         String insertSql = "insert into cls_lian_v1_article_target(id,title) values(?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(insertSql);

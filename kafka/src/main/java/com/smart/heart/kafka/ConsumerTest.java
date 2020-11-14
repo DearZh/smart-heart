@@ -21,7 +21,8 @@ public class ConsumerTest {
 
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "10.0.3.20:9092,10.0.3.24:9092,10.0.3.26:9092");
+//        props.put("bootstrap.servers", "10.0.3.20:9092,10.0.3.24:9092,10.0.3.26:9092");
+        props.put("bootstrap.servers", "10.0.6.4:9091,10.0.6.5:9092,10.0.6.6:9093");
         props.put("enable.auto.commit", "false");
         props.put("auto.commit.interval.ms", "1000");
         /**
