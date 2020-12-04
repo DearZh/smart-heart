@@ -4,6 +4,7 @@ import com.smart.heart.es6.support.ES6Connection;
 import org.elasticsearch.action.admin.indices.mapping.get.GetMappingsRequest;
 import org.elasticsearch.action.admin.indices.mapping.get.GetMappingsResponse;
 import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.cluster.metadata.MappingMetaData;
 import org.elasticsearch.common.collect.ImmutableOpenMap;
 
@@ -18,6 +19,10 @@ import java.util.Map;
  * @Date: 2020/9/27
  */
 public class ES6Template extends ES6Connection implements ESTemplate {
+
+    public ES6Template(ESClientMode mode, String esHost) throws UnknownHostException {
+        super(mode, esHost);
+    }
 
     public ES6Template(ESClientMode mode) throws UnknownHostException {
         super(mode);

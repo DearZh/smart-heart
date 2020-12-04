@@ -1,10 +1,11 @@
-package com.smart.heat.netty.time;
+package com.smart.heat.netty.guide.time;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -23,7 +24,7 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
         String body = new String(req, "utf-8");
         System.out.println("the time server receive order:" + body);
         //所接受到的body内容如果为query，则返回对应的消息，否则则返回DD；
-        String currentTime = "query".equals(body) ? "滴滴" : "DD";
+        String currentTime = "query time order".equals(body) ? new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()) : "DD";
         ByteBuf resp = Unpooled.copiedBuffer(currentTime.getBytes());
         //ctx.write() 为异步方法，发送应答消息给到客户端；
         ctx.write(resp);

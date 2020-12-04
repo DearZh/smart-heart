@@ -1,4 +1,4 @@
-package com.smart.heart.kafka;
+package com.smart.heart.kafka.verification.consumer;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -16,13 +16,15 @@ import java.util.concurrent.TimeUnit;
  * @Author: Arnold.zhao
  * @Date: 2020/10/14
  */
-public class ConsumerTest {
+public class ConsumerTopic {
 
 
     public static void main(String[] args) {
+        String topicName = "canal_block_component_latest_pamir";
         Properties props = new Properties();
 //        props.put("bootstrap.servers", "10.0.3.20:9092,10.0.3.24:9092,10.0.3.26:9092");
-        props.put("bootstrap.servers", "10.0.6.4:9091,10.0.6.5:9092,10.0.6.6:9093");
+        props.put("bootstrap.servers", "10.0.4.11:9092,10.0.4.13:9092,10.0.4.14:9092");
+        //offset是否是自动提交，还是手动提交（false）
         props.put("enable.auto.commit", "false");
         props.put("auto.commit.interval.ms", "1000");
         /**
@@ -36,7 +38,7 @@ public class ConsumerTest {
         props.put("auto.offset.reset", "latest");
         props.put("request.timeout.ms", "40000");
         props.put("session.timeout.ms", "30000");
-        props.put("isolation.level", "read_committed");
+        props.put("isolation.level", "read_committed") ;
         props.put("max.poll.records", 1000);
         //
         props.put("key.deserializer", StringDeserializer.class);
@@ -50,15 +52,17 @@ public class ConsumerTest {
          */
         Map<Integer, Long> currentOffsets = new ConcurrentHashMap<>();
 
+
+
         KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<String, String>(props);
         //指定所要消费的主题
 //        kafkaConsumer.subscribe(Collections.singletonList("canal_test"));
 
         Map<TopicPartition, OffsetAndMetadata> offsetAndMetadataMap = new HashMap<>();
         //指定Topic和分区
-        TopicPartition topicPartition = new TopicPartition("canal_test", 0);
+        TopicPartition topicPartition = new TopicPartition(topicName, 0);
         //指定偏移量消费
-        OffsetAndMetadata offsetAndMetadata = new OffsetAndMetadata(0);
+        OffsetAndMetadata offsetAndMetadata = new OffsetAndMetadata(198041);
         offsetAndMetadataMap.put(topicPartition, offsetAndMetadata);
         //修改偏移量
         kafkaConsumer.commitSync(offsetAndMetadataMap);
@@ -73,14 +77,14 @@ public class ConsumerTest {
                     String message = record.value();
                     //记录所对应的分区 和偏移量
                     currentOffsets.put(record.partition(), record.offset());
-                    System.out.println(message);
+                    System.out.println(record.partition() + "___" + record.offset() + "___" + message);
                 }
-            } else {
+            }/* else {
                 //如果获取不到数据，则重新指定分区和数据偏移量进行数据获取
                 System.out.println("---------------------------");
                 //重新指定Topic&分区 以及偏移量更改为10，
-                kafkaConsumer.seek(new TopicPartition("canal_test", 0), 10);
-            }
+                kafkaConsumer.seek(new TopicPartition(topicName, 0), 10);
+            }*/
             //提交offset的修改
             kafkaConsumer.commitSync();
         }

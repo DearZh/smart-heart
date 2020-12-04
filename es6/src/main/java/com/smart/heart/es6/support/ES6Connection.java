@@ -36,7 +36,7 @@ public class ES6Connection {
          */
     }
 
-    private final String ES_HOST = "10.0.4.18:9200";
+    private String ES_HOST = "10.0.4.18:9200";
     private final String CLUSTER_NAME = "elasticsearch";
 
     protected TransportClient transportClient;
@@ -45,7 +45,11 @@ public class ES6Connection {
 
     protected ESClientMode mode;
 
-    public ES6Connection(ESClientMode mode) throws UnknownHostException {
+
+    public ES6Connection(ESClientMode mode, String... esHost) throws UnknownHostException {
+        if (esHost != null && esHost.length > 0) {
+            ES_HOST = esHost[0];
+        }
         this.mode = mode;
         String[] hosts = ES_HOST.split(",");
         if (mode == ESClientMode.REST) {
@@ -122,5 +126,8 @@ public class ES6Connection {
         }
     }
 
+    public RestHighLevelClient getRestHighLevelClient() {
+        return restHighLevelClient;
+    }
 
 }
