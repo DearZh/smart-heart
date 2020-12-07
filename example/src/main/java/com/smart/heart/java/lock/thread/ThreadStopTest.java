@@ -29,22 +29,32 @@ public class ThreadStopTest {
         });
 
         testThread.interrupt();         //是给线程设置中断标志;  其作用是中断此线程（此线程不一定是当前线程，而是指调用该方法的Thread实例所代表的线程）
+
         testThread.isInterrupted();     //只检测中断;  作用于此线程，即代码中调用此方法的实例所代表的线程;作用是只测试此线程是否被中断 ，不清除中断状态。
         testThread.interrupted();       //是检测中断并清除中断状态； 作用于当前线程(作用是测试当前线程是否被中断（检查中断标志），返回一个boolean并清除中断状态，第二次再调用时中断状态已经被清除，将返回一个false)
         Thread.interrupted();           //同上
 
+
+        //************************************
+
         testThread.interrupt(); //设置指定testThread线程的状态为中断标志，
+
         testThread.isInterrupted();// 检测当前testThread线程是否被外界中断；是则返回true
-        testThread.interrupted();//检测当前testThread线程是否被中断，如果被中断则返回true且清楚中断状态，重新变更为未中断状态；
-        Thread.interrupted();//静态方法，与testThread.interrupted()一样，（检测当前testThread线程是否被中断，如果被中断则返回true且清楚中断状态，重新变更为未中断状态；） 作用于当前被执行线程，由于testThread内部线程在执行的时候，是无法获取testThread引用的，所以如果想检测当前自己的线程是否被中断且清除中断状态，则可以使用Thread.interrupted()方法；
+        testThread.interrupted();//检测当前testThread线程是否收到中断信令，收到信令则返回true且清除中断状态，重新变更为false；
+        Thread.interrupted();//静态方法，与testThread.interrupted()一样，（检测当前testThread线程是否被中断，如果被中断则返回true且清除中断状态，重新变更为未中断状态；） 作用于当前被执行线程，由于testThread内部线程在执行的时候，是无法获取testThread引用的，所以如果想检测当前自己的线程是否被中断且清除中断状态，则可以使用Thread.interrupted()方法；
+
+
+        //如上，其实关于线程中断一共也就上述三个方法，其中interrupt()和isInterrupted() 是线程实例方法，interrupted()则是线程的静态方法；
+        //isInterrupted()是线程实例方法，所以，线程内部执行代码中是无法获取testThread的引用的所以无法执行实例方法isInterrupted()；
+        //但其实，我们可以通过在线程内部执行代码中使用 Thread.currentThread()获取当前线程的实例，此时使用Thread.currentThread().isInterrupted() 的方式来调用isInterrupted()方法；等价于testThread.isInterrupted();
+        //等价与：线程外部做检测用：testThread.isInterrupted(); 线程内部做检测用：Thread.currentThread().isInterrupted()
 
     }
 
     /**
-     * 验证一般情况下使用interrupt()中断执行线程的例子
+     * 验证一般情况下使用interrupt() 中断执行线程的例子
      */
     public static void threadStopTest() {
-
         Thread testThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -114,11 +124,11 @@ public class ThreadStopTest {
         /**
          * 当外部调用对应线程进行中断的信令时，如果此时该执行线程处于被阻塞状态，如；Thread.sleep()，Object.wait()，BlockingQueue#put、BlockingQueue#take 等
          * 那么此时通过调用当前线程对象的interrupt方法触发这些函数抛出InterruptedException异常。
-         * 当一个函数抛出InterruptedException异常时，表示这个方法阻塞的时间太久了，别人不想等它执行结束了。
+         * 当一个函数抛出InterruptedException异常时，表示这个方法阻塞的时间太久了，外部应用不想等它执行结束了。
          * 当你的捕获到一个InterruptedException异常后，亦可以处理它，或者向上抛出。
          *
-         * 抛出时要注意？？？：当你捕获到InterruptedException异常后，当前线程的中断状态已经被修改为false(表示线程未被中断)；
-         * 此时你若能够处理中断，则不用理会该值；但如果你继续向上抛InterruptedException异常，你需要再次调用interrupt方法，将当前线程的中断状态设为true。
+         * 抛出时要注意？？？：当你捕获到InterruptedException异常后，当前线程的中断状态已经被修改为false；
+         * 此时你若能够处理中断，正常结束线程，则不用理会该值；但如果你继续向上抛InterruptedException异常，你需要再次调用interrupt方法，将当前线程的中断状态设为true。
          *
          */
 
@@ -164,11 +174,11 @@ public class ThreadStopTest {
 
     /**
      * 约定：
-     * 内部中断的线程，如果需要继续执行，则必须重新设置信令状态为true；此时外部调用者才会清楚当前线程已经收到中断信令但是还要继续执行；
+     * 内部中断的线程，如果需要继续执行，则必须重新设置信令状态为true；此时外部调用者才会清除当前线程已经收到中断信令但是还要继续执行；
      * <p>
      * 什么情况下，线程状态会自动变更为false？
      * <p>
-     * 1、线程自动执行完毕后，则状态将会自动置位 false；
+     * 1、线程自动执行完毕后，则状态将会自动置为 false；
      * 2、线程内部使用：Thread.interrupted()方法获取线程状态时，将会自动清除线程状态，使当前线程状态重新更改为false；
      * 3、线程内部如果捕获了，InterruptedException异常，那么此时线程状态也会自动修改为false；
      * <p>
@@ -180,8 +190,10 @@ public class ThreadStopTest {
      * 当前捕获到异常后，如果不需要中断，而是将异常外抛给上层方法进行处理，那么此时也需要执行Thread.currentThread().interrupt();重新更改下自己的线程状态为true，表示当前线程需要继续执行；
      */
 
-    public static void main(String[] args) {
-        threadStopTest2();
+    public static void main(String[] args) throws InterruptedException {
+//        threadStopTest();
+
+
         /*
         Thread.currentThread().interrupt();
         System.out.println(Thread.currentThread().isInterrupted());true
@@ -191,6 +203,5 @@ public class ThreadStopTest {
         System.out.println(Thread.currentThread().isInterrupted());false
         System.out.println(Thread.interrupted());false
         */
-
     }
 }
