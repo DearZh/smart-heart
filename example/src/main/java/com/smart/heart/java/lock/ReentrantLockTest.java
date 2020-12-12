@@ -1,6 +1,8 @@
 package com.smart.heart.java.lock;
 
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.LockSupport;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -13,10 +15,38 @@ public class ReentrantLockTest {
 
     public static void main(String[] args) {
 
+//
+
+    }
+
+    public void test() {
+        Integer num = 1;
+        num++;
+        System.out.println(num);
+        class a{
+            public int num =2;
+        }
+        a d = new a();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                d.num=3;
+            }
+        });
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                d.num=3;
+            }
+        });
 
     }
 
     public static void lock() {
+        //
+        /*CountDownLatch countDownLatch  = new CountDownLatch();
+        countDownLatch.countDown();
+        countDownLatch.await();*/
 /*
 
         Unsafe U = Unsafe.getUnsafe();
@@ -31,7 +61,6 @@ public class ReentrantLockTest {
          * 关于Unsafe.park()挂起线程与object.wait()线程挂起的区别（Java线程等待中Thread.sleep()、Object.wait()、LockSupport.park、UNSAFE.park()的原理与区别）
          * https://blog.csdn.net/weixin_41590779/article/details/107821849
          */
-
 
         ReentrantLock reentrantLock = new ReentrantLock();
 //        reentrantLock.newCondition()
