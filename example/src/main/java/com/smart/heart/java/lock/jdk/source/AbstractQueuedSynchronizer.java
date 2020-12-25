@@ -606,11 +606,12 @@ public abstract class AbstractQueuedSynchronizer
 
     /**
      * Inserts node into queue, initializing if necessary. See picture above.
-     * 将节点插入队列，必要时进行初始化。参见上图。
+     * 将节点插入队列，必要时进行初始化
      *
      * @param node the node to insert
      * @return node's predecessor
      */
+    //无锁自循环的一个CAS()节点入队操作，包含初始化节点功能；
     private Node enq(final Node node) {
         //循环 入队 Arnold.zhao 2020/6/3
         for (; ; ) {
@@ -675,10 +676,11 @@ public abstract class AbstractQueuedSynchronizer
     }
 
     /**
-     * Wakes up node's successor, if one exists. 唤醒节点的后继者；
+     * Wakes up node's successor, if one exists. 解锁当前节点，并唤醒节点的后继者；
      *
      * @param node the node
      */
+    //解锁当前节点，并唤醒节点的后继者；
     private void unparkSuccessor(Node node) {
         /*
          * If status is negative (i.e., possibly needing signal) try
@@ -831,10 +833,13 @@ public abstract class AbstractQueuedSynchronizer
      * Returns true if thread should block. This is the main signal
      * control in all acquire loops.  Requires that pred == node.prev.
      *
+     *
+     *
      * @param pred node's predecessor holding status
      * @param node the node
      * @return {@code true} if thread should block
      */
+    //检查并更新无法获取的节点的状态，并更新当前节点的前置节点的状态为阻塞状态；如果当前线程已经为阻塞状态，则返回true。
     private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
         int ws = pred.waitStatus;
         if (ws == Node.SIGNAL)
@@ -867,8 +872,9 @@ public abstract class AbstractQueuedSynchronizer
 
     /**
      * Convenience method to interrupt current thread.
-     * 线程中断使用：https://www.cnblogs.com/zh94/p/14097922.html
+     *
      */
+    //线程中断使用：https://www.cnblogs.com/zh94/p/14097922.html
     static void selfInterrupt() {
         //https://www.cnblogs.com/myseries/p/12548961.html
         Thread.currentThread().interrupt();
@@ -879,6 +885,7 @@ public abstract class AbstractQueuedSynchronizer
      *
      * @return {@code true} if interrupted
      */
+    //线程阻塞挂起，Unsafe.park()
     private final boolean parkAndCheckInterrupt() {
         //将当前已添加到队列中的线程进行挂起，使用LockSupport.park()挂起线程，实际最终使用的是Unsafe.park()方法进行线程的挂起；使用Unsafe.park()方法后，线程将一直阻塞直到超时或者中断等条件出现；
         //采用LockSupport.unpark()用来恢复挂起的线程；Arnold.zhao 2020/10/21
@@ -903,6 +910,7 @@ public abstract class AbstractQueuedSynchronizer
      * @param arg  the acquire argument
      * @return {@code true} if interrupted while waiting
      */
+    //已确认节点进行排队操作，进行当前节点的线程挂起
     final boolean acquireQueued(final Node node, int arg) {
         boolean failed = true;
         try {
@@ -922,6 +930,9 @@ public abstract class AbstractQueuedSynchronizer
                 }
                 //shouldParkAfterFailedAcquire：判断当前 p 节点的状态是否是 SIGNAL 待释放状态，如果是则返回true，此时执行 parkAndCheckInterrupt() ：方法，进行线程挂起
                 //如果当前 p 节点状态不是SIGNAL，则判断 P 节点状态是否 > 0 ,不大于0，则设置为 SIGNAL状态；然后重新循环判断 p 是否为 SIGNAL，此时为 true，则调用 parkAndCheckInterrupt() ：方法，进行线程挂起
+                //注意：此处调用parkAndCheckInterrupt()将当前线程挂起后，此时代码则不会再执行了，就此挂起，parkAndCheckInterrupt()方法体中的 return Thread.interrupted();
+                //代码也就不会再被执行，直到当前该线程再次被唤醒；此时parkAndCheckInterrupt()方法执行  return Thread.interrupted(); 判断当前线程是否收到过中断信令，如果没有则返回false，有则返回true
+                //此时线程被唤醒时所在的代码块是在 for(;;) 自旋里面的哦，所以代码唤醒后会再次执行自循环；
 
                 //节点的 waitStatus 状态是在什么时候进行赋值的？答：默认创建Node节点时候并不会指定该节点的状态 默认为 0，只有在该节点的后续节点也准备进行挂起时，也就是此时执行shouldParkAfterFailedAcquire()
                 //方法时，则将会把该前任节点的waitStatus状态设置为 SIGNAL；也就是说新增的节点默认为0并非 SIGNAL状态；
@@ -1039,6 +1050,7 @@ public abstract class AbstractQueuedSynchronizer
      *
      * @param arg the acquire argument
      */
+    //在共享可中断模式下获取 conuntDownLatch
     private void doAcquireSharedInterruptibly(int arg)
             throws InterruptedException {
         final Node node = addWaiter(Node.SHARED);
@@ -1067,7 +1079,7 @@ public abstract class AbstractQueuedSynchronizer
 
     /**
      * Acquires in shared timed mode.
-     *
+     * 在共享定时模式下获取。
      * @param arg          the acquire argument
      * @param nanosTimeout max wait time
      * @return {@code true} if acquired
@@ -1267,6 +1279,7 @@ public abstract class AbstractQueuedSynchronizer
         //原有的head节点刚好释放了锁，所以此处直接获取锁即可；而不用先挂起，然后再由head的线程解锁时，再唤醒该线程了。避免浪费性能。
         if (!tryAcquire(arg) &&
                 acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
+            //如果 if 判断体为true，表示当前该线程在挂起期间收到过中断信令，尽管此时被唤醒了，但是依然重新调用下selfInterrupt();方法，重新发出下中断信令，至于当前这个线程是否处理这个中断，就看线程自身的业务实现了
             selfInterrupt();
     }
 
@@ -1327,6 +1340,7 @@ public abstract class AbstractQueuedSynchronizer
      *            can represent anything you like.
      * @return the value returned from {@link #tryRelease}
      */
+    //解锁
     public final boolean release(int arg) {
         if (tryRelease(arg)) {
             Node h = head;
@@ -1457,6 +1471,7 @@ public abstract class AbstractQueuedSynchronizer
      * @return the first (longest-waiting) thread in the queue, or
      * {@code null} if no threads are currently queued
      */
+    //获取队列首个节点的线程；
     public final Thread getFirstQueuedThread() {
         // handle only fast path, else relay
         return (head == tail) ? null : fullGetFirstQueuedThread();
@@ -1511,9 +1526,11 @@ public abstract class AbstractQueuedSynchronizer
      * @return {@code true} if the given thread is on the queue
      * @throws NullPointerException if the thread is null
      */
+    //判断线程是否正在排队，是则返回true
     public final boolean isQueued(Thread thread) {
         if (thread == null)
             throw new NullPointerException();
+        //从尾结点开始进行队列的所有循环，thread相等则return true；表示在排队中
         for (Node p = tail; p != null; p = p.prev)
             if (p.thread == thread)
                 return true;
@@ -1605,6 +1622,7 @@ public abstract class AbstractQueuedSynchronizer
      *
      * @return the estimated number of threads waiting to acquire
      */
+    //循环当前队列返回当前正在等待的线程数量
     public final int getQueueLength() {
         int n = 0;
         for (Node p = tail; p != null; p = p.prev) {
@@ -1625,6 +1643,7 @@ public abstract class AbstractQueuedSynchronizer
      *
      * @return the collection of threads
      */
+    //循环当前队列返回当前正在等待的线程集合
     public final Collection<Thread> getQueuedThreads() {
         ArrayList<Thread> list = new ArrayList<Thread>();
         for (Node p = tail; p != null; p = p.prev) {

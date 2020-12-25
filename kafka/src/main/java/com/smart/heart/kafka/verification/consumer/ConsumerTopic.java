@@ -49,6 +49,7 @@ public class ConsumerTopic {
 
         /**
          *
+         *
          */
         Map<Integer, Long> currentOffsets = new ConcurrentHashMap<>();
 
