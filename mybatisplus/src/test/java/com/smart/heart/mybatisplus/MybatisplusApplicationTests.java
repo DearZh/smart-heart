@@ -3,11 +3,7 @@ package com.smart.heart.mybatisplus;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.metadata.OrderItem;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.smart.heart.mybatisplus.entity.User;
 import com.smart.heart.mybatisplus.mapper.UserMapper;
 import com.smart.heart.mybatisplus.service.UserServer;
@@ -18,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
@@ -28,28 +23,13 @@ class MybatisplusApplicationTests {
     private UserServer userServer;
 
     @Test
-    void pageQuery() {
-        Page<User> page = new Page<>();
 
-    }
 
-    @Test
-    void updateWrapper() {
-        userServer.update(Wrappers.<User>update().set("age", 12).set("name", "23").eq("", ""));
-        userServer.update(Wrappers.<User>update().lambda().set(User::getAge, "23").eq(User::getName, "na"));
-    }
-
-    @Test
     void selectGet() {
         User user = userServer.getById(2);
         System.out.println(user);
 
-
         Map<String, Object> map = userServer.getMap(new QueryWrapper<User>().lambda().eq(User::getAge, 12));
-//        Wrappers.<User>query().eq("","");
-//        Wrappers.<User>lambdaQuery().eq(User::getAge, 12)
-//        new QueryWrapper<User>().select("id","name","age").eq()
-
         //condition表示当前该条件是否加入最后生成的SQL中
         Map<String, Object> map1 = userServer.getMap(new QueryWrapper<User>().lambda().eq(user.getAge() != null, User::getAge, 12));
 
