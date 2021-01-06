@@ -6,7 +6,7 @@ package com.gangtise.cloud.vendors.alibaba.constant;
  * @Date: 2021/1/6
  */
 public class AlibabaConstant {
-    public static final String ACCESS_KEY_ID = "LTAI4G3pRDuiC9uaaBeLPJAr";
+    public static final String ACCESS_KEY_ID = "";
     public static final String ACCESS_KEY_SECRET = "";
     public static final String MAC_NAME = "HmacSHA1";
     public static final String ENCODING = "UTF-8";
