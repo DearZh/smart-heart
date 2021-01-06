@@ -1,5 +1,6 @@
 package com.gangtise.cloud.vendors.alibaba;
 
+import com.gangtise.cloud.vendors.alibaba.constant.AlibabaConstant;
 import com.sun.crypto.provider.HmacSHA1;
 
 import javax.crypto.Mac;
@@ -64,7 +65,7 @@ public class Test {
 // 输入请求参数(公共参数）
         parameters.put("Action", "ListProducts");
         parameters.put("Version", "2020-03-26");
-        parameters.put("AccessKeyId", "LTAI4G3pRDuiC9uaaBeLPJAr");
+        parameters.put("AccessKeyId", AlibabaConstant.ACCESS_KEY_ID);
         String time = formatIso8601Date(new Date());
         System.out.println("time：" + time);
         System.out.println("time：" + percentEncode(time));
