@@ -1,11 +1,11 @@
-package com.smart.heart.hutool.huawei.constant;
+package com.gangtise.cloud.vendors.huawei.constant;
 
 /**
  * @Description:
  * @Author: Arnold.zhao
  * @Date: 2020/12/28
  */
-public class SystemConstant {
+public class HuaWeiConstant {
 
     public static final String HUAWEI_SHANGHAI_TOKEN_ENDPOINT = "https://iam.cn-south-1.myhuaweicloud.com";
     public static final String HUAWEI_TOKEN_URL = HUAWEI_SHANGHAI_TOKEN_ENDPOINT + "/v3/auth/tokens";

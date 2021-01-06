@@ -33,6 +33,7 @@ class MybatisplusApplicationTests {
 
     }
 
+
     @Test
     void updateWrapper() {
         userServer.update(Wrappers.<User>update().set("age", 12).set("name", "23").eq("", ""));

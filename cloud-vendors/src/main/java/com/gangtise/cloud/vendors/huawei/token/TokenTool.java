@@ -1,9 +1,9 @@
-package com.smart.heart.hutool.huawei.token;
+package com.gangtise.cloud.vendors.huawei.token;
 
 import cn.hutool.http.Header;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
-import com.smart.heart.hutool.huawei.constant.SystemConstant;
+import com.gangtise.cloud.vendors.huawei.constant.HuaWeiConstant;
 import lombok.SneakyThrows;
 
 import java.util.Map;
@@ -22,17 +22,17 @@ public class TokenTool {
 
     private static void createToken() throws Exception {
 
-        String json = BuildAuth.create().
-                buildIdentity(SystemConstant.HUAWEI_USER_ACCOUNT, SystemConstant.HUAWEI_IAM_USER_ACCOUNT, SystemConstant.HUAWEI_IAM_PASSWORD)
+        String json = AuthBuild.create().
+                buildIdentity(HuaWeiConstant.HUAWEI_USER_ACCOUNT, HuaWeiConstant.HUAWEI_IAM_USER_ACCOUNT, HuaWeiConstant.HUAWEI_IAM_PASSWORD)
                 .toJSONString();
 
-        HttpResponse httpResponse = HttpRequest.post(SystemConstant.HUAWEI_TOKEN_URL)
+        HttpResponse httpResponse = HttpRequest.post(HuaWeiConstant.HUAWEI_TOKEN_URL)
                 .header(Header.CONTENT_TYPE, "application/json;charset=utf8")
                 .body(json).execute();
 
         if (httpResponse.isOk()) {
-            String token = httpResponse.headers().get(SystemConstant.HUAWEI_HEADER_TOKEN).get(0);
-            tokenMap.put(SystemConstant.HUAWEI_HEADER_TOKEN, token);
+            String token = httpResponse.headers().get(HuaWeiConstant.HUAWEI_HEADER_TOKEN).get(0);
+            tokenMap.put(HuaWeiConstant.HUAWEI_HEADER_TOKEN, token);
             //执行定时器，23 小时后清除token记录，重新获取token
             referToken();
         } else {
@@ -42,7 +42,7 @@ public class TokenTool {
     }
 
     public static String getToken() throws Exception {
-        String token = tokenMap.get(SystemConstant.HUAWEI_HEADER_TOKEN);
+        String token = tokenMap.get(HuaWeiConstant.HUAWEI_HEADER_TOKEN);
         if (token != null) {
             return token;
         } else {
@@ -60,7 +60,7 @@ public class TokenTool {
                 //map 中无需remove 原有Token，直接生成并替换
                 createToken();
             }
-        }, SystemConstant.HUAWEI_REFER_TIME_TOKEN);
+        }, HuaWeiConstant.HUAWEI_REFER_TIME_TOKEN);
     }
 
 
