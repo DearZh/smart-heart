@@ -103,7 +103,7 @@ public class Test {
 
         //步骤2，计算签名值
         // 以下是一段计算签名的示例代码
-        String key = "KRSWBB7cSiRgXAdLkrk4c5WkpaieoT&";
+        String key = "";
         /*final String ALGORITHM = "HmacSHA1";
         final String ENCODING = "UTF-8";
         Mac mac = Mac.getInstance(ALGORITHM);
