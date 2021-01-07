@@ -1,12 +1,11 @@
 package com.gangtise.cloud.vendors.tencent;
 import com.tencentcloudapi.billing.v20180709.BillingClient;
-import com.tencentcloudapi.billing.v20180709.models.*;
+import com.tencentcloudapi.billing.v20180709.models.DescribeAccountBalanceRequest;
+import com.tencentcloudapi.billing.v20180709.models.DescribeAccountBalanceResponse;
 import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
 import com.tencentcloudapi.common.profile.ClientProfile;
 import com.tencentcloudapi.common.profile.HttpProfile;
-
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @Description:
@@ -18,8 +17,8 @@ public class Test {
     public static void main(String [] args) {
         try{
 
-
-            Credential cred = new Credential("AKIDrVyFNQ4CJA3h4JFWTDuMtAftPsZBmFjy", "K9gynVmx0ThgPtEUWRQI4buKf8XYKJ1S");
+            //secretId , secretKey
+            Credential cred = new Credential("", "");
 
             HttpProfile httpProfile = new HttpProfile();
             httpProfile.setEndpoint("billing.tencentcloudapi.com");
