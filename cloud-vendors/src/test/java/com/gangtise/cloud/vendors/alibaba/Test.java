@@ -1,7 +1,6 @@
 package com.gangtise.cloud.vendors.alibaba;
 
 import com.gangtise.cloud.vendors.alibaba.constant.AlibabaConstant;
-import com.sun.crypto.provider.HmacSHA1;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
@@ -118,7 +117,6 @@ public class Test {
         String signature = new String(Base64.getEncoder().encodeToString(signData));
 
         System.out.println("签名signature：" + signature);
-        //https://help.aliyun.com/document_detail/163279.html?spm=a2c4g.11186623.6.543.3a595382HQQAeZ
         //https://help.aliyun.com/document_detail/25492.html?spm=5176.2020520129.0.dexternal.643c46aebtA4VN
     }
 }

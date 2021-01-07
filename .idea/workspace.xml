@@ -2,26 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="31036061-6139-4d14-8a9c-542fd87d7d12" name="Default Changelist" comment="feat：mp sub">
-      <change afterPath="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/constant/AlibabaConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/constant/HttpMethod.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/signature/SignatureBuild.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/signature/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/constant/HuaWeiConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/token/AuthBuild.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/token/TokenTool.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/workorder/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/workorder/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cloud-vendors/src/test/java/com/gangtise/cloud/vendors/alibaba/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cloud-vendors/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/tencent/DateTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/tencent/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hutool/src/main/java/com/smart/heart/hutool/huawei/constant/SystemConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/hutool/src/main/java/com/smart/heart/hutool/huawei/constant/SystemConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hutool/src/main/java/com/smart/heart/hutool/huawei/token/TokenTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/hutool/src/main/java/com/smart/heart/hutool/huawei/token/TokenTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kafka/target/classes/com/smart/heart/kafka/ConsumerTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kafka/target/classes/com/smart/heart/kafka/ProducerTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kafka/target/classes/com/smart/heart/kafka/config/KafkaProducerConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mybatisplus/src/test/java/com/smart/heart/mybatisplus/MybatisplusApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/mybatisplus/src/test/java/com/smart/heart/mybatisplus/MybatisplusApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-vendors/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-vendors/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/constant/AlibabaConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/constant/AlibabaConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/signature/package-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/signature/package-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cloud-vendors/src/test/java/com/gangtise/cloud/vendors/alibaba/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/cloud-vendors/src/test/java/com/gangtise/cloud/vendors/alibaba/Test.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -41,6 +29,9 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/smart_heart$LeaderTest.ic" NAME="LeaderTest Coverage Results" MODIFIED="1600659921663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
@@ -63,35 +54,53 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/constant/AlibabaConstant.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example/src/main/java/com/smart/heart/java/lock/ReentrantLockTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="350">
+              <caret line="108" column="18" lean-forward="true" selection-start-line="108" selection-start-column="18" selection-end-line="108" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/tencent/Test.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="415">
+              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cloud-vendors/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="475">
+                <caret line="19" column="3" lean-forward="true" selection-start-line="19" selection-start-column="3" selection-end-line="19" selection-end-column="3" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cloud-vendors/src/test/java/com/gangtise/cloud/vendors/alibaba/Test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="535">
-              <caret line="118" column="55" lean-forward="true" selection-start-line="118" selection-start-column="55" selection-end-line="118" selection-end-column="55" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/signature/SignatureBuild.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="507">
-              <caret line="121" column="74" lean-forward="true" selection-start-line="121" selection-start-column="74" selection-end-line="121" selection-end-column="74" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/workorder/Test.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="21" column="48" lean-forward="true" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
+            <state relative-caret-position="497">
+              <caret line="113" lean-forward="true" selection-start-line="113" selection-end-line="113" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -102,81 +111,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cloud-vendors/src/test/java/com/gangtise/cloud/vendors/CloudVendorsApplicationTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/constant/AlibabaConstant.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="13" column="49" lean-forward="true" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/signature/package-info.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="14" column="47" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_271/src.zip!/java/util/Map.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="118" column="2" lean-forward="true" selection-start-line="118" selection-start-column="2" selection-end-line="118" selection-end-column="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/token/TokenTool.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="45" column="28" lean-forward="true" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/constant/HuaWeiConstant.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/constant/HttpMethod.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/token/AuthBuild.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="23" column="41" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
-              <folding>
-                <element signature="e#1348#1349#0" expanded="true" />
-                <element signature="e#1386#1387#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="125">
+              <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -187,18 +123,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package-info" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>2.4.1</find>
-      <find>spring-boot-starter</find>
-      <find>insert</find>
-      <find>basemapper.</find>
-      <find>sfuncation</find>
       <find>SF</find>
       <find>eq(</find>
       <find>com.smart.heart.hutool.AuthObj.</find>
@@ -224,6 +155,11 @@
       <find>SignatureMethod</find>
       <find>HTTP_METHOD</find>
       <find>timestamp</find>
+      <find>LTAI4G3pRDuiC9uaaBeLPJAr</find>
+      <find>InvalidAction</find>
+      <find>billing</find>
+      <find>Locksup</find>
+      <find>park</find>
     </findStrings>
     <replaceStrings>
       <replace>&quot;</replace>
@@ -238,10 +174,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/example/src/main/java/com/smart/heart/java/lock/Test.java" />
-        <option value="$PROJECT_DIR$/example/src/main/java/com/smart/heart/java/lock/VolatileTest.java" />
-        <option value="$PROJECT_DIR$/example/src/main/java/com/smart/heart/java/lock/Mutex.java" />
-        <option value="C:/Program Files/Java/jdk1.8.0_201/src/java/util/concurrent/locks/ReentrantLock.java" />
         <option value="C:/Program Files/Java/jdk1.8.0_201/src/java/util/concurrent/CountDownLatch.java" />
         <option value="$PROJECT_DIR$/example/src/main/java/com/smart/heart/java/lock/jdk/source/AbstractQueuedSynchronizer.java" />
         <option value="$PROJECT_DIR$/example/src/main/java/com/smart/heart/java/lock/jdk/source/ReentrantLock.java" />
@@ -275,7 +207,6 @@
         <option value="$PROJECT_DIR$/hutool/src/main/java/com/smart/heart/hutool/huawei/token/TokenTool.java" />
         <option value="$PROJECT_DIR$/hutool/pom.xml" />
         <option value="$PROJECT_DIR$/hutool/src/main/java/com/smart/heart/hutool/huawei/constant/SystemConstant.java" />
-        <option value="$PROJECT_DIR$/cloud-vendors/pom.xml" />
         <option value="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/workorder/package-info.java" />
         <option value="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/token/TokenTool.java" />
         <option value="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/token/BuildAuth.java" />
@@ -284,11 +215,16 @@
         <option value="$PROJECT_DIR$/mybatisplus/src/test/java/com/smart/heart/mybatisplus/MybatisplusApplicationTests.java" />
         <option value="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/Test.java" />
         <option value="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/token/AuthBuild.java" />
-        <option value="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/signature/package-info.java" />
-        <option value="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/signature/SignatureBuild.java" />
-        <option value="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/constant/AlibabaConstant.java" />
-        <option value="$PROJECT_DIR$/cloud-vendors/src/test/java/com/gangtise/cloud/vendors/alibaba/Test.java" />
         <option value="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/constant/HttpMethod.java" />
+        <option value="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/constant/HuaWeiConstant.java" />
+        <option value="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/signature/SignatureBuild.java" />
+        <option value="$PROJECT_DIR$/cloud-vendors/pom.xml" />
+        <option value="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/tencent/DateTest.java" />
+        <option value="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/signature/package-info.java" />
+        <option value="$PROJECT_DIR$/cloud-vendors/src/test/java/com/gangtise/cloud/vendors/alibaba/Test.java" />
+        <option value="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/tencent/Test.java" />
+        <option value="$PROJECT_DIR$/cloud-vendors/README.md" />
+        <option value="$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/constant/AlibabaConstant.java" />
       </list>
     </option>
   </component>
@@ -306,8 +242,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="1962" />
+    <option name="y" value="4" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -319,6 +255,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -390,17 +328,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="vendors" type="462c0819:PsiDirectoryNode" />
-              <item name="alibaba" type="462c0819:PsiDirectoryNode" />
-              <item name="signature" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="smart-heart" type="b2602c69:ProjectViewProjectNode" />
-              <item name="smart-heart" type="462c0819:PsiDirectoryNode" />
-              <item name="cloud-vendors" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="vendors" type="462c0819:PsiDirectoryNode" />
               <item name="huawei" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -435,6 +362,16 @@
               <item name="vendors" type="462c0819:PsiDirectoryNode" />
               <item name="huawei" type="462c0819:PsiDirectoryNode" />
               <item name="workorder" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="smart-heart" type="b2602c69:ProjectViewProjectNode" />
+              <item name="smart-heart" type="462c0819:PsiDirectoryNode" />
+              <item name="cloud-vendors" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="vendors" type="462c0819:PsiDirectoryNode" />
+              <item name="tencent" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="smart-heart" type="b2602c69:ProjectViewProjectNode" />
@@ -477,6 +414,62 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="vendors" type="462c0819:PsiDirectoryNode" />
               <item name="alibaba" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="smart-heart" type="b2602c69:ProjectViewProjectNode" />
+              <item name="smart-heart" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="smart-heart" type="b2602c69:ProjectViewProjectNode" />
+              <item name="smart-heart" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="smart-heart" type="b2602c69:ProjectViewProjectNode" />
+              <item name="smart-heart" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="smart-heart" type="b2602c69:ProjectViewProjectNode" />
+              <item name="smart-heart" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="smart-heart" type="b2602c69:ProjectViewProjectNode" />
+              <item name="smart-heart" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="heart" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="smart-heart" type="b2602c69:ProjectViewProjectNode" />
+              <item name="smart-heart" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="heart" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="smart-heart" type="b2602c69:ProjectViewProjectNode" />
+              <item name="smart-heart" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="heart" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="lock" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="smart-heart" type="b2602c69:ProjectViewProjectNode" />
@@ -737,19 +730,17 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1609935273109" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1610019789906" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/MP" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.36004645" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
@@ -790,7 +781,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.SignatureBuild">
+  <component name="RunManager" selected="Application.Test (1)">
     <configuration name="HttpMethod" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.gangtise.cloud.vendors.alibaba.constant.HttpMethod" />
       <module name="cloud-vendors" />
@@ -823,6 +814,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.gangtise.cloud.vendors.huawei.workorder.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.gangtise.cloud.vendors.tencent.Test" />
+      <module name="cloud-vendors" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.gangtise.cloud.vendors.tencent.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -905,21 +909,21 @@
     </configuration>
     <list>
       <item itemvalue="Application.Test" />
+      <item itemvalue="Application.Test (1)" />
+      <item itemvalue="Application.HttpMethod" />
+      <item itemvalue="Application.SignatureBuild" />
       <item itemvalue="Maven.package" />
       <item itemvalue="Spring Boot.MybatisplusApplication" />
       <item itemvalue="Spring Boot.HutoolApplication" />
       <item itemvalue="Spring Boot.CloudVendorsApplication" />
-      <item itemvalue="Application.Test (1)" />
       <item itemvalue="Application.Test (2)" />
-      <item itemvalue="Application.HttpMethod" />
-      <item itemvalue="Application.SignatureBuild" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Test (1)" />
+        <item itemvalue="Application.Test (2)" />
         <item itemvalue="Application.SignatureBuild" />
         <item itemvalue="Application.HttpMethod" />
-        <item itemvalue="Application.Test (2)" />
-        <item itemvalue="Application.Test (1)" />
         <item itemvalue="Application.Test" />
       </list>
     </recent_temporary>
@@ -1002,7 +1006,10 @@
       <workItem from="1609741148366" duration="1140000" />
       <workItem from="1609830115063" duration="4829000" />
       <workItem from="1609901800932" duration="944000" />
-      <workItem from="1609902785400" duration="19323000" />
+      <workItem from="1609902785400" duration="21241000" />
+      <workItem from="1609938404935" duration="37000" />
+      <workItem from="1609985056042" duration="3905000" />
+      <workItem from="1609997817209" duration="15539000" />
     </task>
     <task id="LOCAL-00001" summary="feat：es6 test submit">
       <created>1601206282230</created>
@@ -1018,7 +1025,21 @@
       <option name="project" value="LOCAL" />
       <updated>1608967939031</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat：ali key">
+      <created>1609937628708</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1609937628710</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat：ali key rem">
+      <created>1609938306343</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1609938306344</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1054,10 +1075,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="541525000" />
+    <option name="totallyTimeSpent" value="562924000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
@@ -1066,11 +1087,11 @@
       <window_info id="Capture Tool" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="6" visible="true" weight="0.26918977" />
+      <window_info active="true" content_ui="combo" id="Project" order="6" visible="true" weight="0.27771854" />
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32962137" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3129176" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.23942094" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4053452" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1140,7 +1161,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat：es6 test submit" />
     <MESSAGE value="feat：hutool sub" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat：hutool sub" />
+    <MESSAGE value="feat：ali key" />
+    <MESSAGE value="feat：ali key rem" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat：ali key rem" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1444,59 +1467,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/Program Files/Java/jdk1.8.0_201/src/java/util/function/Function.java" />
-    <entry file="file://$PROJECT_DIR$/mybatisplus/src/main/java/com/smart/heart/mybatisplus/entity/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="22" column="23" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mybatisplus/src/main/resources/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-core/3.3.1/mybatis-plus-core-3.3.1.jar!/com/baomidou/mybatisplus/core/conditions/query/LambdaQueryWrapper.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="27" column="32" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-core/3.3.1/mybatis-plus-core-3.3.1.jar!/com/baomidou/mybatisplus/core/conditions/AbstractLambdaWrapper.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="19" column="141" selection-start-line="19" selection-start-column="140" selection-end-line="19" selection-end-column="141" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-core/3.3.1/mybatis-plus-core-3.3.1.jar!/com/baomidou/mybatisplus/core/toolkit/support/SFunction.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-core/3.3.1/mybatis-plus-core-3.3.1.jar!/com/baomidou/mybatisplus/core/conditions/AbstractWrapper.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1175">
-          <caret line="75" column="26" selection-start-line="75" selection-start-column="26" selection-end-line="75" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-core/3.3.1/mybatis-plus-core-3.3.1.jar!/com/baomidou/mybatisplus/core/conditions/interfaces/Compare.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="33" column="42" selection-start-line="33" selection-start-column="42" selection-end-line="33" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/cn/hutool/hutool-all/5.5.4/hutool-all-5.5.4.jar!/cn/hutool/http/Header.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -1593,14 +1563,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1025">
           <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="45" selection-end-column="21" />
-        </state>
-      </provider>
-      <provider editor-type-id="MavenHelperPluginDependencyAnalyzer" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cloud-vendors/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="29" column="21" lean-forward="true" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
         </state>
       </provider>
       <provider editor-type-id="MavenHelperPluginDependencyAnalyzer" />
@@ -1744,53 +1706,130 @@
     </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_271/src.zip!/java/util/Map.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="118" column="2" lean-forward="true" selection-start-line="118" selection-start-column="2" selection-end-line="118" selection-end-column="2" />
+        <state relative-caret-position="2300">
+          <caret line="118" column="2" selection-start-line="118" selection-start-column="2" selection-end-line="118" selection-end-column="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/token/TokenTool.java">
+    <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/constant/HttpMethod.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="45" column="28" lean-forward="true" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
+        <state relative-caret-position="225">
+          <caret line="9" column="9" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/signature/SignatureBuild.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="195" column="22" selection-start-line="195" selection-start-column="22" selection-end-line="195" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/token/AuthBuild.java">
+    <entry file="file://$MAVEN_REPOSITORY$/com/tencentcloudapi/tencentcloud-sdk-java-all/3.1.190/tencentcloud-sdk-java-all-3.1.190.pom">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="23" column="41" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
+        <state relative-caret-position="125">
+          <caret line="5" column="28" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cloud-vendors/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="49" column="38" lean-forward="true" selection-start-line="49" selection-start-column="38" selection-end-line="49" selection-end-column="38" />
+        </state>
+      </provider>
+      <provider editor-type-id="MavenHelperPluginDependencyAnalyzer" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/tencent/DateTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/tencentcloudapi/tencentcloud-sdk-java-common/3.1.192/tencentcloud-sdk-java-common-3.1.192.jar!/com/tencentcloudapi/common/Credential.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="12" column="55" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="55" />
           <folding>
-            <element signature="e#1348#1349#0" expanded="true" />
-            <element signature="e#1386#1387#0" expanded="true" />
+            <element signature="e#312#313#0" expanded="true" />
+            <element signature="e#357#358#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/constant/HuaWeiConstant.java">
+    <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/token/AuthBuild.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+        <state relative-caret-position="449">
+          <caret line="100" lean-forward="true" selection-start-line="100" selection-end-line="100" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/signature/package-info.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="14" column="47" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
+        <state relative-caret-position="175">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/token/TokenTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1184">
+          <caret line="50" column="9" lean-forward="true" selection-start-line="50" selection-start-column="9" selection-end-line="50" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/workorder/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="21" column="48" lean-forward="true" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
+        <state relative-caret-position="475">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/huawei/constant/HuaWeiConstant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="424">
+          <caret line="19" column="28" lean-forward="true" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_271/src.zip!/java/util/concurrent/locks/ReentrantLock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="115" column="49" lean-forward="true" selection-start-line="115" selection-start-column="49" selection-end-line="115" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_271/src.zip!/java/util/concurrent/locks/AbstractQueuedSynchronizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="660" column="22" lean-forward="true" selection-start-line="660" selection-start-column="22" selection-end-line="660" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/src/main/java/com/smart/heart/java/lock/ReentrantLockTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="108" column="18" lean-forward="true" selection-start-line="108" selection-start-column="18" selection-end-line="108" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/tencent/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1799,42 +1838,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cloud-vendors/src/test/java/com/gangtise/cloud/vendors/CloudVendorsApplicationTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+        <state relative-caret-position="125">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cloud-vendors/src/test/java/com/gangtise/cloud/vendors/alibaba/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="535">
-          <caret line="118" column="55" lean-forward="true" selection-start-line="118" selection-start-column="55" selection-end-line="118" selection-end-column="55" />
+        <state relative-caret-position="497">
+          <caret line="113" lean-forward="true" selection-start-line="113" selection-end-line="113" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cloud-vendors/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="475">
+            <caret line="19" column="3" lean-forward="true" selection-start-line="19" selection-start-column="3" selection-end-line="19" selection-end-column="3" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/constant/AlibabaConstant.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="13" column="49" lean-forward="true" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/signature/SignatureBuild.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="121" column="74" lean-forward="true" selection-start-line="121" selection-start-column="74" selection-end-line="121" selection-end-column="74" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cloud-vendors/src/main/java/com/gangtise/cloud/vendors/alibaba/constant/HttpMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="200">
+          <caret line="8" column="48" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
         </state>
       </provider>
     </entry>
@@ -1915,7 +1947,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Maven: ch.qos.logback:logback-classic:1.2.3</last-edited>
+          <last-edited>Maven: com.tencentcloudapi:tencentcloud-sdk-java-billing:3.1.192</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
