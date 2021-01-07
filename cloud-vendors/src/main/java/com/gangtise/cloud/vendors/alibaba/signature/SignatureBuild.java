@@ -190,13 +190,19 @@ public class SignatureBuild {
     }
 
     public static void main(String[] args) throws Exception {
-        //测试获取产品类别接口 Arnold.zhao 2021/1/6
-        Map<String, String> map = new HashMap<>();
-        map.put(AlibabaConstant.ACTION, "ListProducts");
-        String url = SignatureBuild.GET().URL(map);
-        System.out.println(url);
-        HttpResponse response = HttpRequest.get(url).execute();
-        System.out.println(response.isOk());
-        System.out.println(response.body());
+        for (int i = 0; i < 10; i++) {
+            //测试获取产品类别接口 Arnold.zhao 2021/1/6
+            Map<String, String> map = new HashMap<>();
+            //工单查询类型接口
+//        map.put(AlibabaConstant.ACTION, "ListProducts");
+            //ECS查询地域接口
+            map.put(AlibabaConstant.ACTION, "DescribeRegions");
+            map.put("Version", "2014-05-26");
+            String url = SignatureBuild.GET().URL(map);
+            System.out.println(url);
+            HttpResponse response = HttpRequest.get(url).execute();
+            System.out.println(response.isOk());
+            System.out.println(response.body());
+        }
     }
 }

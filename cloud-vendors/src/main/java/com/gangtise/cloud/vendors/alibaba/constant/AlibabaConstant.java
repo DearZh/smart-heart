@@ -13,6 +13,7 @@ public class AlibabaConstant {
     public static final String ISO8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
     public static final String ACTION = "Action";
     public static final String SIGNATURE = "Signature";
-    public static final String ENDPOINT = "http://workorder.aliyuncs.com/";
+//    public static final String ENDPOINT = "http://workorder.aliyuncs.com/";
+    public static final String ENDPOINT = "http://ecs.aliyuncs.com/";
 
 }
