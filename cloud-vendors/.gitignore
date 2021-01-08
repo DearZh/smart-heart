@@ -1,33 +1,25 @@
-HELP.md
+.svn/
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-### STS ###
-.apt_generated
+test-output/
+*.class
 .classpath
-.factorypath
 .project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
+.settings/
+tmp
+temp
+*.log
+antx.properties
+otter.properties
+jtester.properties
+.idea/
 *.iml
-*.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
-.vscode/
+.DS_Store
+*.tar.gz
+*.rpm
+client-adapter/example/
+*.dat
+conf/
+canal-admin/canal-admin-ui/dist/
+canal-admin/canal-admin-ui/node/
+canal-admin/canal-admin-ui/node_modules/
+canal-admin/canal-admin-server/src/main/resources/conf/

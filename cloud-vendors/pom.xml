@@ -10,48 +10,149 @@
     </parent>
     <groupId>com.gangtise</groupId>
     <artifactId>cloud-vendors</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${cloud.version}</version>
     <name>cloud-vendors</name>
+    <packaging>pom</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>
         <java.version>1.8</java.version>
+        <mybatis-plus.version>3.3.1</mybatis-plus.version>
+        <druid.version>1.1.22</druid.version>
+        <mysql.connector.version>8.0.16</mysql.connector.version>
+        <spring-boot.version>2.4.1</spring-boot.version>
+        <cloud.version>0.0.1-SNAPSHOT</cloud.version>
     </properties>
+    <modules>
+        <module>launcher</module>
+        <module>common</module>
+        <module>huawei</module>
+        <module>tencent</module>
+        <module>alibaba</module>
+    </modules>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.gangtise.cloud</groupId>
+            <artifactId>common</artifactId>
+            <version>${cloud.version}</version>
         </dependency>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>5.5.4</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.58.sec06</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.tencentcloudapi</groupId>
-            <artifactId>tencentcloud-sdk-java-billing</artifactId>
-            <version>3.1.192</version>
-        </dependency>
-
     </dependencies>
 
+    <dependencyManagement>
+
+        <dependencies>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>5.5.4</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.58.sec06</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <scope>test</scope>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <!--swagger-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>2.9.2</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>2.9.2</version>
+            </dependency>
+            <!--mybatis-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!--数据库-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.connector.version}</version>
+            </dependency>
+            <!-- druid 连接池 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <!-- 华为 -->
+            <!-- https://mvnrepository.com/artifact/com.huaweicloud.sdk/huaweicloud-sdk-osm -->
+            <dependency>
+                <groupId>com.huaweicloud.sdk</groupId>
+                <artifactId>huaweicloud-sdk-osm</artifactId>
+                <version>3.0.29-beta</version>
+            </dependency>
+            <!-- 运营 https://mvnrepository.com/artifact/com.huaweicloud.sdk/huaweicloud-sdk-bss -->
+            <dependency>
+                <groupId>com.huaweicloud.sdk</groupId>
+                <artifactId>huaweicloud-sdk-bss</artifactId>
+                <version>3.0.29-beta</version>
+            </dependency>
+            <dependency>
+                <groupId>com.huaweicloud.sdk</groupId>
+                <artifactId>huaweicloud-sdk-core</artifactId>
+                <version>3.0.29-beta</version>
+            </dependency>
+
+            <!-- 阿里 -->
+            <!-- 阿里工单 https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-workorder -->
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-workorder</artifactId>
+                <version>3.0.0</version>
+            </dependency>
+            <!-- 阿里交易和账单sdk https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-workorder -->
+            <!-- https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-bssopenapi -->
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-bssopenapi</artifactId>
+                <version>1.6.1</version>
+            </dependency>
+            <!-- 阿里核心库 -->
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-core</artifactId>
+                <version>4.5.17</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.8.6</version>
+            </dependency>
+            <!--腾讯-->
+            <dependency>
+                <groupId>com.tencentcloudapi</groupId>
+                <artifactId>tencentcloud-sdk-java-billing</artifactId>
+                <version>3.1.192</version>
+            </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
     <build>
         <plugins>
             <plugin>
