@@ -103,7 +103,7 @@ public class Test {
 
         //步骤2，计算签名值
         // 以下是一段计算签名的示例代码
-        String key = "KRSWBB7cSiRgXAdLkrk4c5WkpaieoT&";
+//        String key = "KRSWBB7cSiRgXAdLkrk4c5WkpaieoT&";
         /*final String ALGORITHM = "HmacSHA1";
         final String ENCODING = "UTF-8";
         Mac mac = Mac.getInstance(ALGORITHM);
@@ -112,7 +112,7 @@ public class Test {
         byte[] signData = mac.doFinal(stringToSign.getBytes(ENCODING));
         */
 
-        byte[] signData = HmacSHA1Encrypt(stringToSign.toString(), key);
+        byte[] signData = HmacSHA1Encrypt(stringToSign.toString(), AlibabaConstant.ACCESS_KEY_SECRET);
 
         String signature = new String(Base64.getEncoder().encodeToString(signData));
 
