@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.1</version>
+        <version>2.3.6.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.gangtise</groupId>
@@ -20,7 +20,8 @@
         <mybatis-plus.version>3.3.1</mybatis-plus.version>
         <druid.version>1.1.22</druid.version>
         <mysql.connector.version>8.0.16</mysql.connector.version>
-        <spring-boot.version>2.4.1</spring-boot.version>
+        <!--<spring-boot.version>2.4.1</spring-boot.version>-->
+        <spring-boot.version>2.3.6.RELEASE</spring-boot.version>
         <cloud.version>0.0.1-SNAPSHOT</cloud.version>
     </properties>
     <modules>
@@ -36,6 +37,11 @@
             <groupId>com.gangtise.cloud</groupId>
             <artifactId>common</artifactId>
             <version>${cloud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
         </dependency>
     </dependencies>
 
