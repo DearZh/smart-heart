@@ -60,6 +60,21 @@
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.gangtise.cloud.vendors</groupId>
+            <artifactId>huawei</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gangtise.cloud.vendors</groupId>
+            <artifactId>alibaba</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gangtise.cloud.vendors</groupId>
+            <artifactId>tencent</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
 
     </dependencies>
 

@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
  * @Author: Arnold.zhao
  * @Date: 2021/1/9
  */
-
-
 @Api(tags = "Swagger文档,接口测试")
 public interface SwaggerService {
 
