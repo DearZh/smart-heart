@@ -1,6 +1,5 @@
 package com.gangtise.cloud.vendors.alibaba.osm;
 
-import com.alibaba.fastjson.JSONObject;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.workorder.model.v20200326.ListProductsRequest;
@@ -18,12 +17,12 @@ import lombok.extern.slf4j.Slf4j;
 public class AlibabaOSMService implements OSMService {
 
     @Override
-    public String listProducts(String productCategoryId) {
+    public Object listProducts(String productCategoryId) {
 
         ListProductsRequest request = new ListProductsRequest();
         try {
             ListProductsResponse response = Client.client().getAcsResponse(request);
-            return JSONObject.toJSONString(response);
+            return response;
         } catch (ServerException e) {
             error(e);
         } catch (ClientException e) {

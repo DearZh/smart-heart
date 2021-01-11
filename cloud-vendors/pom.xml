@@ -34,6 +34,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.58.sec06</version>
+        </dependency>
+        <dependency>
             <groupId>com.gangtise.cloud</groupId>
             <artifactId>common</artifactId>
             <version>${cloud.version}</version>
@@ -43,11 +48,7 @@
             <artifactId>lombok</artifactId>
             <version>1.18.12</version>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.58.sec06</version>
-        </dependency>
+
     </dependencies>
 
     <dependencyManagement>

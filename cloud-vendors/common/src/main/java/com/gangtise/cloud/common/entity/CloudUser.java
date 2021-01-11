@@ -1,5 +1,6 @@
 package com.gangtise.cloud.common.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@AllArgsConstructor
 public class CloudUser {
     private String regionId;
     private String ak;

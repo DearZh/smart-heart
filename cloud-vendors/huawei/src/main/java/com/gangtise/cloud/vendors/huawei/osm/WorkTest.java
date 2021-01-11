@@ -29,6 +29,7 @@ public class WorkTest {
                 .withRegion(OsmRegion.CN_SOUTH_1)
                 .build();
         ListCasesRequest request = new ListCasesRequest();
+
         try {
             ListCasesResponse response = client.listCases(request);
             System.out.println(response.toString());

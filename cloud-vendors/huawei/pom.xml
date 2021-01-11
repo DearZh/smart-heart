@@ -19,6 +19,10 @@
     </properties>
 
     <dependencies>
+       <!-- <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>-->
         <!-- 华为 -->
         <!-- https://mvnrepository.com/artifact/com.huaweicloud.sdk/huaweicloud-sdk-osm -->
         <dependency>

@@ -20,9 +20,9 @@ public class CloudBuild {
     public class OSMClass {
         public OSMService create(String type) {
             if (StringUtils.isNotBlank(type)) {
-                if (CloudName.ALIBABA.equals(type)) {
+                if (CloudName.ALIBABA.name().equals(type)) {
                     return new AlibabaOSMService();
-                } else if (CloudName.HUAWEI.equals(type)) {
+                } else if (CloudName.HUAWEI.name().equals(type)) {
                     return new HuaWeiOSMService();
                 }
             }

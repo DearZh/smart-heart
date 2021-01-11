@@ -25,7 +25,7 @@ public class HuaWeiOSMService implements OSMService {
      * @return
      */
     @Override
-    public String listProducts(String productCategoryId) {
+    public Object listProducts(String productCategoryId) {
 
         ListProblemTypesRequest request = new ListProblemTypesRequest();
         if (StringUtils.isNotBlank(productCategoryId)) {
@@ -33,7 +33,7 @@ public class HuaWeiOSMService implements OSMService {
         }
         try {
             ListProblemTypesResponse response = Client.create().listProblemTypes(request);
-            System.out.println(response.toString());
+            return response;
         } catch (ConnectionException e) {
             error(e);
         } catch (RequestTimeoutException e) {
@@ -52,14 +52,14 @@ public class HuaWeiOSMService implements OSMService {
      * @return
      */
     @Override
-    public String listProductCatgories(String productCategoryName) {
+    public Object listProductCatgories(String productCategoryName) {
         ListProductCategoriesRequest request = new ListProductCategoriesRequest();
         if (StringUtils.isNotBlank(productCategoryName)) {
             request.withProductCategoryName(productCategoryName);
         }
         try {
             ListProductCategoriesResponse response = Client.create().listProductCategories(request);
-            System.out.println(response.toString());
+            return response;
         } catch (ConnectionException e) {
             error(e);
         } catch (RequestTimeoutException e) {

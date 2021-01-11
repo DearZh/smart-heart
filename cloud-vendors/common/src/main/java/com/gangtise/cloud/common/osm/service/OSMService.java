@@ -14,7 +14,7 @@ public interface OSMService {
      * @param productCategoryId 根据产品类别ID，获取对应的问题类别；（阿里无需传送该参数，直接获取所有问题类别）
      * @return
      */
-    String listProducts(String productCategoryId);
+    Object listProducts(String productCategoryId);
 
 
     /**
@@ -23,13 +23,13 @@ public interface OSMService {
      * @param productCategoryName 产品类型名称进行查找
      * @return
      */
-    String listProductCatgories(String productCategoryName) throws Exception;
+    Object listProductCatgories(String productCategoryName) throws Exception;
 
     /**
      * 查询工单来源（华为）
      *
      * @return
      */
-    String listOsmSource() throws Exception;
+    Object listOsmSource() throws Exception;
 
 }
