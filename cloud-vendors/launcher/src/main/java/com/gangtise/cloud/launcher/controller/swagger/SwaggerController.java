@@ -1,6 +1,6 @@
 package com.gangtise.cloud.launcher.controller.swagger;
 
-import com.gangtise.cloud.launcher.controller.swagger.swagger.SwaggerService;
+import com.gangtise.cloud.launcher.controller.swagger.api.SwaggerService;
 import com.gangtise.cloud.launcher.util.R;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
