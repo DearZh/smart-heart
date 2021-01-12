@@ -32,4 +32,17 @@ public interface OSMService {
      */
     Object listOsmSource() throws Exception;
 
+
+    /**
+     * 新建工单
+     *
+     * @param productCategoryId     华为-工单产品类型
+     * @param withSourceId          华为-工单来源| 阿里-产品code
+     * @param withSimpleDescription 工单问题
+     * @param withBusinessTypeId    工单问题类型| 产品问题类别ID
+     * @return
+     * @throws Exception
+     */
+    Object insertOsm(String productCategoryId, String withSourceId, String withSimpleDescription, String withBusinessTypeId) throws Exception;
+
 }

@@ -5,10 +5,7 @@ import com.gangtise.cloud.vendors.huawei.utils.Client;
 import com.huaweicloud.sdk.core.exception.ConnectionException;
 import com.huaweicloud.sdk.core.exception.RequestTimeoutException;
 import com.huaweicloud.sdk.core.exception.ServiceResponseException;
-import com.huaweicloud.sdk.osm.v2.model.ListProblemTypesRequest;
-import com.huaweicloud.sdk.osm.v2.model.ListProblemTypesResponse;
-import com.huaweicloud.sdk.osm.v2.model.ListProductCategoriesRequest;
-import com.huaweicloud.sdk.osm.v2.model.ListProductCategoriesResponse;
+import com.huaweicloud.sdk.osm.v2.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -72,6 +69,29 @@ public class HuaWeiOSMService implements OSMService {
 
     @Override
     public String listOsmSource() {
+        return null;
+    }
+
+    @Override
+    public Object insertOsm(String productCategoryId, String withSourceId, String withSimpleDescription, String withBusinessTypeId) throws Exception {
+        CreateCasesRequest request = new CreateCasesRequest();
+        try {
+            CreateOrderIncidentV2Req body = new CreateOrderIncidentV2Req();
+            body.withProductCategoryId(productCategoryId);
+            body.withRegionId("cn-north-1");
+            body.withSourceId(withSourceId);
+            body.withSimpleDescription(withSimpleDescription);
+            body.withBusinessTypeId(withBusinessTypeId);
+            request.withBody(body);
+            CreateCasesResponse response = Client.create().createCases(request);
+            return response;
+        } catch (ConnectionException e) {
+            error(e);
+        } catch (RequestTimeoutException e) {
+            error(e);
+        } catch (ServiceResponseException e) {
+            error(e.getErrorCode(), e.getHttpStatusCode(), e.getErrorMsg(), e);
+        }
         return null;
     }
 

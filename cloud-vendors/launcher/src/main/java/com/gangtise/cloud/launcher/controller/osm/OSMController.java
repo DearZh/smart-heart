@@ -3,7 +3,7 @@ package com.gangtise.cloud.launcher.controller.osm;
 
 import com.gangtise.cloud.common.constant.CloudName;
 import com.gangtise.cloud.common.osm.service.OSMService;
-import com.gangtise.cloud.launcher.controller.osm.swagger.OSMSwaggerService;
+import com.gangtise.cloud.launcher.controller.osm.api.OSMSwaggerService;
 import com.gangtise.cloud.launcher.util.CloudBuild;
 import com.gangtise.cloud.launcher.util.R;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/osm/{type}")
 public class OSMController implements OSMSwaggerService {
-
 
     /**
      * 获取产品类别
@@ -51,5 +50,16 @@ public class OSMController implements OSMSwaggerService {
         }
         return R.failed();
     }
+
+    @Override
+    public R insertOsm(CloudName type, String productCategoryId, String withSourceId, String withSimpleDescription, String withBusinessTypeId) throws Exception {
+        OSMService osmService = CloudBuild.OSM().create(type.name());
+        Object content = osmService.insertOsm(productCategoryId, withSourceId, withSimpleDescription, withBusinessTypeId);
+        if (content != null) {
+            return R.ok(content);
+        }
+        return R.failed();
+    }
+
 
 }
