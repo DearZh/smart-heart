@@ -7,7 +7,7 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: ${MYSQL-USER:gangtise@gangtisedb}
       password: ${MYSQL-PWD:Qwer!234}
-      url: jdbc:mysql://${MYSQL-HOST:40.73.82.1}:${MYSQL-PORT:3306}/${MYSQL-DB:base_upms}?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true&allowPublicKeyRetrieval=true
+      url: jdbc:mysql://${MYSQL-HOST:40.73.82.1}:${MYSQL-PORT:3306}/${MYSQL-DB:cloud_vendors}?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true&allowPublicKeyRetrieval=true
       web-stat-filter:
         enabled: true
       stat-view-servlet:
@@ -32,3 +32,10 @@ spring:
 logging:
   level:
     com.baomidou.mybatisplus.samples.wrapper: debug
+
+# 开启驼峰映射 & no console mp logo
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    banner: false
