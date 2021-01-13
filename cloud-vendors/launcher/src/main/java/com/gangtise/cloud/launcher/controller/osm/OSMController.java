@@ -25,7 +25,7 @@ public class OSMController implements OSMSwaggerService {
      */
     @Override
     public R listProductCatgories(CloudName type, String productCategoryName) throws Exception {
-        OSMService osmService = CloudBuild.OSM().create(type.name());
+        OSMService osmService = CloudBuild.OSM().create(type);
         Object content = osmService.listProductCatgories(productCategoryName);
         if (content != null) {
             return R.ok(content);
@@ -43,7 +43,7 @@ public class OSMController implements OSMSwaggerService {
      */
     @Override
     public R listProducts(CloudName type, String productCategoryId) throws Exception {
-        OSMService osmService = CloudBuild.OSM().create(type.name());
+        OSMService osmService = CloudBuild.OSM().create(type);
         Object content = osmService.listProducts(productCategoryId);
         if (content != null) {
             return R.ok(content);
@@ -53,7 +53,7 @@ public class OSMController implements OSMSwaggerService {
 
     @Override
     public R insertOsm(CloudName type, String productCategoryId, String withSourceId, String withSimpleDescription, String withBusinessTypeId) throws Exception {
-        OSMService osmService = CloudBuild.OSM().create(type.name());
+        OSMService osmService = CloudBuild.OSM().create(type);
         Object content = osmService.insertOsm(productCategoryId, withSourceId, withSimpleDescription, withBusinessTypeId);
         if (content != null) {
             return R.ok(content);

@@ -42,6 +42,11 @@ public class AlibabaOSMService implements OSMService {
         throw new NoSuchMethodException();
     }
 
+    @Override
+    public Object insertOsm(String productCategoryId, String withSourceId, String withSimpleDescription, String withBusinessTypeId) throws Exception {
+        throw new NoSuchMethodException();
+    }
+
 
     private void error(Exception e) {
         log.error("", e);
