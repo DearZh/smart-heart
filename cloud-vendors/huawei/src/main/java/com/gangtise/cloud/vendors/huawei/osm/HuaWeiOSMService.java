@@ -22,7 +22,7 @@ public class HuaWeiOSMService implements OSMService {
      * @return
      */
     @Override
-    public Object listProducts(String productCategoryId) {
+    public Object listBusinessProducts(String productCategoryId) {
 
         ListProblemTypesRequest request = new ListProblemTypesRequest();
         if (StringUtils.isNotBlank(productCategoryId)) {
@@ -73,12 +73,15 @@ public class HuaWeiOSMService implements OSMService {
     }
 
     @Override
-    public Object insertOsm(String productCategoryId, String withSourceId, String withSimpleDescription, String withBusinessTypeId) throws Exception {
+    public Object insertOsm(String email, String productCategoryId, String withSourceId, String withSimpleDescription, String withBusinessTypeId) throws Exception {
         CreateCasesRequest request = new CreateCasesRequest();
         try {
             CreateOrderIncidentV2Req body = new CreateOrderIncidentV2Req();
             body.withProductCategoryId(productCategoryId);
             body.withRegionId("cn-north-1");
+            if(StringUtils.isNotBlank(email)){
+                body.withRemindMail(email);
+            }
             body.withSourceId(withSourceId);
             body.withSimpleDescription(withSimpleDescription);
             body.withBusinessTypeId(withBusinessTypeId);
