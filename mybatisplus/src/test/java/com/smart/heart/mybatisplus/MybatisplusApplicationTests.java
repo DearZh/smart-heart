@@ -1,24 +1,16 @@
 package com.smart.heart.mybatisplus;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.smart.heart.mybatisplus.entity.User;
-import com.smart.heart.mybatisplus.mapper.UserMapper;
 import com.smart.heart.mybatisplus.service.UserServer;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
@@ -30,7 +22,15 @@ class MybatisplusApplicationTests {
     @Test
     void pageQuery() {
         Page<User> page = new Page<>();
+        //默认自动获取count值，如果不需要自动获取 设置hitCount(true) 则不自动获取count数
+//        page.hitCount(true); page.setTotal(userServer.count());
+        page.setSize(3);
+        page.setCurrent(1);
+        userServer.page(page);
 
+        System.out.println(page);
+        System.out.println(page.getTotal());
+        //关于xml mapper分页 reference： https://www.cnblogs.com/yscec/p/12564113.html
     }
 
 
