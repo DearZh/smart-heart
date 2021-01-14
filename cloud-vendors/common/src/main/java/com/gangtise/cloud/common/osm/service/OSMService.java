@@ -45,4 +45,27 @@ public interface OSMService {
      */
     Object insertOsm(String email, String productCategoryId, String withSourceId, String withSimpleDescription, String withBusinessTypeId) throws Exception;
 
+    //************************
+
+    /**
+     * 查询工单列表
+     *
+     * @param status    根据工单状态查询
+     * @param page      当前查询页数
+     * @param startTime 查询开始时间 | yyyy-MM-dd HH:mm:ss
+     * @param endTime   查询结束时间
+     * @return
+     */
+    Object listCase(String status, Integer page, String startTime, String endTime) throws Exception;
+
+    /**
+     * 新建工单回复
+     *
+     * @param caseId  工单ID
+     * @param message 工单回复内容
+     * @param type
+     * @return
+     * @throws Exception
+     */
+    Object insertCaseMessage(String caseId, String message, Integer type) throws Exception;
 }

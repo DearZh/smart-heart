@@ -1,6 +1,7 @@
 package com.gangtise.cloud.launcher.controller.osm;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.gangtise.cloud.common.constant.SystemConstant;
 import com.gangtise.cloud.launcher.controller.osm.api.CloudUserSwaggerService;
 import com.gangtise.cloud.launcher.mp.entity.CloudUser;
 import com.gangtise.cloud.launcher.mp.service.CloudUserService;
@@ -46,6 +47,7 @@ public class CloudUserController implements CloudUserSwaggerService {
     @Override
     public R page(Integer current) throws Exception {
         Page<CloudUser> rPage = new Page<>();
+        rPage.setSize(SystemConstant.size);
         rPage.setCurrent(current);
         return R.ok(cloudUserService.page(rPage));
     }

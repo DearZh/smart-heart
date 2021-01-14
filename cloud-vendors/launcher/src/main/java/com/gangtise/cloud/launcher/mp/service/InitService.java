@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
- * @Description: 
+ * @Description:
  * @Author: Arnold.zhao
  * @Date: 2021/1/11
  */
@@ -23,8 +23,12 @@ public class InitService {
 
     @PostConstruct
     public void init() {
-        List<CloudUser> list = cloudUserService.list(Wrappers.<CloudUser>lambdaQuery().eq(CloudUser::getType, CloudName.ALIBABA).or().eq(CloudUser::getType, CloudName.HUAWEI));
+        initCaseCode();
+        initCloudUser();
+    }
 
+    private void initCloudUser() {
+        List<CloudUser> list = cloudUserService.list(Wrappers.<CloudUser>lambdaQuery().eq(CloudUser::getType, CloudName.ALIBABA).or().eq(CloudUser::getType, CloudName.HUAWEI));
         list.forEach(v -> {
             if (v.getType().equals(CloudName.ALIBABA)) {
                 BusinessConstant.cloudUserMap.put(CloudName.ALIBABA, new com.gangtise.cloud.common.entity.CloudUser(v.getRegionId(), v.getSecretId(), v.getSecretKeySecret()));
@@ -32,11 +36,20 @@ public class InitService {
                 BusinessConstant.cloudUserMap.put(CloudName.HUAWEI, new com.gangtise.cloud.common.entity.CloudUser(v.getRegionId(), v.getSecretId(), v.getSecretKeySecret()));
             }
         });
+    }
 
-/*
-        CloudUser huawei = new CloudUser("", "MQA4PRORG7QMYULUPFBH", "qPqUDMIjBjuhtP5geWyV0M70cnEguVbjIKvU0ekI");
-        com.gangtise.cloud.common.entity.CloudUser alibaba = new CloudUser("cn-hangzhou", "LTAI4GKyF9bKSG75ZVkRKF19", "TciNHshPDtRi8jclhjCzK7mwThfZ04");
-        BusinessConstant.cloudUserMap.put(CloudName.HUAWEI, huawei);
-        BusinessConstant.cloudUserMap.put(CloudName.ALIBABA, alibaba);*/
+    private void initCaseCode() {
+        BusinessConstant.huaweiCaseCode.put("0", "待受理");
+        BusinessConstant.huaweiCaseCode.put("1", "处理中");
+        BusinessConstant.huaweiCaseCode.put("2", "待确认结果");
+        BusinessConstant.huaweiCaseCode.put("3", "已完成");
+        BusinessConstant.huaweiCaseCode.put("4", "已撤销");
+        BusinessConstant.huaweiCaseCode.put("12", "无效");
+        BusinessConstant.huaweiCaseCode.put("17", "待反馈");
+        //ali
+        BusinessConstant.alibabaCaseCode.put("in_progress", "处理中");
+        BusinessConstant.alibabaCaseCode.put("wait_feedback", "待您反馈");
+        BusinessConstant.alibabaCaseCode.put("wait_confirm", "待您确认");
+        BusinessConstant.alibabaCaseCode.put("completed", "已关闭");
     }
 }

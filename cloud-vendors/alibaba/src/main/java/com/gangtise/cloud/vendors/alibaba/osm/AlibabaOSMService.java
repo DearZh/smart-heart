@@ -3,9 +3,14 @@ package com.gangtise.cloud.vendors.alibaba.osm;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.workorder.model.v20200326.*;
+import com.gangtise.cloud.common.constant.SystemConstant;
 import com.gangtise.cloud.common.osm.service.OSMService;
 import com.gangtise.cloud.vendors.alibaba.utils.Client;
 import lombok.extern.slf4j.Slf4j;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @Description:
@@ -75,6 +80,58 @@ public class AlibabaOSMService implements OSMService {
             if (response.getSuccess()) {
                 return response;
             }
+        } catch (ServerException e) {
+            error(e);
+        } catch (ClientException e) {
+            error(e.getErrCode(), e.getRequestId(), e.getErrMsg(), e);
+        }
+        return null;
+    }
+
+    @Override
+    public Object listCase(String status, Integer page, String startTime, String endTime) throws Exception {
+        ListTicketsRequest request = new ListTicketsRequest();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            if (startTime != null) {
+                request.setCreatedAfterTime(simpleDateFormat.parse(startTime).getTime());
+            }
+            if (endTime != null) {
+                request.setCreatedBeforeTime(simpleDateFormat.parse(endTime).getTime());
+            }
+        } catch (ParseException e) {
+            throw e;
+        }
+        if (status != null) {
+            request.setTicketStatus(status);
+        }
+        request.setPageSize(SystemConstant.size.intValue());
+        if (page == null)
+            page = 0;
+        request.setPageStart(page);
+
+        try {
+            ListTicketsResponse response = Client.client().getAcsResponse(request);
+            return response;
+        } catch (ServerException e) {
+            error(e);
+        } catch (ClientException e) {
+            error(e.getErrCode(), e.getRequestId(), e.getErrMsg(), e);
+        }
+        return null;
+    }
+
+    @Override
+    public Object insertCaseMessage(String caseId, String message, Integer type) throws Exception {
+        ReplyTicketRequest request = new ReplyTicketRequest();
+        request.setTicketId(caseId);
+        request.setContent(message);
+
+        try {
+            ReplyTicketResponse response = Client.client().getAcsResponse(request);
+            if (response.getSuccess())
+                return response;
+            return null;
         } catch (ServerException e) {
             error(e);
         } catch (ClientException e) {

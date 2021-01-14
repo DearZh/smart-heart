@@ -17,6 +17,10 @@ public class SystemConstant {
      */
     public static final String CODE_999999 = "999999";
 
+    /**
+     * 分页查询时默认查询的数据条数
+     */
+    public static final Long size = 20L;
 
     public class HuaWei {
         public static final String HUAWEI_REQUEST_TOKEN = "X-Auth-Token";

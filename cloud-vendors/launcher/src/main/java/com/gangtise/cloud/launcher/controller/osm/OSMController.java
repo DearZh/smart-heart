@@ -1,6 +1,7 @@
 package com.gangtise.cloud.launcher.controller.osm;
 
 
+import com.gangtise.cloud.common.constant.BusinessConstant;
 import com.gangtise.cloud.common.constant.CloudName;
 import com.gangtise.cloud.common.osm.service.OSMService;
 import com.gangtise.cloud.launcher.controller.osm.api.OSMSwaggerService;
@@ -64,6 +65,37 @@ public class OSMController implements OSMSwaggerService {
         }
         OSMService osmService = CloudBuild.OSM().create(type);
         Object content = osmService.insertOsm(email, productCategoryId, withSourceId, withSimpleDescription, withBusinessTypeId);
+        if (content != null) {
+            return R.ok(content);
+        }
+        return R.failed();
+    }
+
+    @Override
+    public R listCaseStatus(CloudName type) throws Exception {
+        if (CloudName.ALIBABA.equals(type)) {
+            return R.ok(BusinessConstant.alibabaCaseCode);
+        } else if (CloudName.HUAWEI.equals(type)) {
+            return R.ok(BusinessConstant.huaweiCaseCode);
+        }
+        return R.failed();
+    }
+
+    @Override
+    public R listCase(CloudName type, String status, Integer page, String startTime, String endTime) throws Exception {
+        OSMService osmService = CloudBuild.OSM().create(type);
+        Object content = osmService.listCase(status, page, startTime, endTime);
+        if (content != null) {
+            return R.ok(content);
+        }
+        return R.failed();
+    }
+
+    @Override
+    public R insertCaseMessage(CloudName type, String caseId, String message, Integer messageType) throws Exception {
+        ParameterCheck.isNull(String.class, caseId, message);
+        OSMService osmService = CloudBuild.OSM().create(type);
+        Object content = osmService.insertCaseMessage(caseId, message, messageType);
         if (content != null) {
             return R.ok(content);
         }

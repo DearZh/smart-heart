@@ -23,13 +23,13 @@ public interface OSMSwaggerService {
     @ApiImplicitParams({@ApiImplicitParam(name = "type", value = "", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "productCategoryName", value = "产品类型名称", required = false, dataType = "String", paramType = "path")})
     @GetMapping(value = {"/listProductCatgories/{productCategoryName}", "/listProductCatgories"})
-    R<String> listProductCatgories(@PathVariable CloudName type, @PathVariable(required = false) String productCategoryName) throws Exception;
+    R listProductCatgories(@PathVariable CloudName type, @PathVariable(required = false) String productCategoryName) throws Exception;
 
     @ApiOperation(value = "获取问题类别", notes = "")
     @ApiImplicitParams({@ApiImplicitParam(name = "type", value = "", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "productCategoryId", value = "产品类型ID", required = false, dataType = "String", paramType = "path")})
     @GetMapping(value = {"/listProducts/{productCategoryId}", "/listProducts"})
-    R<String> listProducts(@PathVariable CloudName type, @PathVariable(required = false) String productCategoryId) throws Exception;
+    R listProducts(@PathVariable CloudName type, @PathVariable(required = false) String productCategoryId) throws Exception;
 
 
     @ApiOperation(value = "新建工单", notes = "")
@@ -42,4 +42,34 @@ public interface OSMSwaggerService {
             @ApiImplicitParam(name = "withSimpleDescription", value = "工单问题", required = true, dataType = "String", paramType = "")})
     @PostMapping(value = "insertOsm")
     R insertOsm(@PathVariable CloudName type, String email, String productCategoryId, String withSourceId, String withSimpleDescription, String withBusinessTypeId) throws Exception;
+
+    //************************************************
+
+    @ApiOperation(value = "获取工单状态", notes = "")
+    @ApiImplicitParams({@ApiImplicitParam(name = "type", value = "", required = true, dataType = "String", paramType = "path")})
+    @GetMapping(value = {"/listCaseStatus"})
+    R listCaseStatus(@PathVariable CloudName type) throws Exception;
+
+    @ApiOperation(value = "查询工单列表", notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type", value = "", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "status", value = "", required = false, dataType = "String", paramType = ""),
+            @ApiImplicitParam(name = "page", value = "", required = true, dataType = "Long", paramType = "path"),
+            @ApiImplicitParam(name = "startTime", value = "", required = false, dataType = "String", paramType = ""),
+            @ApiImplicitParam(name = "endTime", value = "", required = false, dataType = "String", paramType = "")
+    })
+    @GetMapping(value = {"/listCase/{page}"})
+    R listCase(@PathVariable CloudName type, String status, @PathVariable Integer page, String startTime, String endTime) throws Exception;
+
+
+    @ApiOperation(value = "新建工单回复", notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type", value = "", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "caseId", value = "", required = true, dataType = "String", paramType = ""),
+            @ApiImplicitParam(name = "message", value = "", required = true, dataType = "String", paramType = ""),
+            @ApiImplicitParam(name = "messageType", value = "", required = true, dataType = "Long", paramType = ""),
+    })
+    @PostMapping(value = {"/listCaseStatus"})
+    R insertCaseMessage(@PathVariable CloudName type, String caseId, String message, Integer messageType) throws Exception;
+
 }

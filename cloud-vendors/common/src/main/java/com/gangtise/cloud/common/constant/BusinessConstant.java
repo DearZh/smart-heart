@@ -10,7 +10,18 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Date: 2021/1/11
  */
 public class BusinessConstant {
+    /**
+     * 云厂商账号信息
+     */
     public static ConcurrentHashMap<CloudName, CloudUser> cloudUserMap = new ConcurrentHashMap<CloudName, CloudUser>();
+    /**
+     * 华为工单状态
+     */
+    public static ConcurrentHashMap<String, String> huaweiCaseCode = new ConcurrentHashMap<String, String>();
+    /**
+     * 阿里工单状态
+     */
+    public static ConcurrentHashMap<String, String> alibabaCaseCode = new ConcurrentHashMap<String, String>();
 
 
 }
