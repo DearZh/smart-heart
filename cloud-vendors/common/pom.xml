@@ -11,7 +11,7 @@
     <groupId>com.gangtise.cloud</groupId>
     <artifactId>common</artifactId>
     <version>${cloud.version}</version>
-    <name>common</name>
+    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
     <properties>

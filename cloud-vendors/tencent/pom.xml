@@ -10,6 +10,7 @@
     <groupId>com.gangtise.cloud.vendors</groupId>
     <artifactId>tencent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>tencent</name>
     <description>Tencent 接口对接服务</description>
 
@@ -18,6 +19,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.gangtise.cloud</groupId>
+            <artifactId>common</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
         <!--腾讯-->
         <dependency>
             <groupId>com.tencentcloudapi</groupId>

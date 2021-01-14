@@ -11,7 +11,6 @@
     <groupId>com.gangtise</groupId>
     <artifactId>cloud-vendors</artifactId>
     <version>${cloud.version}</version>
-    <name>cloud-vendors</name>
     <packaging>pom</packaging>
     <description>Demo project for Spring Boot</description>
 
@@ -39,16 +38,10 @@
             <version>1.2.58.sec06</version>
         </dependency>
         <dependency>
-            <groupId>com.gangtise.cloud</groupId>
-            <artifactId>common</artifactId>
-            <version>${cloud.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.12</version>
         </dependency>
-
     </dependencies>
 
     <dependencyManagement>
@@ -180,22 +173,7 @@
         </dependencies>
 
     </dependencyManagement>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+
     <repositories>
         <repository>
             <id>nexus-tencentyun</id>

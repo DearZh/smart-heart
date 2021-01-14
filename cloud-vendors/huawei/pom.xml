@@ -11,6 +11,7 @@
     <groupId>com.gangtise.cloud.vendors</groupId>
     <artifactId>huawei</artifactId>
     <version>${cloud.version}</version>
+    <packaging>jar</packaging>
     <name>huawei</name>
     <description>HUAWEI 接口对接服务</description>
 
@@ -19,6 +20,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.gangtise.cloud</groupId>
+            <artifactId>common</artifactId>
+            <version>${cloud.version}</version>
+        </dependency>
        <!-- <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
