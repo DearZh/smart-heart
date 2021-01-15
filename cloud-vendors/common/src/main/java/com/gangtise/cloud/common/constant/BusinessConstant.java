@@ -23,5 +23,8 @@ public class BusinessConstant {
      */
     public static ConcurrentHashMap<String, String> alibabaCaseCode = new ConcurrentHashMap<String, String>();
 
-
+    /**
+     * 华为工单操作的几种类型
+     */
+    public static ConcurrentHashMap<String, String> huaweiCaseActionType = new ConcurrentHashMap<String, String>();
 }

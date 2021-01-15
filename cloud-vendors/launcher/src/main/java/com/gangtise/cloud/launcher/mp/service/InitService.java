@@ -25,6 +25,7 @@ public class InitService {
     public void init() {
         initCaseCode();
         initCloudUser();
+        initHuaWeiCaseActionType();
     }
 
     private void initCloudUser() {
@@ -51,5 +52,12 @@ public class InitService {
         BusinessConstant.alibabaCaseCode.put("wait_feedback", "待您反馈");
         BusinessConstant.alibabaCaseCode.put("wait_confirm", "待您确认");
         BusinessConstant.alibabaCaseCode.put("completed", "已关闭");
+    }
+
+    private void initHuaWeiCaseActionType() {
+        BusinessConstant.huaweiCaseActionType.put("cancel", "撤销工单");
+        BusinessConstant.huaweiCaseActionType.put("close", "关闭工单");
+        BusinessConstant.huaweiCaseActionType.put("press", "催单");
+//        BusinessConstant.huaweiCaseActionType.put("delete", "删除工单");
     }
 }

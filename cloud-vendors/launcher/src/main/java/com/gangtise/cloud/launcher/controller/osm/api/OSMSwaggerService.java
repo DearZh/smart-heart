@@ -72,4 +72,54 @@ public interface OSMSwaggerService {
     @PostMapping(value = {"/listCaseStatus"})
     R insertCaseMessage(@PathVariable CloudName type, String caseId, String message, Integer messageType) throws Exception;
 
+    @ApiOperation(value = "获取工单操作类型|华为", notes = "")
+    @ApiImplicitParams({@ApiImplicitParam(name = "type", value = "", required = true, dataType = "String", paramType = "path")})
+    @GetMapping(value = {"/huaweiCaseActionType"})
+    R huaweiCaseActionType(@PathVariable CloudName type) throws Exception;
+
+    @ApiOperation(value = "查询工单未读消息的数量|华为", notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type", value = "", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "caseId", value = "", required = true, dataType = "String", paramType = "path")
+    })
+    @GetMapping(value = {"/listUnread/{caseId}"})
+    R listUnread(@PathVariable CloudName type, @PathVariable String caseId) throws Exception;
+
+    @ApiOperation(value = "设置工单消息为已读 | 华为", notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type", value = "", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "caseId", value = "", required = true, dataType = "String", paramType = "path")
+    })
+    @GetMapping(value = {"/caseUnread/{caseId}"})
+    R caseUnread(@PathVariable CloudName type, @PathVariable String caseId) throws Exception;
+
+
+    @ApiOperation(value = "工单操作 | 关闭工单", notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type", value = "", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "caseId", value = "", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "caseActionType", value = "华为工单操作类型", required = false, dataType = "String", paramType = "path")
+    })
+    @GetMapping(value = {"/caseAction/{caseId}/{caseActionType}"})
+    R caseAction(@PathVariable CloudName type, @PathVariable String caseId, @PathVariable String caseActionType) throws Exception;
+
+    @ApiOperation(value = "查询工单详情|华为", notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type", value = "", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "caseId", value = "", required = true, dataType = "String", paramType = "path")
+    })
+    @GetMapping(value = {"/showCaseDetail/{caseId}"})
+    R showCaseDetail(@PathVariable CloudName type, @PathVariable String caseId) throws Exception;
+
+
+    @ApiOperation(value = "查询工单留言", notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type", value = "", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "caseId", value = "", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "page", value = "页数", required = true, dataType = "Long", paramType = "path")
+    })
+    @GetMapping(value = {"/listMessages/{caseId}/{page}"})
+    R listMessages(@PathVariable CloudName type, @PathVariable String caseId, @PathVariable Integer page) throws Exception;
+
+
 }

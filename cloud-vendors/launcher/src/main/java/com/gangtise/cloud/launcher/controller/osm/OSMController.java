@@ -102,5 +102,65 @@ public class OSMController implements OSMSwaggerService {
         return R.failed();
     }
 
+    @Override
+    public R huaweiCaseActionType(CloudName type) throws Exception {
+        return R.ok(BusinessConstant.huaweiCaseActionType);
+    }
+
+    @Override
+    public R listUnread(CloudName type, String caseId) throws Exception {
+        OSMService osmService = CloudBuild.OSM().create(type);
+        Object content = osmService.listUnread(caseId);
+        if (content != null) {
+            return R.ok(content);
+        }
+        return R.failed();
+    }
+
+    @Override
+    public R caseUnread(CloudName type, String caseId) throws Exception {
+        OSMService osmService = CloudBuild.OSM().create(type);
+        Object content = osmService.caseUnread(caseId);
+        if (content != null) {
+            return R.ok(content);
+        }
+        return R.failed();
+    }
+
+    @Override
+    public R caseAction(CloudName type, String caseId, String caseActionType) throws Exception {
+        if (type.equals(CloudName.HUAWEI)) {
+            ParameterCheck.isNull(String.class, caseId);
+        }
+        OSMService osmService = CloudBuild.OSM().create(type);
+        Object content = osmService.caseAction(caseId, caseActionType);
+        if (content != null) {
+            return R.ok(content);
+        }
+        return R.failed();
+    }
+
+    @Override
+    public R showCaseDetail(CloudName type, String caseId) throws Exception {
+        OSMService osmService = CloudBuild.OSM().create(type);
+        Object content = osmService.showCaseDetail(caseId);
+        if (content != null) {
+            return R.ok(content);
+        }
+        return R.failed();
+
+    }
+
+    @Override
+    public R listMessages(CloudName type, String caseId, Integer page) throws Exception {
+        OSMService osmService = CloudBuild.OSM().create(type);
+        Object content = osmService.listMessages(caseId, page);
+        if (content != null) {
+            return R.ok(content);
+        }
+        return R.failed();
+
+    }
+
 
 }

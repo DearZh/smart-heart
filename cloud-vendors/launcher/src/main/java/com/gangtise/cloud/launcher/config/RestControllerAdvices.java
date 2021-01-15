@@ -26,6 +26,6 @@ public class RestControllerAdvices {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public R handleGlobalException(Exception e) {
         log.error("全局异常信息 ex={}", e.getMessage(), e);
-        return R.failed(e.getLocalizedMessage());
+        return R.failed(e.getLocalizedMessage(), "服务异常");
     }
 }

@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * @Description:
@@ -27,7 +26,7 @@ public class AlibabaOSMService implements OSMService {
      * @return
      */
     @Override
-    public Object listBusinessProducts(String productCategoryId) {
+    public Object listBusinessProducts(String productCategoryId) throws Exception {
         ListCategoriesRequest request = new ListCategoriesRequest();
         request.setProductCode(productCategoryId);
         try {
@@ -49,7 +48,7 @@ public class AlibabaOSMService implements OSMService {
      * @return
      */
     @Override
-    public Object listProductCatgories(String productCategoryName) {
+    public Object listProductCatgories(String productCategoryName) throws Exception {
 
         ListProductsRequest request = new ListProductsRequest();
         try {
@@ -140,13 +139,67 @@ public class AlibabaOSMService implements OSMService {
         return null;
     }
 
-
-    private void error(Exception e) {
-        log.error("", e);
+    @Override
+    public Object caseUnread(String caseId) throws Exception {
+        throw new NoSuchMethodException();
     }
 
-    private void error(String errCode, String requestId, String errMsg, Exception e) {
+    @Override
+    public Object listUnread(String caseId) throws Exception {
+        throw new NoSuchMethodException();
+    }
+
+    /**
+     * 工单关闭
+     *
+     * @param caseId 工单ID
+     * @param action BusinessConstant.huaweiCaseActionType
+     * @return
+     */
+    @Override
+    public Object caseAction(String caseId, String action) throws Exception {
+        CloseTicketRequest request = new CloseTicketRequest();
+        request.setTicketId(caseId);
+        try {
+            CloseTicketResponse response = Client.client().getAcsResponse(request);
+            return response;
+        } catch (ServerException e) {
+            error(e);
+        } catch (ClientException e) {
+            error(e.getErrCode(), e.getRequestId(), e.getErrMsg(), e);
+        }
+        return null;
+    }
+
+    @Override
+    public Object showCaseDetail(String caseId) throws Exception {
+        throw new NoSuchMethodException();
+    }
+
+    @Override
+    public Object listMessages(String caseId, Integer page) throws Exception {
+        ListTicketNotesRequest request = new ListTicketNotesRequest();
+        request.setTicketId(caseId);
+        try {
+            ListTicketNotesResponse response = Client.client().getAcsResponse(request);
+            return response;
+        } catch (ServerException e) {
+            error(e);
+        } catch (ClientException e) {
+            error(e.getErrCode(), e.getRequestId(), e.getErrMsg(), e);
+        }
+        return null;
+    }
+
+
+    private void error(Exception e) throws Exception {
+        log.error("", e);
+        throw e;
+    }
+
+    private void error(String errCode, String requestId, String errMsg, Exception e) throws Exception {
         log.error("ErrCode:" + errCode + "ErrMsg:" + errMsg + "RequestId:" + requestId, e);
+        throw e;
     }
 
 }

@@ -10,6 +10,9 @@ import com.huaweicloud.sdk.osm.v2.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Description:
  * @Author: Arnold.zhao
@@ -23,7 +26,7 @@ public class HuaWeiOSMService implements OSMService {
      * @return
      */
     @Override
-    public Object listBusinessProducts(String productCategoryId) {
+    public Object listBusinessProducts(String productCategoryId) throws Exception {
 
         ListProblemTypesRequest request = new ListProblemTypesRequest();
         if (StringUtils.isNotBlank(productCategoryId)) {
@@ -50,7 +53,7 @@ public class HuaWeiOSMService implements OSMService {
      * @return
      */
     @Override
-    public Object listProductCatgories(String productCategoryName) {
+    public Object listProductCatgories(String productCategoryName) throws Exception {
         ListProductCategoriesRequest request = new ListProductCategoriesRequest();
         if (StringUtils.isNotBlank(productCategoryName)) {
             request.withProductCategoryName(productCategoryName);
@@ -100,7 +103,7 @@ public class HuaWeiOSMService implements OSMService {
     }
 
     @Override
-    public Object listCase(String status, Integer page, String startTime, String endTime) {
+    public Object listCase(String status, Integer page, String startTime, String endTime) throws Exception {
         ListCasesRequest request = new ListCasesRequest();
         if (StringUtils.isNotBlank(startTime)) {
             request.withQueryStartTime(startTime);
@@ -155,11 +158,128 @@ public class HuaWeiOSMService implements OSMService {
     }
 
 
-    private void error(Exception e) {
-        log.error("", e);
+    /**
+     * 查询未读消息
+     *
+     * @param caseId 工单ID
+     * @return
+     */
+    @Override
+    public Object listUnread(String caseId) throws Exception {
+        ListUnreadNewInstantMessagesRequest request = new ListUnreadNewInstantMessagesRequest();
+        List<String> listRequestCaseIds = new ArrayList<>();
+        listRequestCaseIds.add(caseId);
+        request.withCaseIds(listRequestCaseIds);
+        try {
+            ListUnreadNewInstantMessagesResponse response = Client.create().listUnreadNewInstantMessages(request);
+            return response;
+        } catch (ConnectionException e) {
+            error(e);
+        } catch (RequestTimeoutException e) {
+            error(e);
+        } catch (ServiceResponseException e) {
+            error(e.getErrorCode(), e.getHttpStatusCode(), e.getErrorMsg(), e);
+        }
+        return null;
     }
 
-    private void error(String errorCode, int httpStatusCode, String errorMsg, Exception e) {
+    /**
+     * 设置消息为已读
+     *
+     * @param caseId 工单ID
+     * @return
+     */
+    @Override
+    public Object caseUnread(String caseId) throws Exception {
+        UpdateNewInstantMessagesReadRequest request = new UpdateNewInstantMessagesReadRequest();
+        request.withCaseId(caseId);
+        try {
+            UpdateNewInstantMessagesReadResponse response = Client.create().updateNewInstantMessagesRead(request);
+            return response;
+        } catch (ConnectionException e) {
+            error(e);
+        } catch (RequestTimeoutException e) {
+            error(e);
+        } catch (ServiceResponseException e) {
+            error(e.getErrorCode(), e.getHttpStatusCode(), e.getErrorMsg(), e);
+        }
+        return null;
+    }
+
+    /**
+     * 工单操作
+     *
+     * @param caseId 工单ID
+     * @param action BusinessConstant.huaweiCaseActionType
+     * @return
+     */
+    @Override
+    public Object caseAction(String caseId, String action) throws Exception {
+        UpdateCasesRequest request = new UpdateCasesRequest();
+        request.withCaseId(caseId);
+        request.withActionId(action);
+        try {
+            UpdateCasesResponse response = Client.create().updateCases(request);
+            return response;
+        } catch (ConnectionException e) {
+            error(e);
+        } catch (RequestTimeoutException e) {
+            error(e);
+        } catch (ServiceResponseException e) {
+            error(e.getErrorCode(), e.getHttpStatusCode(), e.getErrorMsg(), e);
+        }
+        return null;
+    }
+
+    @Override
+    public Object showCaseDetail(String caseId) throws Exception {
+        ShowCaseDetailRequest request = new ShowCaseDetailRequest();
+        request.withCaseId(caseId);
+        try {
+            ShowCaseDetailResponse response = Client.create().showCaseDetail(request);
+            return response;
+        } catch (ConnectionException e) {
+            error(e);
+        } catch (RequestTimeoutException e) {
+            error(e);
+        } catch (ServiceResponseException e) {
+            error(e.getErrorCode(), e.getHttpStatusCode(), e.getErrorMsg(), e);
+        }
+        return null;
+    }
+
+    @Override
+    public Object listMessages(String caseId, Integer page) throws Exception {
+        ListMessagesRequest request = new ListMessagesRequest();
+        request.withCaseId(caseId);
+        //page 转换为对应的偏移量进行查询
+        Long offset = 0L;
+        if (page != null && page != 0 && page != 1) {
+            offset = SystemConstant.size * page;
+        }
+        request.withOffset(offset.intValue());
+        request.withLimit(SystemConstant.size.intValue());
+        try {
+            ListMessagesResponse response = Client.create().listMessages(request);
+            return response;
+        } catch (ConnectionException e) {
+            error(e);
+        } catch (RequestTimeoutException e) {
+            error(e);
+        } catch (ServiceResponseException e) {
+            error(e.getErrorCode(), e.getHttpStatusCode(), e.getErrorMsg(), e);
+        }
+        return null;
+    }
+
+
+    private void error(Exception e) throws Exception {
+        log.error("", e);
+        throw e;
+    }
+
+    private void error(String errorCode, int httpStatusCode, String errorMsg, Exception e) throws Exception {
         log.error("errorCode" + errorCode + "httpStatusCode" + httpStatusCode + "errorMsg" + errorMsg, e);
+        throw e;
     }
 }

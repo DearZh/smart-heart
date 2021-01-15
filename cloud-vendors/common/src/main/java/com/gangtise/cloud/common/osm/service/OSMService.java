@@ -14,7 +14,7 @@ public interface OSMService {
      * @param productCategoryId 根据产品类别ID，获取对应的问题类别；（阿里无需传送该参数，直接获取所有问题类别）
      * @return
      */
-    Object listBusinessProducts(String productCategoryId);
+    Object listBusinessProducts(String productCategoryId) throws Exception;
 
 
     /**
@@ -68,4 +68,50 @@ public interface OSMService {
      * @throws Exception
      */
     Object insertCaseMessage(String caseId, String message, Integer type) throws Exception;
+
+
+    /**
+     * 查询工单未读消息的数量|华为
+     *
+     * @param caseId 工单ID
+     * @return
+     */
+    Object listUnread(String caseId) throws Exception;
+
+    /**
+     * 设置工单消息为已读 | 华为
+     *
+     * @param caseId 工单ID
+     * @return
+     */
+    Object caseUnread(String caseId) throws Exception;
+
+    /**
+     * 工单操作
+     *
+     * @param caseId 工单ID
+     * @param action BusinessConstant.huaweiCaseActionType
+     * @return
+     */
+    Object caseAction(String caseId, String action) throws Exception;
+
+    /**
+     * 返回工单详情
+     *
+     * @param caseId
+     * @return
+     * @throws Exception
+     */
+    Object showCaseDetail(String caseId) throws Exception;
+
+
+    /**
+     * 查询留言
+     *
+     * @param caseId 工单ID
+     * @param page   当前页
+     * @return
+     * @throws Exception
+     */
+    Object listMessages(String caseId, Integer page) throws Exception;
 }
