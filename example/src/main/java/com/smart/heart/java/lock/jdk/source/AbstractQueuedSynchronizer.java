@@ -35,12 +35,12 @@
 
 package java.util.concurrent.locks;
 
-import java.util.concurrent.TimeUnit;
+import sun.misc.Unsafe;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-
-import sun.misc.Unsafe;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Provides a framework for implementing blocking locks and related
@@ -698,12 +698,17 @@ public abstract class AbstractQueuedSynchronizer
          * non-cancelled successor.
          */
         Node s = node.next;
+        //待唤醒节点为null，或 waitStatus > 0 即当前节点状态是 cancel，则执行if代码块
         if (s == null || s.waitStatus > 0) {
             s = null;
+            //for循环从后向前循环，以tail开始向前循环，
             for (Node t = tail; t != null && t != node; t = t.prev)
+                //注意：此处是 <= 0 （waitStatus = SIGNL (-1) 的时候记录的是后续节点是待唤醒节点状态，此处是小于等于0，默认情况下新建节点的waitStatus状态即为0，所以此处 <= 0的时候都可以进入该代码块）
                 if (t.waitStatus <= 0)
+                    //将当前符合条件的节点赋值给 s ，此处并没有return，说明 for循环还会继续循环，从后向前循环，直到找到链条最靠前的符合条件的节点即可；然后 LockSupport.unpark(s.thread); 解锁当前线程；
                     s = t;
         }
+        //如上，此处有点奇怪的是，既然是想找到最先加入链条的节点进行唤醒，为何不 for (Node t = head; t != null && t != node; t = t.next) 直接以 head节点为头结点，向后next循环，效率不是更高吗？ Arnold.zhao 2021/1/18
         if (s != null)
             LockSupport.unpark(s.thread);
     }
@@ -833,8 +838,6 @@ public abstract class AbstractQueuedSynchronizer
      * Returns true if thread should block. This is the main signal
      * control in all acquire loops.  Requires that pred == node.prev.
      *
-     *
-     *
      * @param pred node's predecessor holding status
      * @param node the node
      * @return {@code true} if thread should block
@@ -872,7 +875,6 @@ public abstract class AbstractQueuedSynchronizer
 
     /**
      * Convenience method to interrupt current thread.
-     *
      */
     //线程中断使用：https://www.cnblogs.com/zh94/p/14097922.html
     static void selfInterrupt() {
@@ -941,6 +943,9 @@ public abstract class AbstractQueuedSynchronizer
                     interrupted = true;
             }
         } finally {
+            //横竖看了看，感觉 按照正常的代码执行，执行到该finally 的时候 failed永远不会为true；因为上面的for(;;)自循环，只要执行，到最后返回 failed 就肯定为false了，所以此处cancelAcquire(node); 就永远不会执行到了
+            //其实是错的：因为，该finally代码块再另外一种情况下是可以执行到的，就是！try {} 代码块对外抛出异常的时候！ 机智！当线程执行 parkAndCheckInterrupt() 方法被挂起后，此时外界对该线程的进行中断等操作，Thread.interrupted()
+            //此时该阻塞线程则会抛出InterruptedException异常，由此 failed此时为true，则开始执行代码块 cancelAcquire(node);
             if (failed)
                 cancelAcquire(node);
         }
@@ -1080,6 +1085,7 @@ public abstract class AbstractQueuedSynchronizer
     /**
      * Acquires in shared timed mode.
      * 在共享定时模式下获取。
+     *
      * @param arg          the acquire argument
      * @param nanosTimeout max wait time
      * @return {@code true} if acquired
