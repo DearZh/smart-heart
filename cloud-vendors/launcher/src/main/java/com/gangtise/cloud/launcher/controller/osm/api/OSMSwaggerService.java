@@ -35,9 +35,9 @@ public interface OSMSwaggerService {
     @ApiOperation(value = "新建工单", notes = "")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "", required = true, dataType = "String", paramType = "path"),
-            @ApiImplicitParam(name = "email", value = "接受消息邮箱（阿里必填)", required = false, dataType = "String", paramType = ""),
+            @ApiImplicitParam(name = "email", defaultValue = "zhaozhihao@gangtise.com.cn", value = "接受消息邮箱（阿里必填)", required = false, dataType = "String", paramType = ""),
             @ApiImplicitParam(name = "productCategoryId", value = "工单产品类型", required = true, dataType = "String", paramType = ""),
-            @ApiImplicitParam(name = "withSourceId", value = "工单来源ID（华为必填）", required = false, dataType = "String", paramType = ""),
+            @ApiImplicitParam(name = "withSourceId", defaultValue = "83aeb0f2834c4df49826c781d32a963e", value = "工单来源ID（华为必填）", required = false, dataType = "String", paramType = ""),
             @ApiImplicitParam(name = "withBusinessTypeId", value = "工单产品问题类型ID", required = true, dataType = "String", paramType = ""),
             @ApiImplicitParam(name = "withSimpleDescription", value = "工单问题", required = true, dataType = "String", paramType = "")})
     @PostMapping(value = "insertOsm")

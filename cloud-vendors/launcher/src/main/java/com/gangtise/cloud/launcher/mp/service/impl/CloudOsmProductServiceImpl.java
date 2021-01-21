@@ -12,6 +12,6 @@ import org.springframework.stereotype.Service;
  * @Date: 2021/1/12
  */
 @Service
-public class ClouOsmProductServiceImpl extends ServiceImpl<CloudOsmProductMapper, CloudOsmProduct> implements CloudOsmProductService {
+public class CloudOsmProductServiceImpl extends ServiceImpl<CloudOsmProductMapper, CloudOsmProduct> implements CloudOsmProductService {
 
 }

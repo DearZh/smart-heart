@@ -138,7 +138,7 @@ public class InitService {
     }
 
     /**
-     * 工单产品所涉及的问题类型初始化
+     * 工单产品问题类型初始化
      */
     private void initOsmProductType() {
         int count = cloudOsmProductTypeService.count();

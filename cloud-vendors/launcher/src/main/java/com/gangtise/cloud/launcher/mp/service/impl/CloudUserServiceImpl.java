@@ -12,6 +12,6 @@ import org.springframework.stereotype.Service;
  * @Date: 2021/1/12
  */
 @Service
-public class ClouUserServiceImpl extends ServiceImpl<CloudUserMapper, CloudUser> implements CloudUserService {
+public class CloudUserServiceImpl extends ServiceImpl<CloudUserMapper, CloudUser> implements CloudUserService {
 
 }

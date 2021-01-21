@@ -21,6 +21,7 @@ public class SystemConstant {
      * 分页查询时默认查询的数据条数
      */
     public static final Long size = 20L;
+    public static final String HTTP_200 = "200";
 
     public class HuaWei {
         public static final String HUAWEI_REQUEST_TOKEN = "X-Auth-Token";
