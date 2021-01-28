@@ -1,6 +1,5 @@
 package com.gangtise.cloud.launcher;
 
-import com.gangtise.cloud.launcher.mp.entity.CloudOsmList;
 import com.gangtise.cloud.launcher.mp.service.CloudOsmDetailService;
 import com.gangtise.cloud.launcher.mp.service.CloudOsmListService;
 import org.junit.jupiter.api.Test;
@@ -19,10 +18,10 @@ class LauncherApplicationTests {
 
     @Test
     void contextLoads() {
-        CloudOsmList cloudOsmList = new CloudOsmList();
+        /*CloudOsmList cloudOsmList = new CloudOsmList();
         cloudOsmList.setCloudId("A");
         cloudOsmList.setCreateTime(System.currentTimeMillis());
-        cloudOsmListService.save(cloudOsmList);
+        cloudOsmListService.save(cloudOsmList);*/
     }
 
 }

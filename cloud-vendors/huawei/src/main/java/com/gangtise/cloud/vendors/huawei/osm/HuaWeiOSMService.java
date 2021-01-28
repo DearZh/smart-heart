@@ -219,8 +219,11 @@ public class HuaWeiOSMService implements OSMService {
         request.withCaseId(caseId);
         request.withActionId(action);
         try {
-            UpdateCasesResponse response = Client.create().updateCases(request);
-            return response;
+            UpdateCasesResponse response = Client.create().updateCases(request.withBody(new WorkOrderOperateV2Req()));
+            if (response.getErrorCode() == null) {
+                return response;
+            }
+            return null;
         } catch (ConnectionException e) {
             error(e);
         } catch (RequestTimeoutException e) {

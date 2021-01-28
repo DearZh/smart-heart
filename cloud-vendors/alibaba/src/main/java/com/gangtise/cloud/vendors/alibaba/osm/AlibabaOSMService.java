@@ -162,7 +162,9 @@ public class AlibabaOSMService implements OSMService {
         request.setTicketId(caseId);
         try {
             CloseTicketResponse response = Client.client().getAcsResponse(request);
-            return response;
+            if (response.getSuccess())
+                return response;
+            return null;
         } catch (ServerException e) {
             error(e);
         } catch (ClientException e) {

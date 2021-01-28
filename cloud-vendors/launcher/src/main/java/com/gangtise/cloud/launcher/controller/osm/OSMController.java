@@ -2,22 +2,28 @@ package com.gangtise.cloud.launcher.controller.osm;
 
 
 import com.aliyuncs.workorder.model.v20200326.CreateTicketResponse;
+import com.aliyuncs.workorder.model.v20200326.ListTicketNotesResponse;
 import com.gangtise.cloud.common.constant.BusinessConstant;
 import com.gangtise.cloud.common.constant.CloudName;
 import com.gangtise.cloud.common.constant.SystemConstant;
 import com.gangtise.cloud.common.osm.service.OSMService;
 import com.gangtise.cloud.launcher.controller.osm.api.OSMSwaggerService;
+import com.gangtise.cloud.launcher.mp.entity.CloudOsmDetail;
 import com.gangtise.cloud.launcher.mp.entity.CloudOsmList;
+import com.gangtise.cloud.launcher.mp.service.CloudOsmDetailService;
 import com.gangtise.cloud.launcher.mp.service.CloudOsmListService;
 import com.gangtise.cloud.launcher.util.CloudBuild;
 import com.gangtise.cloud.launcher.util.ParameterCheck;
 import com.gangtise.cloud.launcher.util.R;
 import com.huaweicloud.sdk.osm.v2.model.CreateCasesResponse;
+import com.huaweicloud.sdk.osm.v2.model.ListMessagesResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 /**
@@ -191,9 +197,74 @@ public class OSMController implements OSMSwaggerService {
         OSMService osmService = CloudBuild.OSM().create(type);
         Object content = osmService.caseAction(caseId, caseActionType);
         if (content != null) {
+            if (caseActionType.equals(SystemConstant.OSM_CLOSE)) {
+                saveOSMDetail(osmService, caseId, type);
+
+            }
             return R.ok(content);
         }
         return R.failed();
+    }
+
+    /**
+     * 工单留言明细存储
+     */
+    private void saveOSMDetail(OSMService osmService, String caseId, CloudName type) {
+        if (type.equals(CloudName.HUAWEI)) {
+            try {
+                ListMessagesResponse listMessagesResponse = (ListMessagesResponse) osmService.listMessages(caseId, 1);
+                saveOSMDetail(caseId, listMessagesResponse);
+                Integer totalCount = listMessagesResponse.getTotalCount();
+                if (totalCount == null)
+                    totalCount = 0;
+                Integer page = totalCount / SystemConstant.size.intValue();
+                for (int i = 0; i < (page + 1); i++) {
+                    listMessagesResponse = (ListMessagesResponse) osmService.listMessages(caseId, i);
+                    if (listMessagesResponse.getMessageList() == null) {
+                        break;
+                    }
+                    saveOSMDetail(caseId, listMessagesResponse);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (type.equals(CloudName.ALIBABA)) {
+            try {
+                List<CloudOsmDetail> listBatch = new ArrayList<>();
+                ListTicketNotesResponse listTicketNotesResponse = (ListTicketNotesResponse) osmService.listMessages(caseId, null);
+                listTicketNotesResponse.getData().getList().forEach(v -> {
+                    CloudOsmDetail cloudOsmDetail = new CloudOsmDetail();
+                    cloudOsmDetail.setContent(v.getContent());
+                    cloudOsmDetail.setType(v.getFromOfficial() ? "1" : "0");
+                    cloudOsmDetail.setCreateTime(v.getGmtCreated().longValue());
+                    cloudOsmDetail.setMessageId(v.getNoteId());
+                    listBatch.add(cloudOsmDetail);
+                });
+                cloudOsmDetailService.saveBatch(listBatch);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    @Autowired
+    private CloudOsmDetailService cloudOsmDetailService;
+
+    private void saveOSMDetail(String caseId, ListMessagesResponse listMessagesResponse) {
+        List<CloudOsmDetail> listBatch = new ArrayList<>();
+        listMessagesResponse.getMessageList().forEach(v -> {
+            CloudOsmDetail cloudOsmDetail = new CloudOsmDetail();
+            //1表示客服回复，0表示用户
+            cloudOsmDetail.setType(v.getType().toString());
+            cloudOsmDetail.setCaseId(caseId);
+            cloudOsmDetail.setReplier(v.getReplier());
+            cloudOsmDetail.setReplierName(v.getReplierName());
+            cloudOsmDetail.setContent(v.getContent());
+            cloudOsmDetail.setCreateTime(v.getCreateTime().toEpochSecond());
+            listBatch.add(cloudOsmDetail);
+        });
+        cloudOsmDetailService.saveBatch(listBatch);
     }
 
     @Override
@@ -206,6 +277,7 @@ public class OSMController implements OSMSwaggerService {
         return R.failed();
 
     }
+
 
     @Override
     public R listMessages(CloudName type, String caseId, Integer page) throws Exception {

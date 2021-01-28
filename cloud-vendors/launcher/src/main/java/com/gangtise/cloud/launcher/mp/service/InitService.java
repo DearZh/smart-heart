@@ -5,6 +5,7 @@ import com.aliyuncs.workorder.model.v20200326.ListProductsResponse;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.gangtise.cloud.common.constant.BusinessConstant;
 import com.gangtise.cloud.common.constant.CloudName;
+import com.gangtise.cloud.common.constant.SystemConstant;
 import com.gangtise.cloud.common.osm.service.OSMService;
 import com.gangtise.cloud.launcher.mp.entity.CloudOsmProduct;
 import com.gangtise.cloud.launcher.mp.entity.CloudOsmProductType;
@@ -76,7 +77,7 @@ public class InitService {
 
     private void initHuaWeiCaseActionType() {
         BusinessConstant.huaweiCaseActionType.put("cancel", "撤销工单");
-        BusinessConstant.huaweiCaseActionType.put("close", "关闭工单");
+        BusinessConstant.huaweiCaseActionType.put(SystemConstant.OSM_CLOSE, "关闭工单");
         BusinessConstant.huaweiCaseActionType.put("press", "催单");
 //        BusinessConstant.huaweiCaseActionType.put("delete", "删除工单");
     }

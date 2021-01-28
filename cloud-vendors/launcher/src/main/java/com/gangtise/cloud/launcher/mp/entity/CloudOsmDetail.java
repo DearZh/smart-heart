@@ -18,8 +18,10 @@ public class CloudOsmDetail {
     @TableId(type = IdType.ASSIGN_UUID)
     private String id;
     private String type;
-    private String name;
-    private String description;
-    private String acronym;
+    private String caseId;
+    private String messageId;
+    private String replier;
+    private String replierName;
+    private String content;
     private Long createTime;
 }

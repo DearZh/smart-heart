@@ -22,6 +22,7 @@ public class SystemConstant {
      */
     public static final Long size = 20L;
     public static final String HTTP_200 = "200";
+    public static final String OSM_CLOSE = "close";
 
     public class HuaWei {
         public static final String HUAWEI_REQUEST_TOKEN = "X-Auth-Token";
