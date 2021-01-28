@@ -1,16 +1,9 @@
 package com.smart.heart.java.lock;
 
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.LockSupport;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * @Description: ReentrantLock源码解析
@@ -41,7 +34,7 @@ public class ReentrantLockTest {
         /*List<String> list =  new ArrayList();
         list.add()
                 */
-        //AQS,ReenTranLock,CoundDownLatch,Condition,Synchronized,notify,notifyAll,wait,thread.sleep,thread.interrupt,interrupted,isInterrupted(),volatile 的线程可见性（只能保证原子操作的可见性）
+        //AQS,ReentrantLock,CountDownLatch,Condition,Synchronized,notify,notifyAll,wait,thread.sleep,thread.interrupt,interrupted,isInterrupted(),volatile 的线程可见性（只能保证原子操作的可见性）
         //jvm,ParNew,CMS,(参数调优，分代收集的机制，CMS回收的原理，跨代引用的处理方案，标记清除)G1(G1的特性，优势，相比于CMS的优化，回收的原理及实现方案，参数的调优，都涉及到哪些个jvm参数),ZGC(ZGC的优势特性，相比于CMS&G1的区别，回收的原理及实现方案，参数的调优都有哪些，有哪些JVM参数)
         //由JVM内存区域划分牵引出JVM 内存空间模型，线程空间和主内存空间同步问题，引起的线程变量数据不一致性问题，使用volatile来保证数据的可见性，但是由于少了线程的空间copy，类似于CPU的高速缓存而是直接从主内存中做变更，所以相对操作效率较低，但基本受影响较小
         //Perm > MetaSpace的调整，原有的类编译等元数据信息在MetaSpace中，常量池等&静态引用数据则直接放入heap堆中；MetaSpace的参数，配置超出具体参数值后开始进行GC,最大不能超过MaxMetaSpace
@@ -119,6 +112,8 @@ condition.signal();*/
          * https://blog.csdn.net/weixin_41590779/article/details/107821849
          */
 
+
+
         ReentrantLock reentrantLock = new ReentrantLock();
 //        reentrantLock.newCondition()
         Thread thread = new Thread(new Runnable() {
@@ -146,6 +141,7 @@ condition.signal();*/
     }
 
     public static void nodeTest() {
+
          /*Node node = new Node("node1");
         Node t = new Node("node2");
         node.prev = t;

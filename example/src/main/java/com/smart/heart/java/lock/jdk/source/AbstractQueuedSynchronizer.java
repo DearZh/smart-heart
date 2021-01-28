@@ -536,12 +536,14 @@ public abstract class AbstractQueuedSynchronizer
      * initialization, it is modified only via method setHead.  Note:
      * If head exists, its waitStatus is guaranteed not to be
      * CANCELLED.
+     * AQS中用于记录同步队列的首节点
      */
     private transient volatile Node head;
 
     /**
      * Tail of the wait queue, lazily initialized.  Modified only via
      * method enq to add new wait node.
+     * AQS中用于记录同步队列的尾节点
      */
     private transient volatile Node tail;
 
@@ -889,7 +891,9 @@ public abstract class AbstractQueuedSynchronizer
      */
     //线程阻塞挂起，Unsafe.park()
     private final boolean parkAndCheckInterrupt() {
-        //将当前已添加到队列中的线程进行挂起，使用LockSupport.park()挂起线程，实际最终使用的是Unsafe.park()方法进行线程的挂起；使用Unsafe.park()方法后，线程将一直阻塞直到超时或者中断等条件出现；
+        //将当前已添加到队列中的线程进行挂起，使用LockSupport.park()挂起线程，实际最终使用的是Unsafe.park()方法进行线程的挂起；
+        // 使用Unsafe.park()方法后，线程将一直阻塞直到超时或者中断等条件出现；
+        // 注意：此处LockSupport.park()将对应线程挂起后，如果外部有执行Thread.interrupt()中断线程，那么此时挂起的线程将会恢复代码执行；
         //采用LockSupport.unpark()用来恢复挂起的线程；Arnold.zhao 2020/10/21
         LockSupport.park(this);
         return Thread.interrupted();
@@ -1928,14 +1932,31 @@ public abstract class AbstractQueuedSynchronizer
      * <p>This class is Serializable, but all fields are transient,
      * so deserialized conditions have no waiters.
      */
+    /**
+     * ConditionObject 中的 await() 及 signal() 同等于，Synchronize的 wait() 和notify()
+     * ConditionObject 使用等待队列的方式，来实现线程之间的阻塞和唤醒操作；
+     * 注意：AQS中使用同步队列来实现线程的阻塞和排队拿锁的效果；（也就是上面我们源码中所分析的 lock() 及 unlock()的效果，均是在同步队列中进行）
+     * 而：await() 和 singal() 的效果则是等待队列；当前ConditionObject就是一个等待队列；每new ConditionObject() 一次则对应为一个新的等待队列，所以AQS中实际上是：只存在一个同步队列，但是可以存在多个等待队列；
+     * 同步队列中已经获取到锁的线程，在代码执行过程中，执行await()的方法后，则此时会直接 unlock()，解除锁的占用，
+     * 然后重新添加到等待队列中，并被重新LockSupport.lock()进行线程阻塞；await() 及 signal() 也只能作用于已经拿到锁的线程执行，如果没拿到锁执行 await()方法则直接抛异常处理；
+     * 很简单，因为await()方法执行的时候，会去执行release()方法释放锁，而此时线程根本没有对锁的占用何谈释放，所以源码中是直接抛异常处理了；
+     * 此处也是AQS想要模拟和 Synchronize的wait()方法一样的效果而刻意实现的；毕竟wait()和notify()方法也是只对已经拿到对象锁的线程执行有效，否则抛异常处理；
+     * Arnold.zhao 2021/1/28
+     * 所以实际上，AQS中所实现的阻塞和唤醒的机制，实际上就是同步队列和等待队列的节点切换的实现；
+     * 通过将同步队列中线程节点移动至等待队列ConditionObject中，以实现线程节点释放锁并不再进行锁的争抢的效果（因为已经不再同步队列中了）并LockSupport.lock()重新进行阻塞的效果；
+     * 而：signal()这个唤醒的操作，实际上就是将当前ConditionObject等待队列中的线程节点，重新移动至同步队列中，移动至同步队列后，后续的所有的下一节点的线程唤醒等操作，就又是重新和同步队列中的操作一致了；
+     * 具体看如下源码
+     */
     public class ConditionObject implements Condition, java.io.Serializable {
         private static final long serialVersionUID = 1173984872572414699L;
         /**
          * First node of condition queue.
+         * 用于记录等待队列中的首节点
          */
         private transient Node firstWaiter;
         /**
          * Last node of condition queue.
+         * 用于记录等待队列中的尾节点
          */
         private transient Node lastWaiter;
 

@@ -15,6 +15,7 @@ import java.util.concurrent.locks.Lock;
 public class Mutex implements Lock {
     // Our internal helper class
     // 继承AQS的静态内存类
+    //
     // 重写方法
     private static class Sync extends AbstractQueuedSynchronizer {
         // Reports whether in locked state

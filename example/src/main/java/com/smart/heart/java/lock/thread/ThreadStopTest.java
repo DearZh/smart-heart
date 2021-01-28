@@ -1,5 +1,7 @@
 package com.smart.heart.java.lock.thread;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * @Description: 关于 interrupt() 的线程中断
  * @Author: Arnold.zhao
@@ -203,5 +205,47 @@ public class ThreadStopTest {
         System.out.println(Thread.currentThread().isInterrupted());false
         System.out.println(Thread.interrupted());false
         */
+
+        //测试LockSupport.lock() 对线程中断的影响
+        //https://www.cnblogs.com/zh94/p/14097922.html
+        //https://blog.csdn.net/javazejian/article/details/75043422
+        ReentrantLock reentrantLock = new ReentrantLock();
+        Thread thread = new Thread(() -> {
+            reentrantLock.lock();
+            System.out.println("thread execute");
+            /*try {
+                reentrantLock.lockInterruptibly();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }*/
+            boolean flag = true;
+            while (flag) {
+
+            }
+            System.out.println("thread unlock ");
+        });
+        thread.start();
+        Thread thread1 = new Thread(() -> {
+            reentrantLock.lock();
+            System.out.println("thread execute 1");
+           /* try {
+                reentrantLock.lockInterruptibly();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }*/
+            boolean flag = true;
+            while (flag) {
+
+            }
+            System.out.println("thread unlock 1");
+        });
+        thread1.start();
+        Thread.sleep(5000);
+        System.out.println("Sleep over");
+        thread.interrupt();
+        thread1.interrupt();
+        System.out.println(thread.isInterrupted());
+        Thread.sleep(5000);
     }
+
 }
