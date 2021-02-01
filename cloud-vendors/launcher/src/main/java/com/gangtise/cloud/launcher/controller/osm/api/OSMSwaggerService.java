@@ -69,7 +69,7 @@ public interface OSMSwaggerService {
             @ApiImplicitParam(name = "message", value = "", required = true, dataType = "String", paramType = ""),
             @ApiImplicitParam(name = "messageType", value = "", required = true, dataType = "Long", paramType = ""),
     })
-    @PostMapping(value = {"/listCaseStatus"})
+    @PostMapping(value = {"/insertCaseMessage"})
     R insertCaseMessage(@PathVariable CloudName type, String caseId, String message, Integer messageType) throws Exception;
 
     @ApiOperation(value = "获取工单操作类型|华为", notes = "")

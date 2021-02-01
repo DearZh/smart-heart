@@ -146,7 +146,7 @@ public class HuaWeiOSMService implements OSMService {
         request.withBody(body);
         try {
             CreateMessagesResponse response = Client.create().createMessages(request);
-            System.out.println(response.toString());
+            return response;
         } catch (ConnectionException e) {
             error(e);
         } catch (RequestTimeoutException e) {
