@@ -393,13 +393,16 @@ public abstract class AbstractQueuedSynchronizer
 
         /**
          * waitstatus value to indicate thread has cancelled
-         * 指示线程已取消
+         * 指示线程已取消(表示线程已结束)
          */
         static final int CANCELLED = 1;
         /**
          * waitStatus value to indicate successor's thread needs unparking
-         * 表示当前线程需要释放
+         * 表示当前线程的后继节点被阻塞待释放；
          */
+        //该节点的后继者（或将很快被）*（通过停放）被阻止，
+        // 因此当前节点在释放或取消时必须*取消停放其后继者。
+        // 为避免种族冲突，acquire方法必须*首先表明它们需要信号，*然后重试原子获取，然后*失败时阻塞。
         static final int SIGNAL = -1;
         /**
          * waitStatus value to indicate thread is waiting on condition
@@ -1784,10 +1787,17 @@ public abstract class AbstractQueuedSynchronizer
          * attempt to set waitStatus fails, wake up to resync (in which
          * case the waitStatus can be transiently and harmlessly wrong).
          */
+        //将当前节点重新加入到同步队列中，并返回该节点的前置节点；
         Node p = enq(node);
         int ws = p.waitStatus;
+        //判断当前该前置节点的状态，如果是执行结束的状态； 或者  设置该前置节点的状态为SIGNAL 时失败，
         if (ws > 0 || !compareAndSetWaitStatus(p, ws, Node.SIGNAL))
+            //则唤醒该被通知节点的代表线程；此处唤醒的是 node.thread，而不是 p.thread 哦，需注意
             LockSupport.unpark(node.thread);
+
+        //如上，也就是，如果该节点加入到同步节点后，此时该节点的前置节点已经是执行结束的状态，那么就直接唤醒当前节点即可；
+        //如果该节点加入到同步节点后，此时该节点的同步节点不是执行结束的状态，并且设置waitStatus=SIGNAL 成功；那么就表名节点加入同步队列完成，
+        //等待同步队列自己唤醒该节点线程即可；Arnold.zhao 2021/1/29
         return true;
     }
 
@@ -1829,6 +1839,7 @@ public abstract class AbstractQueuedSynchronizer
                 failed = false;
                 return savedState;
             } else {
+                //release(savedState) 释放锁失败，说明当前线程并未获取到lock锁，此时await() 抛出异常；
                 throw new IllegalMonitorStateException();
             }
         } finally {
@@ -2000,6 +2011,7 @@ public abstract class AbstractQueuedSynchronizer
             do {
                 if ((firstWaiter = first.nextWaiter) == null)
                     lastWaiter = null;
+                //等待队列中移出该节点；（当前节点的后续节点置为null）
                 first.nextWaiter = null;
             } while (!transferForSignal(first) &&
                     (first = firstWaiter) != null);
@@ -2064,8 +2076,10 @@ public abstract class AbstractQueuedSynchronizer
          *                                      returns {@code false}
          */
         public final void signal() {
+            //判断当前执行唤醒的线程是否持有锁；换句话说：执行signal()线程唤醒的操作，也必须先保证当前线程已经获取到锁，否则则直接抛异常处理；
             if (!isHeldExclusively())
                 throw new IllegalMonitorStateException();
+            //获取当前等待节点的首Node节点
             Node first = firstWaiter;
             if (first != null)
                 doSignal(first);
@@ -2165,14 +2179,27 @@ public abstract class AbstractQueuedSynchronizer
         public final void await() throws InterruptedException {
             if (Thread.interrupted())
                 throw new InterruptedException();
+            //将当前线程封装为Node节点，组成wait等待队列；此处所组成的等待队列并非双向队列，而是单向队列，只记录节点的后续节点;Node对象的 nextWaiter用来关联后续的Node节点；
+            //thread 用于存放当前节点的关联线程，waitStatus用来记录当前节点线程的状态，只有condition 和cancelled 两种状态；等待队列中的Node对象只使用到了上述
+            //三个属性，其他属性 next,prev 等未使用；
             Node node = addConditionWaiter();
+            //释放当前线程锁;此处释放线程也是比较简单的，因为await()方法只允许已经获取到锁的线程执行，所以此处释放当前线程所持有的state锁即可；
+            //然后唤醒同步队列的后续节点，来获取锁即可；
             int savedState = fullyRelease(node);
             int interruptMode = 0;
+            //isOnSyncQueue(node) 确定当前节点是否在同步队列当中，是否有后续节点，如果没有则执行LockSupport.park(this); 阻塞当前的节点线程
+            //注:此处node本身就是新建的node节点，按道理来说肯定不会有后续的next节点，也肯定不会在同步队列中；
+            //但是此处，作者用while()的方式来自循环判断的方式，可能是为了避免并发问题；比如执行了Node node = addConditionWaiter(); 将线程新建到等待队列中了；
+            //然后：int savedState = fullyRelease(node); 当前线程的锁也被释放了，但是在执行while()之前
+            //外围的代码在其他方法体中，执行了condition的sign() 唤醒操作；可能就会导致当前的node节点又重新被添加到了同步队列中；
+            //所以此处，while() 判断的目的，就是为了避免这类并发问题，导致节点刚被唤醒，便又瞬间被阻塞的问题；
             while (!isOnSyncQueue(node)) {
                 LockSupport.park(this);
                 if ((interruptMode = checkInterruptWhileWaiting(node)) != 0)
                     break;
             }
+            //线程被唤醒后，则执行acquireQueued() 进行抢锁的操作；正常被lock阻塞的线程也是被阻塞到了acquireQueued()代码块中，被唤醒后也是要重新进行抢锁的操作 ；
+            //如果此处是非公平锁的情况，则可能会出现直接被新的线程抢走的情况，如果没有新的线程进入的话，那么只有当前该线程被唤醒了，所以正常设置该节点为head节点，正好拿锁则没有任何问题了
             if (acquireQueued(node, savedState) && interruptMode != THROW_IE)
                 interruptMode = REINTERRUPT;
             if (node.nextWaiter != null) // clean up if cancelled

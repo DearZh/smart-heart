@@ -1,4 +1,4 @@
-package com.smart.heart.java.lock;
+package com.smart.heart.java.lock.thread.test;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

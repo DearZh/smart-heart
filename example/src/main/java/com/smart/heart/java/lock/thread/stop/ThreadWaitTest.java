@@ -1,4 +1,4 @@
-package com.smart.heart.java.lock.thread;
+package com.smart.heart.java.lock.thread.stop;
 
 /**
  * @Description: 线程阻塞的相关方式
