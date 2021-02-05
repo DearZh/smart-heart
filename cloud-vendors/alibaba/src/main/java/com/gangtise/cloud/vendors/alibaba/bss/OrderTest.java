@@ -16,7 +16,7 @@ import com.google.gson.Gson;
  */
 public class OrderTest {
     public static void main(String[] args) {
-        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI4GKyF9bKSG75ZVkRKF19", "TciNHshPDtRi8jclhjCzK7mwThfZ04");
+        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "", "");
         IAcsClient client = new DefaultAcsClient(profile);
 
         QueryOrdersRequest request = new QueryOrdersRequest();

@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 public class Test {
 
     public static void main(String[] args) {
-        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI4GKyF9bKSG75ZVkRKF19", "TciNHshPDtRi8jclhjCzK7mwThfZ04");
+        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "", "");
         IAcsClient client = new DefaultAcsClient(profile);
 
         ListProductsRequest request = new ListProductsRequest();

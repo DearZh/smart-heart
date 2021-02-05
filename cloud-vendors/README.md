@@ -69,3 +69,5 @@ swagger 地址：http://192.168.20.167:8080/swagger-ui.html#
     withBusinessTypeId：产品问题类别ID
     withSimpleDescription：工单问题
 ```
+## 自建
+租户中心向平台发起处理工单
