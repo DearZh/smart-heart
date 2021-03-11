@@ -1,0 +1,45 @@
+{
+  "_doc": {
+    "properties": {
+      "id": {
+        "type": "keyword"
+      },
+      "matchcontent": {
+        "type": "text",
+        "analyzer": "ikSearchAnalyzer",
+        "search_analyzer": "ikSearchAnalyzer",
+        "fields": {
+          "pinyin": {
+            "type": "text",
+            "analyzer": "pinyinSimpleAnalyzer",
+            "search_analyzer": "pinyinSimpleAnalyzer"
+          },
+          "kw": {
+            "type": "keyword"
+          }
+        }
+      },
+      "title": {
+        "type": "keyword"
+      },
+      "content": {
+        "type": "text",
+        "analyzer": "ikSearchAnalyzer",
+        "search_analyzer": "ikSmartSearchAnalyzer"
+      },
+      "createTime": {
+        "type": "date",
+        "format": "yyyy-MM-dd HH:mm:ss"
+      },
+      "model": {
+        "type": "keyword"
+      },
+      "status": {
+        "type": "integer"
+      },
+      "clickseq": {
+        "type": "long"
+      }
+    }
+  }
+}

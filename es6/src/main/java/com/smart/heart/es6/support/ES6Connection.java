@@ -36,12 +36,13 @@ public class ES6Connection {
          */
     }
 
-    private String ES_HOST = "10.0.4.18:9200";
+//    private String ES_HOST = "10.0.4.18:9200";
+    private String ES_HOST = "10.69.0.4:9200";
     private final String CLUSTER_NAME = "elasticsearch";
 
     protected TransportClient transportClient;
 
-    public RestHighLevelClient restHighLevelClient;
+    protected RestHighLevelClient restHighLevelClient;
 
     protected ESClientMode mode;
 

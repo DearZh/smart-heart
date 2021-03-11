@@ -1,18 +1,12 @@
-package com.smart.heart.es6;
+package com.smart.heart.es6.example.map;
 
 import com.smart.heart.es6.support.ES6Connection;
 import com.smart.heart.es6.support.template.ES6Template;
 import org.elasticsearch.action.bulk.BulkItemResponse;
 import org.elasticsearch.action.bulk.BulkRequest;
-import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.action.update.UpdateRequest;
-import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.common.xcontent.XContentType;
 
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +22,6 @@ public class ES6BulkRequestTest {
         ES6Template es6Template = new ES6Template(ES6Connection.ESClientMode.REST);
 
         BulkRequest bulkRequest = new BulkRequest();
-
 
 //        UpdateRequest indexRequest = new UpdateRequest("twitter", "doc", "4");
         IndexRequest indexRequest = new IndexRequest("twitter", "doc", "5");
@@ -46,7 +39,7 @@ public class ES6BulkRequestTest {
 
         System.out.println(bulkRequest.numberOfActions());
 
-        BulkResponse bulkResponse = es6Template.restHighLevelClient.bulk(bulkRequest);
+        BulkResponse bulkResponse = es6Template.getRestHighLevelClient().bulk(bulkRequest);
         System.out.println(bulkResponse.hasFailures());
         for (BulkItemResponse bulkItemResponse : bulkResponse.getItems()) {
             throw new RuntimeException(bulkItemResponse.getFailureMessage());
