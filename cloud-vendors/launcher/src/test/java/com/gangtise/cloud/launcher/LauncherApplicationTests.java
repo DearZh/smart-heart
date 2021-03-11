@@ -18,10 +18,20 @@ class LauncherApplicationTests {
 
     @Test
     void contextLoads() {
+//        ClassLoader;
+//        URLClassLoader
+//        Launcher.getLauncher().
         /*CloudOsmList cloudOsmList = new CloudOsmList();
         cloudOsmList.setCloudId("A");
         cloudOsmList.setCreateTime(System.currentTimeMillis());
         cloudOsmListService.save(cloudOsmList);*/
+
     }
 
+    public static void main(String[] args) {
+        System.out.println(ClassLoader.getSystemClassLoader());
+        System.out.println(ClassLoader.getSystemClassLoader().getParent());
+        System.out.println(ClassLoader.getSystemClassLoader().getParent().getParent());
+
+    }
 }

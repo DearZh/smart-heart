@@ -40,7 +40,6 @@ public class ConsumerTopic {
         props.put("session.timeout.ms", "30000");
         props.put("isolation.level", "read_committed") ;
         props.put("max.poll.records", 1000);
-        //
         props.put("key.deserializer", StringDeserializer.class);
         props.put("value.deserializer", StringDeserializer.class);
         //

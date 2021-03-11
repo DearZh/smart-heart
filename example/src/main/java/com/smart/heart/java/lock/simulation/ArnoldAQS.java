@@ -11,6 +11,7 @@ public abstract class ArnoldAQS {
     Node tail;
 
     class Node {
+
         private Node prev;
         private Node next;
         private Thread thread;

@@ -213,17 +213,22 @@ public class OSMController implements OSMSwaggerService {
         if (type.equals(CloudName.HUAWEI)) {
             try {
                 ListMessagesResponse listMessagesResponse = (ListMessagesResponse) osmService.listMessages(caseId, 1);
-                saveOSMDetail(caseId, listMessagesResponse);
-                Integer totalCount = listMessagesResponse.getTotalCount();
+                Integer totalCount = listMessagesResponse.getCount();
                 if (totalCount == null)
                     totalCount = 0;
                 Integer page = totalCount / SystemConstant.size.intValue();
-                for (int i = 0; i < (page + 1); i++) {
-                    listMessagesResponse = (ListMessagesResponse) osmService.listMessages(caseId, i);
-                    if (listMessagesResponse.getMessageList() == null) {
-                        break;
-                    }
+                page = (totalCount % SystemConstant.size.intValue()) == 0 ? page : page + 1;
+                if (page == 0) {
+                    //无需分页获取数据时，则直接存储
                     saveOSMDetail(caseId, listMessagesResponse);
+                } else {
+                    for (int i = 1; i <= page; i++) {
+                        listMessagesResponse = (ListMessagesResponse) osmService.listMessages(caseId, i);
+                        if (listMessagesResponse.getMessageList() == null) {
+                            break;
+                        }
+                        saveOSMDetail(caseId, listMessagesResponse);
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

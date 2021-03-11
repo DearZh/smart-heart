@@ -116,8 +116,9 @@ public class HuaWeiOSMService implements OSMService {
         }
         //华为根据对应偏移量进行查询
         Long offset = 0L;
-        if (page != null && page != 0 && page != 1) {
-            offset = SystemConstant.size * page;
+        //page = 0 || page = 1 时，offset均为0
+        if (page != null && page != 1) {
+            offset = SystemConstant.size * (page - 1);
         }
         request.withOffset(offset.intValue());
         request.withLimit(SystemConstant.size.intValue());
@@ -216,10 +217,11 @@ public class HuaWeiOSMService implements OSMService {
     @Override
     public Object caseAction(String caseId, String action) throws Exception {
         UpdateCasesRequest request = new UpdateCasesRequest();
+
         request.withCaseId(caseId);
         request.withActionId(action);
         try {
-            UpdateCasesResponse response = Client.create().updateCases(request.withBody(new WorkOrderOperateV2Req()));
+            UpdateCasesResponse response = Client.create().updateCases(request);
             if (response.getErrorCode() == null) {
                 return response;
             }
@@ -257,8 +259,9 @@ public class HuaWeiOSMService implements OSMService {
         request.withCaseId(caseId);
         //page 转换为对应的偏移量进行查询
         Long offset = 0L;
-        if (page != null && page != 0 && page != 1) {
-            offset = SystemConstant.size * page;
+        //page = 0 || page = 1 时，offset均为0
+        if (page != null && page != 1) {
+            offset = SystemConstant.size * (page - 1);
         }
         request.withOffset(offset.intValue());
         request.withLimit(SystemConstant.size.intValue());
