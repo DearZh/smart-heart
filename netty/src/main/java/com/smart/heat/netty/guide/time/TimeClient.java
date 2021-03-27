@@ -2,6 +2,7 @@ package com.smart.heat.netty.guide.time;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
@@ -21,8 +22,10 @@ public class TimeClient {
         try {
             Bootstrap b = new Bootstrap();
             b.group(group)
+                    //设置客户端的通道类型
                     .channel(NioSocketChannel.class)//与服务端配置不同，此处需配置为NioSocketChannel
                     .option(ChannelOption.TCP_NODELAY, true)
+                    //通道处理器，> 使用TimeClientHandler 初始化通道
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
@@ -31,6 +34,18 @@ public class TimeClient {
                     });
             //发起异步连接操作
             ChannelFuture f = b.connect(host, port).sync();
+
+            f.addListener(new ChannelFutureListener() {
+                @Override
+                public void operationComplete(ChannelFuture channelFuture) throws Exception {
+                    if (channelFuture.isSuccess()) {
+                        System.out.println("链接成功");
+                    } else {
+                        System.out.println("链接失败");
+                    }
+                }
+            });
+
             //等待客户端链路关闭
             f.channel().closeFuture().sync();
         } finally {

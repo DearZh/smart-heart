@@ -25,8 +25,11 @@ public class TimeServer {
             ServerBootstrap b = new ServerBootstrap();
             //调用group方法，将两个NIO线程组当做入参传递到ServerBootstrap中
             b.group(bossGroup, workerGroup)
+                    //设置服务端通道实现类型
                     .channel(NioServerSocketChannel.class)  //设置所要创建的channel 为 NioServerSocketChannel，该对象功能类似于JDK NIO类库中的ServerSocketChannel类
+                    //设置的是服务端用于接收进来的连接,也就是boosGroup线程。
                     .option(ChannelOption.SO_BACKLOG, 1024)//配置NioServerSocketChannel的TCP参数
+
                     .childHandler(new ChildChannelHandler());//绑定I/O 事件的处理类，它的作用类似于Reactor模式中的Handler类，主要用于处理网络I/O事件，如记录日志，对消息进行解编码等；
 
             //绑定端口，同步等待成功；调用bind方法绑定监听端口，随后，调用它的同步阻塞方法sync()等待绑定操作完成。最后Netty会返回一个ChannelFuture类（类似于JDK 的Future）主要用于一步操作的通知回调；
@@ -46,6 +49,7 @@ public class TimeServer {
 
         @Override
         protected void initChannel(SocketChannel socketChannel) throws Exception {
+            //给pipeline管道设置处理器
             socketChannel.pipeline().addLast(new TimeServerHandler());
         }
     }

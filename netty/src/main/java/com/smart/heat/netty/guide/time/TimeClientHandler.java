@@ -5,6 +5,8 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
+import java.util.Scanner;
+
 /**
  * @Description:
  * @Author: Arnold.zhao
@@ -29,6 +31,7 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         ctx.writeAndFlush(firstMessage);
+
     }
 
     /**
@@ -40,12 +43,12 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        //接收服务端发过来的消息
         ByteBuf buf = (ByteBuf) msg;
         byte[] req = new byte[buf.readableBytes()];
         buf.readBytes(req);
         String body = new String(req, "utf-8");
-        System.out.println("TimeClientHandler no is :" + body);
-        ctx.write("你好啊");
+        System.out.println("接受到服务端所返回的消息内容是 :" + body);
     }
 
     @Override
