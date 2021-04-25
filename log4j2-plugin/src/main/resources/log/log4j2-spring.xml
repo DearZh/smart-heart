@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="off" monitorInterval="1800"  packages="com.ymm.common.log4j2">
+    <Appenders>
+        <YmmConsole name="ymmConsole" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %-5p [%c] [%t] %m%n" />
+        </YmmConsole>
+
+        <YmmFile name="ymmlog"></YmmFile>
+
+        <CatAppender name="cat"></CatAppender>
+    </Appenders>
+    <Loggers>
+        <root level="info" includeLocation="true">
+            <appender-ref ref="ymmConsole"/>
+            <appender-ref ref="ymmlog"/>
+            <appender-ref ref="cat"/>
+        </root>
+    </Loggers>
+</Configuration>

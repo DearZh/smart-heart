@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<!--  debug="true" scan="false" scanPeriod="12000" packagingData 默认false，true表示异常时记录对应的堆栈状态 -->
+<configuration packagingData="true">
+
+    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+
+    <!-- 定义项目名称 -->
+    <property name="appName" value="log4j2plugin"></property>
+    <!-- 定义项目输出路径 -->
+    <property name="logHome" value="W:\\JAVA\\arnoldworkspace\\smart-heart\\log4j2-plugin\\src\\main\\resources\\outlog\\logback"/>
+    <!-- 用于区分不同应用程序的日志记录 -->
+    <contextName>${appName}</contextName>
+
+    <!-- 配置规则类 -->
+<!--    <conversionRule conversionWord="ip" converterClass="com.eastrobot.kbs.psrt.config.plugin.logback.IPLogConfig"/>-->
+
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}  [%thread] - [%-5level] [%logger{50} : %line] - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logHome}/${appName}/stdout.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] - [%-5level] [%logger{50} : %line] - %msg%n</pattern>
+            <charset>utf8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>${logHome}/${appName}/log-stdout-%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件保留天数-->
+            <MaxHistory>90</MaxHistory>
+            <!-- 日志文件大小 -->
+            <maxFileSize>40MB</maxFileSize>
+            <!-- 日志文件存储空间大小 -->
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 未手动指定包的日志级别时，则默认都继承robot下的日志级别level -->
+    <root level="INFO">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <logger name="ch.qos.logback" level="INFO"/>
+
+    <logger name="org.springframework.boot.autoconfigure">
+        <level value="ERROR"/>
+    </logger>
+
+    <logger name="com.alibaba.nls.client">
+        <!-- 默认未设置时，继承上级级别 -->
+        <level value="WARN"/>
+    </logger>
+
+    <logger name="java.io.IOException"></logger>
+</configuration>
