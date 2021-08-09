@@ -9,12 +9,12 @@ import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.common.xcontent.XContentType;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author Arnold.zhao <a href="mailto:Arnold_zhao@126.com"/>
@@ -32,15 +32,18 @@ public class ManManBulkRequestTest {
         BulkRequest bulkRequest = new BulkRequest();
 
         Map<String, Object> map = new HashMap<>();
-        map.put("msg", "bulk_test1");
+        map.put("msg", "bulk_test111");
+        //Field [_id] is a metadata field and cannot be added inside a document. Use the index API request parameters.]
+//        map.put("_id","11");
         Map<String, String> map1 = new HashMap<>();
-        map1.put("msg", "bulk_test2");
+        map1.put("msg", "bulk_test122");
+//        map1.put("_id","12");
         Map<String, String> map2 = new HashMap<>();
-        map2.put("msg", "bulk_test3");
-
-        IndexRequest indexRequest = new IndexRequest("arnold_test_index_3", "doc");
-        IndexRequest indexRequest1 = new IndexRequest("arnold_test_index_3", "doc");
-        IndexRequest indexRequest2 = new IndexRequest("arnold_test_index_3", "doc");
+        map2.put("msg", "bulk_test133");
+//        map2.put("_id","13");
+        IndexRequest indexRequest = new IndexRequest("arnold_test_index_3", "doc", "3dc14310-d2e9-4cf8-9a55-3e0d3826c6bc");
+        IndexRequest indexRequest1 = new IndexRequest("arnold_test_index_3", "doc", "021fc0e5-74a2-4239-aa06-8d32022bddc1");
+        IndexRequest indexRequest2 = new IndexRequest("arnold_test_index_3", "doc", "304d3ade-f447-4327-a1bb-40c4a3aaca30");
 
         indexRequest.source(map);
         indexRequest1.source(map1);

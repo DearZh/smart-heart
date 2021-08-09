@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package sip_cap.rpc.core;
+option java_multiple_files = true;
+option java_package = "com.grpc.sip";
+option java_outer_classname = "CallSessionProto";
+
+service CallSession {
+    rpc on_call_session_begin (on_call_session_begin_request) returns (on_call_session_begin_response);
+    rpc on_call_session_end (on_call_session_end_request) returns (on_call_session_end_response);
+    rpc on_call_session_pcm_data (on_call_session_pcm_data_request) returns (on_call_session_pcm_data_response);
+}
+
+message on_call_session_begin_request {
+    string session_json_str = 1;
+    int32 invite_status_code = 2;
+    string cur_sip_method_json_str = 3;
+}
+
+message on_call_session_begin_response {
+
+}
+
+message on_call_session_end_request {
+    string session_json_str = 1;
+    int32 bye_status_code = 2;
+    string cur_sip_method_json_str = 3;
+}
+
+message on_call_session_end_response {
+
+}
+
+message on_call_session_pcm_data_request {
+    string session_json_str = 1;
+    int32 channel_id = 2;
+    string rtp_desc_json_str = 3;
+    string rtp_layer_json_str = 4;
+    bytes pcm_data = 5;
+    int32 pcm_sample_rate = 6;
+    int32 pcm_sample_width = 7;
+}
+
+message on_call_session_pcm_data_response {
+
+}

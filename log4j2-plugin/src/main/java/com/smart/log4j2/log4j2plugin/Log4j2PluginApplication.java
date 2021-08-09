@@ -1,3 +1,4 @@
+/*
 package com.smart.log4j2.log4j2plugin;
 
 import org.slf4j.Logger;
@@ -16,3 +17,4 @@ public class Log4j2PluginApplication {
     }
 
 }
+*/

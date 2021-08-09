@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- status：应该记录到控制台的内部 Log4j 事件的级别。
+此属性的有效值为“ trace”，“ debug”，“ info”，“ warn”，“ error”和“ fatal”。
+Log4j 会将有关初始化，过渡和其他内部操作的详细信息记录到状态 Logger 中。
+如果需要对 log4j 进行故障排除，设置 status =“ trace”是您可以使用的首批工具之一。 -->
+
+<Configuration status="warn" monitorInterval="30">
+    <Appenders>
+        <!-- 简介模式的Appender定义方式 -->
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <!--Configuration上开启：strict="true" 时，则表示启用严格模式。
+        此时上述的简介模式配置，翻译为严格模式后如下所示-->
+        <!--
+        <Appender  type="Console" name="STDOUT" target="SYSTEM_OUT">
+            <Layout type="PatternLayout" pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Appender>
+        -->
+    </Appenders>
+    <Loggers>
+        <Root level="TRACE">
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+        <!-- additivity 禁用Appender父传递 -->
+        <logger name="com.smart.log4j2.log4j2plugin.test.configuration.Bar" level="TRACE" additivity="false" >
+            <AppenderRef ref="STDOUT"/>
+        </logger>
+    </Loggers>
+</Configuration>

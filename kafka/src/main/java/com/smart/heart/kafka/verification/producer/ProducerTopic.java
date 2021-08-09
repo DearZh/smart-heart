@@ -16,6 +16,9 @@ public class ProducerTopic {
     static String servers = "10.0.3.17:9092";
     static String topic = "arnold_test_java_1";
 
+    //https://cloud.tencent.com/developer/article/1558924
+    //https://www.cnblogs.com/lshan/p/11544111.html
+
     /**
      * 默认Kafka生产者的轮训策略以及按照Key值进行分区的策略是已经足够的，如果需要在生产数据时，指定分区进行数据插入，则可以在实例化ProducerRecord()对象时，进行分区的指定：
      * ProducerRecord producerRecord = new ProducerRecord<>(topic, 4, message)   //指定分区数和 value

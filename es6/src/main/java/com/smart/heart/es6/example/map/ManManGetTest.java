@@ -23,9 +23,10 @@ public class ManManGetTest {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        GetRequest getRequest = new GetRequest("app-log-20100106");
+        GetRequest getRequest = new GetRequest();
+        getRequest.index("dev-gateway-log-2021.05.07");
         getRequest.type("doc");
-        getRequest.id("AXhdm-WgPoLTOfIxDy-p");
+        getRequest.id("ymm-applog-dev_4_346580727911111");
 
         try {
             GetResponse getResponse = es6Template.getRestHighLevelClient().get(getRequest, RequestOptions.DEFAULT);
@@ -35,7 +36,7 @@ public class ManManGetTest {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }

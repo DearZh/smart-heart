@@ -38,7 +38,8 @@ public class ES6Connection {
 
     //    private String ES_HOST = "10.0.4.18:9200";
     private String ES_HOST = "10.69.0.4:9200";
-    private final String CLUSTER_NAME = "elasticsearch";
+//    private final String CLUSTER_NAME = "elasticsearch";
+    private final String CLUSTER_NAME = "es-dev-hubble";
 
     protected TransportClient transportClient;
 
@@ -63,7 +64,7 @@ public class ES6Connection {
                 httpHosts[i] = httpHost;
             }
             //1毫秒
-            RestClientBuilder restClientBuilder = RestClient.builder(httpHosts).setMaxRetryTimeoutMillis(1);
+            RestClientBuilder restClientBuilder = RestClient.builder(httpHosts).setMaxRetryTimeoutMillis(5000);
 
             restHighLevelClient = new RestHighLevelClient(restClientBuilder);
         } else if (mode == ESClientMode.TRANSPORT) {
@@ -132,4 +133,7 @@ public class ES6Connection {
         return restHighLevelClient;
     }
 
+    public TransportClient getTransportClient() {
+        return transportClient;
+    }
 }
