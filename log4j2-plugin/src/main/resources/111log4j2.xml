@@ -3,13 +3,12 @@
 此属性的有效值为“ trace”，“ debug”，“ info”，“ warn”，“ error”和“ fatal”。
 Log4j 会将有关初始化，过渡和其他内部操作的详细信息记录到状态 Logger 中。
 如果需要对 log4j 进行故障排除，设置 status =“ trace”是您可以使用的首批工具之一。 -->
+
 <Configuration status="warn" monitorInterval="30">
     <Appenders>
         <!-- 简介模式的Appender定义方式 -->
         <Console name="STDOUT" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-<!--            <JsonLayout />-->
-<!--            <XmlLayout/>-->
         </Console>
 
         <!--Configuration上开启：strict="true" 时，则表示启用严格模式。
@@ -28,7 +27,5 @@ Log4j 会将有关初始化，过渡和其他内部操作的详细信息记录�
         <logger name="com.smart.log4j2.log4j2plugin.test.configuration.Bar" level="TRACE" additivity="false" >
             <AppenderRef ref="STDOUT"/>
         </logger>
-
-
     </Loggers>
 </Configuration>

@@ -10,8 +10,13 @@ import org.apache.logging.log4j.Logger;
 public class MyApp {
 
     private static final Logger logger = LogManager.getLogger(MyApp.class);
-
+    static ThreadLocal threadLocal = new ThreadLocal<String>();
     public static void main(String[] args) {
+
+        threadLocal.get();
+        threadLocal.set("D");
+
+        System.setProperty("log4j.configurationFile","log4j2-plugin/src/main/resources/111log4j2.xml");
         logger.trace("1、 application.");
         Bar bar = new Bar();
         if (!bar.doIt()) {

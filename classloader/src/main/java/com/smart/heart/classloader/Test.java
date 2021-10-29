@@ -1,5 +1,8 @@
 package com.smart.heart.classloader;
 
+import org.apache.logging.log4j.core.Logger;
+import sun.misc.Launcher;
+
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
@@ -13,6 +16,9 @@ import java.net.URLStreamHandlerFactory;
  */
 public class Test {
     public static void main(String[] args) throws Exception {
+
+        System.out.println("DDD");
+//        Launcher
        /* out();
 
         ArnoldClassLoader arnoldClassLoader = new ArnoldClassLoader();*/
@@ -21,14 +27,14 @@ public class Test {
 
        /* Class cl = arnoldClassLoader.loadClass("com.alibaba.otter.canal.adapter.launcher.rest.controller.test.GangtiseRest");
         System.out.println(cl);*/
-        File file = new File("C:\\Arnold\\workSpace\\canal-master\\canal-master\\client-adapter\\launcher\\target\\canal-adapter\\plugin\\client-adapter.es6x-1.1.5-SNAPSHOT-jar-with-dependencies.jar");
+       /* File file = new File("C:\\Arnold\\workSpace\\canal-master\\canal-master\\client-adapter\\launcher\\target\\canal-adapter\\plugin\\client-adapter.es6x-1.1.5-SNAPSHOT-jar-with-dependencies.jar");
         URL url = file.toURI().toURL();
         ArnoldClassLoader arnoldClassLoader = new ArnoldClassLoader(new URL[]{url}, Thread.currentThread().getContextClassLoader());
         System.out.println(arnoldClassLoader);
         //"com/alibaba/otter/canal/client/adapter/es6x/ES6xAdapter.class"
         //META-INF/canal/com.alibaba.otter.canal.client.adapter.OuterAdapter
         InputStream inputStream = arnoldClassLoader.getResourceAsStream("com/alibaba/otter/canal/client/adapter/es6x/ES6xAdapter.class");
-
+*/
      /*   byte[] bytes = new byte[1024 * 10];
         inputStream.read(bytes);
         inputStream.close();
@@ -46,6 +52,7 @@ public class Test {
         System.out.println(outerAdapter);
         System.out.println(outerAdapter.getClass().getClassLoader());
         System.out.println();*/
+
     }
 
     static class ArnoldClassLoader extends URLClassLoader {

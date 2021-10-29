@@ -13,8 +13,8 @@ import java.util.concurrent.Future;
  */
 public class ProducerTopic {
 
-    static String servers = "10.0.3.17:9092";
-    static String topic = "arnold_test_java_1";
+    static String servers = "10.13.67.210:9092";
+    static String topic = "ymm-applog-dev-test";
 
     //https://cloud.tencent.com/developer/article/1558924
     //https://www.cnblogs.com/lshan/p/11544111.html
