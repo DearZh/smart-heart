@@ -11,9 +11,7 @@ Log4j 会将有关初始化，过渡和其他内部操作的详细信息记录�
             <!--            <JsonLayout />-->
             <!--            <XmlLayout/>-->
         </Console>
-        <File name="log" fileName="log/test.log" append="false">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
-        </File>
+
         <!--Configuration上开启：strict="true" 时，则表示启用严格模式。
         此时上述的简介模式配置，翻译为严格模式后如下所示-->
         <!--
@@ -23,13 +21,14 @@ Log4j 会将有关初始化，过渡和其他内部操作的详细信息记录�
         -->
     </Appenders>
     <Loggers>
-        <Root level="TRACE">
-            <AppenderRef ref="log"/>
+        <Root level="ERROR">
+            <AppenderRef ref="STDOUT"/>
         </Root>
         <!-- additivity 禁用Appender父传递 -->
         <logger name="com.smart.log4j2.log4j2plugin.test.configuration.Bar" level="TRACE" additivity="false">
-            <AppenderRef ref="log"/>
+            <AppenderRef ref="STDOUT"/>
         </logger>
+
 
     </Loggers>
 </Configuration>

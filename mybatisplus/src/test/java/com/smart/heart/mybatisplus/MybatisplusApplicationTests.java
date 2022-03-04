@@ -36,6 +36,8 @@ class MybatisplusApplicationTests {
 
     @Test
     void updateWrapper() {
+        //jvm虚拟机设计与实现 li xiao feng
+        //虚拟机规范
         userServer.update(Wrappers.<User>update().set("age", 12).set("name", "23").eq("", ""));
         userServer.update(Wrappers.<User>update().lambda().set(User::getAge, "23").eq(User::getName, "na"));
     }

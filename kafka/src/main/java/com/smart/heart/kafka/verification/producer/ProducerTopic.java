@@ -29,6 +29,9 @@ public class ProducerTopic {
      * 参考这个：https://www.cnblogs.com/listenfwind/p/12465409.html
      */
 
+    /**
+     * kafka client源码解析： https://www.infoq.cn/article/yijv9mh3nqusacwsxjlw
+     */
     public static void main(String[] args) throws InterruptedException {
         Properties properties = KafkaProducerConfig.properties(servers);
         Producer<String, String> producer = new KafkaProducer<String, String>(properties);

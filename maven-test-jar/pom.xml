@@ -20,10 +20,38 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>2.10.0</version>
+        </dependency>-->
+                <dependency>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-api</artifactId>
+                    <version>2.14.1</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-core</artifactId>
+                    <version>2.14.1</version>
+                </dependency>
+<!--
+        <dependency>
+            <groupId>com.wlqq.mon.galileo</groupId>
+            <artifactId>galileo-logger</artifactId>
+            <version>2.5.8</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.wlqq.mon.galileo</groupId>
+            <artifactId>galileo-config</artifactId>
+            <version>2.5.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ymm.common-plugins</groupId>
+            <artifactId>common-logger-log4j2</artifactId>
+            <version>1.1.9</version>
+        </dependency>-->
+
     </dependencies>
 </project>

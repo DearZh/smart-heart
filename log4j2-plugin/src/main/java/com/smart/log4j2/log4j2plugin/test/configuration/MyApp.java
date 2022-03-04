@@ -16,7 +16,7 @@ public class MyApp {
         threadLocal.get();
         threadLocal.set("D");
 
-        System.setProperty("log4j.configurationFile","log4j2-plugin/src/main/resources/111log4j2.xml");
+//        System.setProperty("log4j.configurationFile","log4j2-plugin/src/main/resources/111log4j2.xml");
         logger.trace("1、 application.");
         Bar bar = new Bar();
         if (!bar.doIt()) {
