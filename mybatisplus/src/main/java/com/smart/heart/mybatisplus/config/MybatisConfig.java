@@ -6,6 +6,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParser
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  * @Description:
  * @Author: Arnold.zhao
@@ -13,7 +17,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class MybatisConfig {
-
     //配置分页插件，否则直接使用Page进行分页则无效：https://mp.baomidou.com/guide/page.html
 
     @Bean

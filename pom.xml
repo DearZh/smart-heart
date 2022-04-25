@@ -24,13 +24,14 @@
         <module>es6</module>
         <module>zookeeper</module>
         <module>es7</module>
-        <module>classloader</module>
+<!--        <module>classloader</module>-->
         <module>kafka</module>
         <module>example</module>
-        <module>netty</module>
-        <module>maven-test-jar</module>
+<!--        <module>netty</module>-->
+<!--        <module>maven-test-jar</module>-->
         <module>junit4</module>
         <module>log4j2-bugs</module>
+        <module>maven-test-interface</module>
     </modules>
     <properties>
         <java_source_version>1.8</java_source_version>
