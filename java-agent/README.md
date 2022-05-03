@@ -2,15 +2,176 @@
 
 轻轻松松玩转Java Agent，
 
+轻轻松松搞定Java Agent，
+
+轻松搞定Java Agent
+
 Java Agent有什么作用呢？好处是什么？
 
 好比：位计算的好处是什么呢？放在首位。
 
-# 关于字节码操作的使用
-
-各字节码操作工具的比对。
-
 # 概述
+
+1、想要在JVM进程启动时，动态修改各个类实现？怎么做？
+
+2、想要在JVM进程启动后，动态修改对应类的实现并重新加载到对应JVM进程中？怎么做？
+
+**很简单，只需要JVM在加载Class后，调用开发者提供的代理进行Class修改即可。而这个代理，实际上就是Java Agent。（这段内容想了很久，细品一下）**
+
+那我们如何开发这样一个代理？先不要急，开发这样一个代理，只需要按照JVM的规范来即可，并不复杂，但是在开发代理之前， 我们需要先搞定一些基础知识：如何操作字节码。
+
+# 字节码
+
+一个Java文件中的源代码只有先编译为对应的.class文件后，才能被JVM解释执行，而这个class文件中的内容就叫做字节码。
+
+当一个类被JVM加载后，实际加载的是该类的.class文件，那么我们要修改该类的具体实现时，也就是要修改该类的字节码内容。
+
+那么如何操作字节码？不能说很简单，只能说Java的生态太丰富了，关于操作字节码的库也有很多很多可供挑选使用的。
+
+* ASM：功能齐全、高性能、需要熟练掌握Java字节码相关知识、学习复杂度：中上。
+* Javassist：功能齐全、需要适度的Java字节码知识、学习复杂度：低
+* Cglib：基于ASM进行的封装、几乎无需字节码知识、简单易学
+* ByteBuddy：基于ASM，API友好，几乎无需字节码知识，简单易学
+
+一般情况下对性能有较高要求的情况下使用ASM会更多一些，Cglib和ByteBuddy均是基于ASM进行的封装，所以可知ASM在整个字节码操作上的地位。
+
+Cglib：在动态代理上的使用较多，如Spring中使用Cglib为AOP提供方法拦截，MyBatis中基于Mapper接口生成动态代理实现类等等。
+
+Javassist：Dubbo中提供了Javassist和JDK两种动态代理机制，默认为Javassist，Dubbo中所给出的性能测试结果是：Javassist > Cglib > JDK
+
+ByteBuddy：Skywalking、Datadog 等使用ByteBuddy 作为 Java 应用程序的探针来采集监控信息。
+
+关于更多字节码库的讨论可以参考[这里](https://stackoverflow.com/questions/9167436/dynamic-java-bytecode-manipulation-framework-comparison)
+
+## Javassist
+
+1、此处以Javassist为例，演示下如何使用Javassist来操作字节码  [Javassist Github](https://github.com/jboss-javassist/javassist)
+、 [Javassist官方文档](http://www.javassist.org/tutorial/tutorial.html)
+
+2、从当前开始后续所列出的所有代码均已托管在Github上，源码地址为 [java-agent](https://github.com/DearZh/smart-heart/tree/master/java-agent)
+
+3、W:\JAVA\arnoldworkspace\smart-heart\java-agent 为本人的开发目录，后续会频繁出现该路径，大家知晓这实际是项目的工作路径即可。
+
+使用Javassist创建一个class
+
+```
+  ClassPool cp = ClassPool.getDefault();
+  CtClass ct = cp.makeClass("com.smart.heart.Hello");
+  ct.writeFile(writeFilePath);
+```
+
+最终所创建的class内容为：
+
+```java
+package com.smart.heart;
+
+public class Hello {
+    public Hello() {
+    }
+}
+```
+
+我们先定义一个现有的MyMain类，类代码如下：
+
+```java
+package com.smart.heart.proxy.javassist;
+
+public class MyMain {
+    public void test() {
+    }
+}
+```
+
+然后使用Javassist编辑现有MyMain类的字节码,在该Class的原有方法中增加一段源代码：
+
+```
+public static void updateMethod(String writeFilePath) throws Exception {
+        ClassPool cp = ClassPool.getDefault();
+        //get MyMain类
+        CtClass ct = cp.get("com.smart.heart.proxy.javassist.MyMain");
+        //获取该类的test()方法
+        CtMethod ctMethod = ct.getMethod("test", "()V");
+        //在该方法前执行前插入一段System.out的源码
+        ctMethod.insertAfter("System.out.println(123);");
+        ct.writeFile(writeFilePath);
+    }
+```
+
+执行如上代码后，输出对应的MyMain.class所对应的内容如下：
+
+```java
+package com.smart.heart.proxy.javassist;
+
+public class MyMain {
+    public MyMain() {
+    }
+
+    public void test() {
+        Object var2 = null;
+        System.out.println(123);
+    }
+}
+```
+
+仍然使用Javassist编辑现有MyMain类的字节码，给对应的Class增加一个新的方法体:
+
+```
+public static void classAddMethodMd(String writeFilePath) throws Exception {
+        ClassPool cp = ClassPool.getDefault();
+        CtClass ct = cp.get("com.smart.heart.proxy.javassist.MyMain");
+        //定义方法：方法名为 foo 对应的方法参数类型为：int，int
+        CtMethod ctMethod = new CtMethod(CtClass.intType, "foo", new CtClass[]{CtClass.intType, CtClass.intType}, ct);
+        /**
+         * 定义该方法的方法体内容，它接收一段源代码字符串。javassist最终会将该源代码编译为字节码，替换该方法体内容。
+         * Javassist定义了以$开头的特殊标识符：
+         * 此处：$1 表示该方法的第一个方法参数，$2 则表示第二个方法参数。
+         * $args 表示方法参数数组，类型为Object[]
+         * $$ 表示所有参数。
+         * ....
+         */
+        ctMethod.setBody("{int a = $1 * $2;return a;}");
+        ctMethod.setModifiers(Modifier.PUBLIC);
+        //将所定义的方法，传递到该类中。
+        ct.addMethod(ctMethod);
+        //输出该class到指定路径
+        ct.writeFile(writeFilePath);
+    }
+```
+
+执行如上代码后，输出对应的MyMain.class所对应的内容如下：
+
+```java
+package com.smart.heart.proxy.javassist;
+
+public class MyMain {
+    public MyMain() {
+    }
+
+    public void test() {
+    }
+
+    public int foo(int var1, int var2) {
+        int var3 = var1 * var2;
+        return var3;
+    }
+}
+```
+
+看到这里，想必对Javassist操作字节码的方式已经有了相应的了解了，仅仅是有部分使用时会涉及到相应字节码的概念， 如上述：getMethod("test", "()V") 时，为何要传递()V,实际上是因为()
+V在字节码中是表示该方法为无参方法。整体来说使用上还是较为简单的，关于Javassist的更多使用方式，参考对应的官方文档即可。
+
+在了解了字节码如何操作后，我们就可以开始开发Java Agent了，而实际上整个Java Agent就是围绕着 java.lang.instrument.Instrumentation接口来进行的一系列操作，
+然后再配合JVM的Agent规范，而形成的一系列功能。
+
+所以后续内容主要围绕以下三个方面：
+
+1、Instrumentation 接口功能
+
+2、如何开发自己的Agent Jar包（符合指定规范的Jar 就是Agent Jar）
+
+3、如何使用Agent Jar（JVM启动参数中添加 -javaagent 或 Java attach 目标进程的方式）
+
+搞定了以上三个方面呢，也就搞定了整个Java Agent的玩法，所以继续,先来介绍下Instrumentation。
 
 # Instrumentation
 
@@ -72,8 +233,6 @@ byte[]
 Agent Jar 翻译一下就是 （代理 Jar），这个Jar包做的唯一 一件重要的事情呢，就是获取Instrumentation的对象实例。
 
 那么如何定义好这样一个(代理Jar包)，JVM才会传递Instrumentation的对象实例呢？很简单，我们只需要按照JVM的规范，来创建该Jar包即可。
-
-什么样的规范呢？这就是我们这个java-agent源代码所包含的内容了。
 
 首先，我们先定义一个com.smart.heart.agent.AgentMain类,类中主要定义如下一个方法：
 
@@ -292,7 +451,7 @@ ceshi -cp .;W:\JAVA\arnoldworkspace\smart-heart\java-agent\jar\javassist.jar com
 
 此处再贴一个《深入JVM字节码》上的一个流程图，相信看到这个图后也应该是一目了然了。
 
-![静态Instrumentation处理过程](jpg/StaticInstrumentation.png)
+![静态Instrumentation处理过程](jpg/StaticInstrumentation1.jpg)
 
 # JAVA  Attach
 
@@ -512,97 +671,10 @@ Agent服务，而关于字节码操作javassist的测试用例，则是另外的
 
 # 总结
 
-关于Agent的使用呢，实际上也是较为简单的，而关于字节码的操作呢，实际上也有很多的现有选择可以使用。ASM、javassist、byte-buddy
+关于Agent的使用场景呢，实际上有很多，比如：APM中使用Agent进行打点，以及使用Agent实现类的热加载的效果、代码诊断工具Arthas等等..
 
-对于Agent的使用场景，APM中使用Agent进行打点，以及使用Agent 实现类的热加载的效果、代码诊断工具Arthas等等。
-
-由于各个中间件一般都会存在针对业务方服务进行字节码操作的需求，所以为了避免各中间件团队都开发对应的Agent jar，从而导致各Agent和Agent之间冲突的情况产生。
-一般情况下企业内都会开发一个对应的Agent操作平台，其它中间件只需要基于该Agent平台的规则开发对应的plugin插件即可，由Agent jar统一加载对应的plugin到具体的业务服务当中进行相关字节码的注入操作。
+在企业内的话一般各个中间件团队都会存在针对业务方服务进行字节码操作的需求，所以为了避免各中间件团队都开发对应的Agent jar，从而导致各Agent和Agent之间冲突的情况产生。
+多数场景下都会开发一个企业内的Agent操作平台，其它中间件只需要基于该Agent平台的规则开发对应的plugin插件即可，由Agent jar统一加载对应的plugin到具体的业务服务当中进行相关字节码的注入操作。
 这样做的好处，当然就是统一了，统一入口对于企业内来说是件很重要的事情。
 
-
-
-
------------------
-
-Agent只是使用Instrumentation的一种方式而已。无论是通过JVM启动时的 java -javaagent的方式注入agent jar， 还是在JVM启动后，使用java attach的方式注入agent
-jar，目的都是为了使用该agent jar中所定义的Instrumentation的功能而已。
-
-Agent只是一种壳子，一种使用Instrumentation的壳子。只是说要想使用Instrumentation，必须要有Agent的这种外部的方式（壳子）才行（才能加载才能运行）。
-
-为什么要有这种壳子，因为使用这种壳子的方式定义了对应要加载的类和premain()方法后，在agent被注入后，JVM 会调用premain()方法，传递对应的
-
-Instrumentation的实例，此时才能使用该Instrumentation(类)，来实现对应的一系列功能。
-
-# 前置说明
-
-以下关于Java Agent 和 Java Attach 的使用，均是以当前该服务的绝对路径来进行的验证，所以此处先行贴上前置说明：
-
-当前该服务源码所对应的工作目录为：W:\JAVA\arnoldworkspace\smart-heart\java-agent\
-
-源码编译后所对应的工作路径为：W:\JAVA\arnoldworkspace\smart-heart\java-agent\target\classes
-
-# Java Agent
-
-Instrumentation的第一种使用方式是通过JVM的启动参数 -javaagent的方式来启动，为了能让JVM识别到Agent的入口类，需要在Jar包内的
-META-INF/MANIFEST.MF文件中指定Premain-Class等信息。
-
-需要再看下177P的内容即可。177P内容很适合这里。
-
-com.smart.heart.agent.AgentTest类是当前Java Agent模式下主要用于验证的类，该类启动后默认情况下将输出“AgentTest origin code test”
-
-1、在对应的maven pom.xml中定义maven-jar-plugin插件，设置Agent-Class和Premain-Class两个属性值为：com.smart.heart.agent.AgentMain
-
-设置完该plugin后，执行maven package打包时，对应的META-INF/MANIFEST.MF文件内容如下：
-
-主要定义了该jar包所对应的Premain-Class和Agent-Class的类路径为：com.smart.heart.agent.AgentMain
-
-```
-Manifest-Version: 1.0
-Premain-Class: com.smart.heart.agent.AgentMain
-Archiver-Version: Plexus Archiver
-Built-By: Admin
-Agent-Class: com.smart.heart.agent.AgentMain
-Can-Redefine-Classes: true
-Can-Retransform-Classes: true
-Created-By: Apache Maven 3.6.3
-Build-Jdk: 1.8.0_91
-```
-
-# Java Attach
-
-在JDK5中，开发者只能在JVM启动时指定一个javaagent，在premain中操作字节码，这种Instrumentation的方式仅限于main方法执行前进行字节码的动态修改，存在较大的局限性。
-
-而在JDK6以后，引入了动态Attach Agent的方案，可以在JVM启动后的任意时刻使用Attach API远程加载Agent的jar包。
-
-通过这种方式，也就实现了 在JVM进程启动的过程中，可以随时随地的注入Agent。而注入Agent也就意味着我们可以随时随地的使用Instrumentation来动态的操作类的字节码，
-并且由于是在JVM启动过程中修改的类字节码，通过使用Instrumentation API，使JVM重新加载该字节码类，也就可以达到JVM启动过程中，动态热加载的过程。
-
-由于是在JVM运行过程中，动态更改类的字节码内容，也就可以达到各种神奇的效果。
-
-Java agent的方式或者attach的方式，实际上都是将该Agent注入到一台正在运行或正准备运行main()方法的JVM当中。
-
-由于是将该 agent jar注入到对应的进程中。所以该agent被注入后，所要执行的一系列代码，实际上还是要依赖于该进程才行。
-
-所以该agent jar中所使用到的外部jar包中的功能，也必须已经在该JVM进程的classpath上才行。或者在agent jar 注入后，执行该agent jar中的方法时，需要自定义ClassLoader加载该部分的jar包也才行。
-
-毕竟agent jar，只是通过外部注入的方式，注入到该JVM进程中的一段功能（或者说代码块而已）。
-
-由于是在windows环境下进行的验证，所以先行贴出对应的绝对路径URL，便于后续理解：
-
-验证Java Agent的服务效果：
-
-1、打开cmd cd到对应的class文件夹下：cd W:\JAVA\arnoldworkspace\smart-heart\java-agent\target\classes
-
-2、执行命令： java -javaagent:W:\JAVA\arnoldworkspace\smart-heart\java-agent\target\java-agent-1.0-SNAPSHOT.jar=appid:
-test,chuancan:ceshi -cp .;W:\JAVA\arnoldworkspace\smart-heart\java-agent\jar\javassist.jar
-com.smart.heart.agent.AgentTest
-
-启动AgentTest类，并在对应的classpath中添加了 javassist.jar jar包，为什么要在主应用程序中添加javassist的jar包，此处需要额外做下说明：
-
-首先，当我们启动
-
-使用Java -javaagent: 的方式来启动，和使用Java -attach的方式启动，两者的使用差别和效果是不同的。
-
-
-
+其它总结没什么好说的呢，相信上面的内容该表达的也都表达过了，在这里祝福各位读者所有看到的知识，都可以最终成为自己的知识！撒花！✿✿ヽ(°▽°)ノ✿！

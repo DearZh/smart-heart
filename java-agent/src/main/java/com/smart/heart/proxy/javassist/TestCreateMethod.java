@@ -18,7 +18,9 @@ public class TestCreateMethod {
 //        classAddMethod(writeFilePath);
 
 
-        updateMethod(writeFilePath);
+//        updateMethod(writeFilePath);
+
+        classAddMethodMd(writeFilePath);
     }
 
     public static void classAddMethod(String writeFilePath) throws Exception {
@@ -88,6 +90,27 @@ public class TestCreateMethod {
         System.out.println(ct.getMethods());
 
 
+    }
+
+    public static void classAddMethodMd(String writeFilePath) throws Exception {
+        ClassPool cp = ClassPool.getDefault();
+        CtClass ct = cp.get("com.smart.heart.proxy.javassist.MyMain");
+        //定义方法：方法名为 foo 对应的方法参数类型为：int，int
+        CtMethod ctMethod = new CtMethod(CtClass.intType, "foo", new CtClass[]{CtClass.intType, CtClass.intType}, ct);
+        /**
+         * 定义该方法的方法体内容，它接收一段源代码字符串。javassist最终会将该源代码编译为字节码，替换该方法体内容。
+         * Javassist定义了以$开头的特殊标识符：
+         * 此处：$1 表示该方法的第一个方法参数，$2 则表示第二个方法参数。
+         * $args 表示方法参数数组，类型为Object[]
+         * $$ 表示所有参数。
+         * ....
+         */
+        ctMethod.setBody("{int a = $1 * $2;return a;}");
+        ctMethod.setModifiers(Modifier.PUBLIC);
+        //将所定义的方法，传递到该类中。
+        ct.addMethod(ctMethod);
+        //输出该class到指定路径
+        ct.writeFile(writeFilePath);
     }
 
     public static void updateMethod(String writeFilePath) throws Exception {
