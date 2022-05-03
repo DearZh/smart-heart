@@ -32,6 +32,8 @@
         <module>junit4</module>
         <module>log4j2-bugs</module>
         <module>maven-test-interface</module>
+        <module>maven-test-jar-2</module>
+        <module>java-agent</module>
     </modules>
     <properties>
         <java_source_version>1.8</java_source_version>

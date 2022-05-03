@@ -33,7 +33,7 @@ public class PluginClassLoader01 {
      * TODO:CLASSLOADER
      * 我们在以下代码中分别new了新的URLClassLoader(),并传参对应的url传递给了URLClassLoader（后续简写为UCL）对象，那么其中url的作用是：
      * 1、当我们后续调用UCL的loadClass(String className)方法时，UCL由于是继承的ClassLoader，所以最终会执行ClassLoader的loadClass()方法，
-     * 按照双亲委派的方式会先交由parent的classLoader进行加载，此处我们new UCL()时，由于没有指定对应的parent，所以最终会调用ClassLoader()的getSystemClassLoader()方法，为当前该UCL的parent。
+     * loaderClass()会首先判断该类加载器是否有存在该类，如果不存在则，按照双亲委派的方式会先交由parent的classLoader进行加载，此处我们new UCL()时，由于没有指定对应的parent，所以最终会调用ClassLoader()的getSystemClassLoader()方法，为当前该UCL的parent。
      * Launcher类初始化时，会先实例化ExtClassLoader和AppClassLoader，此处getSystemClassLoader()方法，获取的结果便是Launcher所返回的AppClassLoader类。所以此处new UCL() 所对应的parent则为AppClassLoader。
      * <p>
      * 2、执行ClassLoader的loaderClass()方法时，由于UCL的AppClassLoader只负责加载classpath路径下的类，而AppClassLoader对应的父类ExtClassLoader则只负责java_home/lib/ext 下的类，
@@ -98,14 +98,6 @@ public class PluginClassLoader01 {
              * 实际上自定义new UCL() 时对应传递的url参数是根本没有做过共享的，删除该服务pom下队maven-test-jar的依赖，重新启动测试用例，此时输出
              * CLASS_NAME的类加载器是URLClassLoader@14ae5a5,一切恢复正常。ヽ(ー_ー)ノ -_-||
              *
-             *
-             *
-             * </p>
-             *
-             * 1、要探究一下什么时候，AppClassLoader add了 new UCL()的url资源。
-             * 2、实现并验证 读取jar的功能。按道理都一样，UCL中的URLClassPath，应该本身就支持jar的读取。
-             * 3、完全自定义类加载器，剥离，双亲委派的机制。（适用于es5,es6,这种场景继承在一起的情况，canal）
-             * 4、看下gravity的分享文档，里面也涉及到较多的classLoader的机制，他们现在是如何使用的以及场景。确认一下。
              */
         }
     }

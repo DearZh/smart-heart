@@ -172,7 +172,7 @@ plugin2的实现逻辑的不同，直接先设置Thread.current().setClassLoader
 
 5、[TCL](https://blog.csdn.net/yangcheng33/article/details/52631940) 具备迷惑性
 
-6、[ClassLoader](https://blog.csdn.net/javazejian/article/details/73413292) OK
+6、[ClassLoader](https://blog.csdn.net/javazejian/article/details/73413292) OK!
 
 7、[JAVA类隔离](https://blog.xiaohansong.com/classloader-isolation.html#more)
 
@@ -180,4 +180,4 @@ plugin2的实现逻辑的不同，直接先设置Thread.current().setClassLoader
 
 9、[ClassLoader](https://blog.csdn.net/briblue/article/details/54973413) 没看，记录下
 
-
+10、[ClassLoader & TCL](https://mp.weixin.qq.com/s/7eGQ7yia-hScrq2ec4zPhg) OK!
