@@ -1,6 +1,7 @@
 package com.smart.heart.java.bit;
 
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author Arnold.zhao
@@ -50,7 +51,58 @@ public class Test {
         System.out.println(Integer.toBinaryString(-10));//11111111111111111111111111111101
         System.out.println(Long.toBinaryString(10));//1010
         System.out.println(Long.toBinaryString(-10));//1111111111111111111111111111111111111111111111111111111111110110
+        System.out.println(">>>>>>>>>>一个数提取出两个值>>>>>>>>>>>>>>");
+        //& 与运算符
+        //运算规则：两位同时为1，结果才为1，否则结果为0。
+
+        System.out.println("COUNT_BITS:" + COUNT_BITS);
+        System.out.println("CAPACITY:" + CAPACITY);
+        System.out.println("RUNNING:" + RUNNING);
+        System.out.println("SHUTDOWN:" + SHUTDOWN);
+        System.out.println("STOP:" + STOP);
+        System.out.println("TIDYING:" + TIDYING);
+        System.out.println("TERMINATED:" + TERMINATED);
+        System.out.println(ctl);
+        System.out.println(">>>>>>>>>>>>>>");
+        System.out.println(runStateOf(5));
+        System.out.println(workerCountOf(5));
+
+
+        System.out.println(Integer.toBinaryString(-1));
+        Integer ac = 2130504 & 2396160;
+        System.out.println(ac);
+        System.out.println(Integer.toBinaryString(ac));
+        /*11111111111111111111111111111111
+        00000000000000000000000011110000
+                */
     }
+
+
+    private static final int COUNT_BITS = Integer.SIZE - 3;
+    private static final int CAPACITY = (1 << COUNT_BITS) - 1;
+
+    // runState is stored in the high-order bits
+    private static final int RUNNING = -1 << COUNT_BITS;
+    private static final int SHUTDOWN = 0 << COUNT_BITS;
+    private static final int STOP = 1 << COUNT_BITS;
+    private static final int TIDYING = 2 << COUNT_BITS;
+    private static final int TERMINATED = 3 << COUNT_BITS;
+
+    private static final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));
+
+    // Packing and unpacking ctl
+    private static int runStateOf(int c) {
+        return c & ~CAPACITY;
+    }
+
+    private static int workerCountOf(int c) {
+        return c & CAPACITY;
+    }
+
+    private static int ctlOf(int rs, int wc) {
+        return rs | wc;
+    }
+
 
     static void swap(int a, int b) {
         final String s = new String("");

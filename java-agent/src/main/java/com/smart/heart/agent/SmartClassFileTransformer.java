@@ -18,7 +18,7 @@ public class SmartClassFileTransformer implements ClassFileTransformer {
 
     @Override
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) {
-
+//通过protectionDomain的codesource属性中的信息，可以知道该className是来自于那个location。也就是可以知道它是加载自那个jar包等location信息。
         String interceptClassName = "com/smart/heart/agent/AgentTest";
         if (className.equals(interceptClassName)) {
             Log.out("SmartClassFileTransformer > AgentTest > ClassLoader = " + SmartClassFileTransformer.class.getClassLoader());

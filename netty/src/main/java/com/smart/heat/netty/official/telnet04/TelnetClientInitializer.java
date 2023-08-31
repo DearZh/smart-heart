@@ -10,13 +10,15 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.ssl.SslContext;
 
+import java.nio.charset.Charset;
+
 /**
  * Creates a newly configured {@link ChannelPipeline} for a new channel.
  */
 public class TelnetClientInitializer extends ChannelInitializer<SocketChannel> {
 
-    private static final StringDecoder DECODER = new StringDecoder();
-    private static final StringEncoder ENCODER = new StringEncoder();
+    private static final StringDecoder DECODER = new StringDecoder(Charset.forName("UTF-8"));
+    private static final StringEncoder ENCODER = new StringEncoder(Charset.forName("UTF-8"));
 
     private static final TelnetClientHandler CLIENT_HANDLER = new TelnetClientHandler();
 

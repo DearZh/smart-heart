@@ -31,12 +31,20 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
+<!--
         <dependency>
-            <groupId>com.ymm.lib</groupId>
-            <artifactId>lib_client_info_tools</artifactId>
-            <version>1.2.1</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.58.sec06</version>
         </dependency>
+-->
+
+<!--        <dependency>-->
+<!--            <groupId>com.ymm.lib</groupId>-->
+<!--            <artifactId>lib_client_info_tools</artifactId>-->
+<!--            <version>1.2.1</version>-->
+<!--        </dependency>-->
+<!--        -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>

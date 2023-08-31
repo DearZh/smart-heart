@@ -18,6 +18,7 @@ public class Person {
                 + "> System classLoader out >" + System.class.getClassLoader()
                 + "> List classLoader out >" + List.class.getClassLoader()
                 + "> PersonRely classLoader out >" + PersonRely.class.getClassLoader());
+
         /**
          * TODO:CLASSLOADER
          * System 和 List 类将被BootStrapClassLoader加载，所以输出的ClassLoader结果为null
@@ -35,5 +36,18 @@ public class Person {
         Person p = (Person) cl.newInstance();
         System.out.println(p);
         p.call();
+
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.println(Person.class);
+        System.out.println(Person.class.getClass().getInterfaces()[0]);
+        System.out.println(Person.class.getClass().getInterfaces()[1]);
+        System.out.println(Person.class.getClass().getInterfaces()[2]);
+        System.out.println(Person.class.getClass().getInterfaces()[3]);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.println(Person.class.getClass().toGenericString());
+        System.out.println(Person.class.getClass().getEnclosingMethod());
+        System.out.println(Person.class.getClass());
+
+
     }
 }

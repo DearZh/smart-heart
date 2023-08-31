@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.Executors;
 import java.util.function.Function;
 import java.util.function.IntSupplier;
 
@@ -19,7 +22,14 @@ public class JavaBasicTest {
 
     public static void main(String[] args) {
 
-        LinkedList linkedList = new LinkedList();
+//        Executors.newCachedThreadPool().submit();
+
+        BlockingQueue<String> workQueue = new ArrayBlockingQueue<String>(1);
+
+        System.out.println("A ="+workQueue.offer("A"));
+        System.out.println("B ="+workQueue.offer("B"));
+
+        /*LinkedList linkedList = new LinkedList();
         linkedList.add("");
         new ArrayList<>().add("");
         Stack stack = new Stack();
@@ -27,7 +37,7 @@ public class JavaBasicTest {
         stack.peek();
         Queue queue = new ConcurrentLinkedQueue();
         ConcurrentLinkedQueue queue1 = new ConcurrentLinkedQueue();
-
+*/
 
 
         /*int i = 0;

@@ -15,6 +15,7 @@ import java.util.Date;
 @Sharable
 public class TelnetServerHandler extends SimpleChannelInboundHandler<String> {
 
+
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         // Send greeting for a new connection.

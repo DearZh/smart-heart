@@ -2,6 +2,8 @@ package com.smart.heart.java.thread.factory;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadFactory;
@@ -36,6 +38,11 @@ public class Test {
         /*int threadCount = Runtime.getRuntime().availableProcessors();
         System.out.println(threadCount);
         */
+
+        Map<String,String> map = new HashMap();
+        map.put("A","A");
+
+//        pool.submit();
 //        pool.submit();
         int RUNNING = -1 << COUNT_BITS;
         int ctl = ctlOf(RUNNING, 0);
