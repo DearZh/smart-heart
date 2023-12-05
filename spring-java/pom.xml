@@ -33,6 +33,31 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+
+        <!--
+        增加 Google Auto 包
+        https://mvnrepository.com/artifact/com.google.auto.service/auto-service
+
+
+        这里的 RC6 版本不行，但是 RC5 可以。两个版本差距这么大吗
+        -->
+<!--        <dependency>-->
+<!--            <groupId>com.google.auto.service</groupId>-->
+<!--            <artifactId>auto-service-annotations</artifactId>-->
+<!--            <version>1.0-rc6</version>-->
+<!--            <optional>true</optional>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>com.google.auto.service</groupId>
+            <artifactId>auto-service</artifactId>
+            <version>1.0-rc5</version>
+            <optional>true</optional>
+        </dependency>
+
+
     </dependencies>
 
     <build>

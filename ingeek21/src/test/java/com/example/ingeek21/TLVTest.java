@@ -130,6 +130,12 @@ public class TLVTest {
         //转换后 hex 结果是：50045649534157131000023100000033D44122011003400000481F
         System.out.println(hex);
 
+        BerTag berTag = new BerTag(0x50);
+        BerTag berTag1 = new BerTag(0x50);
+
+        System.out.println(berTag.hashCode());
+        System.out.println(berTag1.hashCode());
+
     }
 
 
